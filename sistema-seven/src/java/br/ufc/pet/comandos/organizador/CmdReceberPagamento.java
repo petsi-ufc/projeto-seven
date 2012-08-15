@@ -1,0 +1,51 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package br.ufc.pet.comandos.organizador;
+
+import br.ufc.pet.evento.Inscricao;
+import br.ufc.pet.interfaces.Comando;
+import br.ufc.pet.services.InscricaoService;
+import br.ufc.pet.util.SendMail;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ *
+ * @author USER
+ */
+public class CmdReceberPagamento implements Comando {
+
+    public String executa(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+
+        Inscricao inscrito = new Inscricao();
+        if (request.getParameter("id_confirm") == null) {
+            InscricaoService insc = new InscricaoService();
+
+            inscrito = insc.getInscricaoById(Long.parseLong(request.getParameter("id_inscricao")));
+
+            session.setAttribute("receberpagamentodoparticipante", inscrito);
+            return "/org/organ_receber_pagamento.jsp";
+        }
+
+        InscricaoService inscS = new InscricaoService();
+        inscrito = inscS.getInscricaoById(Long.parseLong(request.getParameter("id_confirm")));
+        inscrito.setConfirmada(true);
+        inscS.confirmaPagamento(inscrito);
+        session.setAttribute("pago", inscrito);
+
+        try {
+            SendMail.sendMail(inscrito.getParticipante().getUsuario().getEmail(), inscrito.getEvento().getSigla(), "Seu pagamento foi realizado com sucesso. Parabéns por participar do evento " + inscrito.getEvento().getNome());
+        } catch (Exception ex) {
+            Logger.getLogger(CmdReceberPagamento.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
+        return "/ServletCentral?comando=CmdBuscarParticipantedeEvento";
+    }
+}

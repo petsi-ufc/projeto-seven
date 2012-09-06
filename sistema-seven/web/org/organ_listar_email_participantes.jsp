@@ -1,7 +1,7 @@
 <%-- 
-    Document   : org_listar_participantes
-    Created on : 05/03/2011, 17:08:45
-    Author     : Escritorio projetos
+    Document   : organ_listar_email_participantes
+    Created on : 06/09/2012, 10:44:24
+    Author     : gleyson
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -14,7 +14,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../css/estilo.css" rel="stylesheet" type="text/css" />
         <script type="text/javascript">
-            function forceSubmitListarRelatoriosAtividades(formName){      
+            function forceSubmitListarRelatoriosAtividades(formName){
                 document.forms[formName].action = "../ServletCentral?comando=CmdListarParticipantes";
                 document.forms[formName].submit();
             }
@@ -38,6 +38,7 @@
                 <%@include file="organ_menu.jsp" %>
             </div>
             <div id="content">
+
                 <fieldset><form name="formListarAtividade" method="POST">
                         Filtrar Por Atividade:
                         <select name="ativEscolhida" style="width: 300px;" onchange="forceSubmitListarRelatoriosAtividades('formListarAtividade')">
@@ -49,41 +50,25 @@
                             <option value="<%= a.getId()%>"><%=a.getNome()%></option>
                             <%}
                                         }%>
-                        </select><label><a href="../org/organ_listar_email_participantes.jsp" style="margin-left: 3%">Ver apenas Email</a></label>
+                        </select><label><a href="../org/organ_listar_participantes.jsp" style="margin-left: 3%">Voltar</a></label>
                     </form>
-                </fieldset
-                <fieldset>
-                    <% if (parts != null && !parts.isEmpty()) {%>
-                    <table align="left" style="width: 100%; ">
-                        <thead>
-                            <tr>
-                                <th>Nº</th>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>Inscricao Confirmada</th>
-                                <th>Atividades</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% for (int i = 0; i < parts.size(); i++) {
-                                     Participante p = parts.get(i);%>
-                            <tr>
-                                <td><%=i + 1%></td>
-                                <td><%=p.getUsuario().getNome()%></td>
-                                <td><%=p.getUsuario().getEmail()%></td>
-                                <td><%=(p.getInscricoes().size() > 0) ? p.getInscricaoByEvento(ev.getId()).confimadaToString() : "0"%></td>
-                                <td><%=(p.getInscricoes().size() > 0) ? p.getInscricaoByEvento(ev.getId()).getAtividades().size() : "0"%></td>
-                            </tr>
-                            <%}
-                             } else {%>
-                        <p>Nenhuma inscricao para essa atividade no momento!</p>
+                
 
-                        <%}%>
-                        </tbody>
-                    </table>
-                </fieldset>               
+                        <br/>
+                        <center>Email</center>
+                           <br/>
+                           
+                            <% for (int i = 0; i < parts.size(); i++) {
+                                            Participante p = parts.get(i);%>
+                                            
+                                            <li style="color:#666; display: block">
+                                <label > <%=p.getUsuario().getEmail()%></label>
+                            </li><br/>
+                                                        <%}%>
+                        
+                </fieldset>
             </div>
-        </div>      
+        </div>
     </body>
 
 </html>

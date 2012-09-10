@@ -32,7 +32,7 @@
             session.removeAttribute("tema");
             if(tema == null)
                 tema="";
-
+ 
             String inicioIn = (String)session.getAttribute("inicioInscricao");
             session.removeAttribute("inicioInscricao");
             if(inicioIn == null)
@@ -47,6 +47,11 @@
             session.removeAttribute("descricao");
             if(descricao == null)
                 descricao="";
+
+            String limiteDeAtividadesPorParticipante = (String)session.getAttribute("limiteDeAtividadesPorParticipante");
+            session.removeAttribute("limiteDeAtividadesPorParticipante");
+            if(limiteDeAtividadesPorParticipante == null)
+                limiteDeAtividadesPorParticipante="";
 
             String inicioEvento = (String)session.getAttribute("inicioEvento");
             session.removeAttribute("inicioEvento");
@@ -65,6 +70,7 @@
                 tema = evento.getTema();
                 inicioIn = UtilSeven.treatToString(evento.getInicioPeriodoInscricao());
                 fimIn = UtilSeven.treatToString(evento.getFimPeriodoInscricao());
+                limiteDeAtividadesPorParticipante = evento.getLimiteAtividadePorParticipante()+"";
                 descricao = evento.getDescricao();
                 inicioEvento = UtilSeven.treatToString(evento.getInicioPeriodoEvento());
                 fimEvento = UtilSeven.treatToString(evento.getFimPeriodoEvento());
@@ -106,6 +112,8 @@
                         <input type="text" name="inicio_periodo_inscricao" value="<%=inicioIn%>" maxlength="10" onkeypress="return formataData(this,event)"/><br />
                         <label>Fim do Periodo de Inscrição:</label><br />
                         <input type="text" name="fim_periodo_inscricao" value="<%=fimIn%>" maxlength="10" onkeypress="return formataData(this,event)"/><br />
+                        <label>Maximo de atividades por participante (Digite 0 (zero) para ilimitado):</label><br />
+                        <input type="text" name="limite_de_atividades_por_participante" value="<%=limiteDeAtividadesPorParticipante%>" onkeypress="return validaNumerosSilencioso(event)"/><br />
                         <label>Descrição:</label><br />
                         <textarea cols="1" rows="10" name="descricao"><%=descricao%></textarea>
                     </fieldset>

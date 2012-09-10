@@ -24,8 +24,8 @@ public class CmdSelecionarAtividade implements Comando {
         HttpSession session = request.getSession();
         //este comando copia uma atividade da oferta para o array de selecionadas pelo participante
 
-        ArrayList<Atividade> arrayDeSelecionadas = new ArrayList();// guardará as atividades selecionadas anteriormente
-        ArrayList<Atividade> arrayDeConflitantes = new ArrayList();// guardará as atividades em conflito
+        ArrayList<Atividade> arrayDeSelecionadas = new ArrayList();// guardarÃ¡ as atividades selecionadas anteriormente
+        ArrayList<Atividade> arrayDeConflitantes = new ArrayList();// guardarÃ¡ as atividades em conflito
         Inscricao anterior;
 
         if (session.getAttribute("inscricao") != null) {
@@ -34,11 +34,23 @@ public class CmdSelecionarAtividade implements Comando {
         } else {
             anterior = new Inscricao();
         }
+        
         //reconhecimento da atividade pelo ID, que esta na url como 'ativ'
         Atividade selecionada = AtividadeS.getAtividadeById(Long.parseLong(request.getParameter("ativ")));
-
+        
+        
+        //Verfica se a quantidade de atividades selecionadas esta dentro do permitido
+        if (!(selecionada.getEvento().getLimiteAtividadePorParticipante() <= 0)) { //Se a inscricoes forem limitadas
+            if (selecionada.getEvento().getLimiteAtividadePorParticipante() <= arrayDeSelecionadas.size()) {
+                session.setAttribute("erro", "Permitido no maximo " + selecionada.getEvento().getLimiteAtividadePorParticipante()+" atividade(s) neste evento");
+                return "/part/part_fazer_inscricao.jsp";//nada a fazer
+            }
+        }
+        
+         
+        
         Atividade a;
-        //verificação de conflitos de horarios, todas as conflitantes com a atualmente selecionada serão removidas.
+        //verificaÃ§Ã£o de conflitos de horarios, todas as conflitantes com a atualmente selecionada serÃ£o removidas.
         for (int i = 0; i < arrayDeSelecionadas.size(); i++) {
             a = arrayDeSelecionadas.get(i);
             if (a.getId().equals(selecionada.getId())) {//atividade ja foi selecionada anteriormente
@@ -49,19 +61,19 @@ public class CmdSelecionarAtividade implements Comando {
             }
         }
 
-        if (arrayDeConflitantes.isEmpty()) {// não há conflitos
+        if (arrayDeConflitantes.isEmpty()) {// nÃ£o hÃ¡ conflitos
             arrayDeSelecionadas.add(selecionada);
             anterior.setAtividades(arrayDeSelecionadas);
 
             session.setAttribute("inscricao", anterior);
-        } else {//existem conflitos, uma mensagem de erro será gerada.
+        } else {//existem conflitos, uma mensagem de erro serÃ¡ gerada.
             String nomesConflitantes = new String();
             for (Atividade at : arrayDeConflitantes) {
                 nomesConflitantes += at.getNome() + ", ";
             }
             int tam = nomesConflitantes.length();
-            nomesConflitantes = nomesConflitantes.substring(0, tam - 2); //retira a ultima virgula, desnecessária.
-            session.setAttribute("erro", "Atenção: A atividade " + selecionada.getNome() + " conflita com as seguintes atividades: " + nomesConflitantes + ". Para selecioná-la, você deve retirar primeiramente as conflitantes da seleção.");
+            nomesConflitantes = nomesConflitantes.substring(0, tam - 2); //retira a ultima virgula, desnecessÃ¡ria.
+            session.setAttribute("erro", "AtenÃ§Ã£o: A atividade " + selecionada.getNome() + " conflita com as seguintes atividades: " + nomesConflitantes + ". Para selecionÃ¡-la, vocÃª deve retirar primeiramente as conflitantes da seleÃ§Ã£o.");
         }
         return "/part/part_fazer_inscricao.jsp";
     }

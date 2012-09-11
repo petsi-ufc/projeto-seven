@@ -17,13 +17,14 @@
         <result property="administrador.id" column="admin_id"/>
         <result property="inicioPeriodoEvento" column="inicio"/>
         <result property="fimPeriodoEvento" column="fim"/>
+        <result property="limiteAtividadePorParticipante" column="limite_atividade_por_participante"/>
     </resultMap>
 
     <insert id="addEvento" parameterClass="evento" >
         INSERT INTO evento.evento (id, nome, sigla, tema, inicio_inscricao,
-            fim_inscricao, ativo, admin_id,descricao,inicio,fim)
+            fim_inscricao, ativo, admin_id,descricao,inicio,fim, limite_atividade_por_participante)
         VALUES (#id#, #nome#, #sigla#, #tema#, #inicioPeriodoInscricao#,
-            #fimPeriodoInscricao#, #ativo#, #administrador.id#, #descricao#,#inicioPeriodoEvento#,#fimPeriodoEvento#);
+            #fimPeriodoInscricao#, #ativo#, #administrador.id#, #descricao#,#inicioPeriodoEvento#,#fimPeriodoEvento#, #limiteAtividadePorParticipante#);
     </insert>
 
     <update id="updateEvento" parameterClass="evento">
@@ -33,7 +34,8 @@
             admin_id = #administrador.id#,
             descricao= #descricao#,
             inicio=#inicioPeriodoEvento#,
-            fim=#fimPeriodoEvento#
+            fim=#fimPeriodoEvento#,
+            limite_atividade_por_participante = #limiteAtividadePorParticipante#
         WHERE id = #id#;
     </update>
     
@@ -53,7 +55,7 @@
     	parameterClass="java.lang.Long"
     	resultMap="eventoResult">
         SELECT id, nome, sigla, tema, inicio_inscricao, fim_inscricao, ativo,
-            admin_id,descricao,inicio,fim
+            admin_id,descricao,inicio,fim, limite_atividade_por_participante
         FROM evento.evento
         WHERE id=#var#;
     </select>
@@ -62,7 +64,7 @@
     	parameterClass="java.lang.String"
     	resultMap="eventoResult">
         SELECT id, nome, sigla, tema, inicio_inscricao, fim_inscricao, ativo,
-            admin_id,descricao,inicio,fim
+            admin_id,descricao,inicio,fim, limite_atividade_por_participante
         FROM evento.evento
         WHERE sigla=#var#;
     </select>

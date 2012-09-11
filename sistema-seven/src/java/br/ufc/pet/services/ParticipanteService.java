@@ -8,6 +8,7 @@ import br.ufc.pet.daos.ParticipanteDAO;
 import br.ufc.pet.evento.Participante;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -91,7 +92,9 @@ public class ParticipanteService {
                 InscricaoService is = new InscricaoService();
                 p.setInscricoes(is.getAllInscricaoByParticipanteId(p.getId()));
             }
-            return parts;
+            //Ordena por ordem alfabetica
+            Collections.sort(parts);
+        return parts;
         } catch (SQLException ex) {
             return null;
         }

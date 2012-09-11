@@ -52,18 +52,20 @@
                                         }%>
                         </select><label><a href="../org/organ_listar_participantes.jsp" style="margin-left: 3%">Voltar</a></label>
                     </form>
+                
 
-
-                    <br/>
-                    <center>Email</center>
-                    <br/>
-                    <% for (int i = 0; i < parts.size(); i++) {
-                                    Participante p = parts.get(i);%>
-
-                    <li style="color:#666; display: block">
-                        <label > <%=p.getUsuario().getEmail()%></label>
-                    </li><br/>
-                    <%}%>
+                        <br/>
+                        <center>Email</center>
+                           <br/>
+                           
+                            <% for (int i = 0; i < parts.size(); i++) {
+                                            Participante p = parts.get(i);%>
+                                            
+                                            <li style="color:#666; display: block">
+                                <label > <%=p.getUsuario().getEmail()%></label>
+                            </li><br/>
+                                                        <%}%>
+                        
                 </fieldset>
             </div>
         </div>

@@ -18,6 +18,7 @@ public class Evento extends Bean {
     private ArrayList<MovimentacaoFinanceira> movimentacoesFinanceiras;
     private Date inicioPeriodoEvento;
     private Date fimPeriodoEvento;
+    private int limiteAtividadePorParticipante;
 
     public Date getFimPeriodoEvento() {
         return fimPeriodoEvento;
@@ -173,6 +174,14 @@ public class Evento extends Bean {
             }
         }
         return null;
+    }
+
+    public void setLimiteAtividadePorParticipante(int limiteDeAtividades) {
+        this.limiteAtividadePorParticipante = limiteDeAtividades;
+    }
+    
+    public int getLimiteAtividadePorParticipante() {
+       return this.limiteAtividadePorParticipante;
     }
 }
  

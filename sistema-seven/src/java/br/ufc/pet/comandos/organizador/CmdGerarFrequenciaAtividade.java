@@ -24,6 +24,8 @@ import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -44,16 +46,18 @@ public class CmdGerarFrequenciaAtividade implements Comando {
         Atividade at = new AtividadeService().getAtividadeById(id); //pega a atividade pelo id
         at.setEvento(new EventoService().getEventoById(at.getEvento().getId())); //seta o evento na atividade
         ParticipanteService partser = new ParticipanteService();
-        ArrayList<Participante> parts = partser.getParticipanteByAtividadeId(id);
-
+        ArrayList<Participante> parts = partser.getParticipanteByAtividadeId(id);        
+        
+        
         if (parts == null || parts.size() == 0) {
             session.setAttribute("erro", "Sem participantes no Momento");
             return "/org/organ_listar_atividades_frequencia.jsp";
         }
+        
         UsuarioService us = new UsuarioService();
         ArrayList<Horario> horarios = at.getHorarios();
         if (horarios == null || horarios.size() == 0) {
-            session.setAttribute("erro", "Horários não definidos!");
+            session.setAttribute("erro", "HorÃ¡rios nÃ£o definidos!");
             return "/org/organ_listar_atividades_frequencia.jsp";
         }
         nHorario = horarios.size();
@@ -70,25 +74,25 @@ public class CmdGerarFrequenciaAtividade implements Comando {
             document.open();
 
             /* Imagem */
-//        caminho na minha máquina
+//        caminho na minha mÃ¡quina
             Image jpg = Image.getInstance(caminhoImagem);
             jpg.setAlignment(Image.LEFT | Image.UNDERLYING); /* Ajusta o alinhamento da imagem. */
 
             /* Fontes */
-            Font fonteCabecalho = new Font(Font.TIMES_ROMAN, 12, Font.BOLD); /* Será usada no cabeçalho. */
-            Font fonteDesc = new Font(Font.HELVETICA, 10, Font.BOLD); /* Será usada na descrição. */
-            Font fonteConteudo = new Font(Font.HELVETICA, 10, Font.NORMAL); /* Será usada no corpo de relatório. */
-            Font fonteRodaPe = new Font(Font.ITALIC, 8, Font.NORMAL); /* Será usada no rodapé de relatório. */
-            /* Tabela para o cabeçalho. */
+            Font fonteCabecalho = new Font(Font.TIMES_ROMAN, 12, Font.BOLD); /* SerÃ¡ usada no cabeÃ§alho. */
+            Font fonteDesc = new Font(Font.HELVETICA, 10, Font.BOLD); /* SerÃ¡ usada na descriÃ§Ã£o. */
+            Font fonteConteudo = new Font(Font.HELVETICA, 10, Font.NORMAL); /* SerÃ¡ usada no corpo de relatÃ³rio. */
+            Font fonteRodaPe = new Font(Font.ITALIC, 8, Font.NORMAL); /* SerÃ¡ usada no rodapÃ© de relatÃ³rio. */
+            /* Tabela para o cabeÃ§alho. */
             PdfPTable cabecalho = new PdfPTable(2);
             float[] widths = {0.15f, 0.85f};
-            cabecalho.setWidthPercentage(90); /* Seta a largura da tabela com relação a página. */
+            cabecalho.setWidthPercentage(90); /* Seta a largura da tabela com relaÃ§Ã£o a pÃ¡gina. */
             cabecalho.setWidths(widths);
             cabecalho.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
             cabecalho.addCell(jpg);
-            cabecalho.addCell(new Phrase("Universidade Federal do Ceará\n"
+            cabecalho.addCell(new Phrase("Universidade Federal do CearÃ¡\n"
                     + "Sistema de Eventos\n"
-                    + "Lista de Frequência", fonteCabecalho));
+                    + "Lista de FrequÃªncia", fonteCabecalho));
             document.add(cabecalho); /* Adicionando ao documento. */
             try {
                 /* Adicionando ao documento. */ 
@@ -101,8 +105,8 @@ public class CmdGerarFrequenciaAtividade implements Comando {
 
             /* Corpo do pdf. */
             PdfPTable table = new PdfPTable(2 + nHorario);
-            table.setSpacingBefore(5f); /* Coloca um espaço antes da tabela. */
-            table.setWidthPercentage(100); /* Seta a largura da tabela com relação a página. */
+            table.setSpacingBefore(5f); /* Coloca um espaÃ§o antes da tabela. */
+            table.setWidthPercentage(100); /* Seta a largura da tabela com relaÃ§Ã£o a pÃ¡gina. */
 //            table.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
             widths = new float[2 + nHorario];
             for (int i = 0; i < 2 + nHorario; i++) {
@@ -116,7 +120,7 @@ public class CmdGerarFrequenciaAtividade implements Comando {
             }
             table.setWidths(widths);
             table.getDefaultCell().setGrayFill(0.5f);
-            table.addCell(new Phrase("Nº", fonteDesc));
+            table.addCell(new Phrase("NÂº", fonteDesc));
             table.addCell(new Phrase("Nome", fonteDesc));
             for (int i = 0; i < nHorario; i++) {
                 String data = UtilSeven.treatToString(horarios.get(i).getDia());
@@ -141,7 +145,7 @@ public class CmdGerarFrequenciaAtividade implements Comando {
                     minFinal = "0" + minFinal;
                 }
 
-                table.addCell(new Phrase("" + data + "\n" + horaInicial + ":" + minInicial + " às " + horaFinal + ":" + minFinal + "", fonteDesc));
+                table.addCell(new Phrase("" + data + "\n" + horaInicial + ":" + minInicial + " Ã s " + horaFinal + ":" + minFinal + "", fonteDesc));
             }
             // adiciona os compromissos no pdf
             for (int i = 0; parts != null && i < parts.size(); i++) {
@@ -195,33 +199,33 @@ public class CmdGerarFrequenciaAtividade implements Comando {
     }
 
     public PdfPTable getCabecalhoAtividade(Atividade a, Font fonteDesc) throws Exception {
-        /* Tabela de descrição do relatório. */
+        /* Tabela de descriÃ§Ã£o do relatÃ³rio. */
         PdfPTable desc = new PdfPTable(3);
         float[] widths = new float[]{0.20f, 0.20f, 0.60f};
         desc.setSpacingBefore(10f);
-        desc.setWidthPercentage(90); /* Seta a largura da tabela com relação a página. */
+        desc.setWidthPercentage(90); /* Seta a largura da tabela com relaÃ§Ã£o a pÃ¡gina. */
         desc.setWidths(widths);
         desc.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
         desc.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED);
         desc.addCell(new Phrase("Cod.: " + a.getId(), fonteDesc));//pega o id da atividade
         desc.addCell(new Phrase("Local: " + a.getLocal(), fonteDesc)); //pega o local da atividade
         desc.addCell(new Phrase(10f, "Evento: " + a.getEvento().getNome(), fonteDesc));//pega o nome do evento
-        desc.addCell(new Phrase("Vagas: " + a.getVagas(), fonteDesc)); //o número de vagas
+        desc.addCell(new Phrase("Vagas: " + a.getVagas(), fonteDesc)); //o nÃºmero de vagas
         desc.addCell(new Phrase("Tipo: " + a.getTipo().getNome(), fonteDesc));//o tipo da atividade
         desc.addCell(new Phrase("Nome: " + a.getNome(), fonteDesc)); //o nome da atividade
         return desc;
     }
 
     public PdfPTable getRodaPeAtividade(Atividade a, Font fonteRodaPe) throws Exception {
-        /* Tabela de descrição do relatório. */
+        /* Tabela de descriÃ§Ã£o do relatÃ³rio. */
         PdfPTable desc = new PdfPTable(1);
         float[] widths = new float[]{0.20f};
         desc.setSpacingBefore(10f);
-        desc.setWidthPercentage(90); /* Seta a largura da tabela com relação a página. */
+        desc.setWidthPercentage(90); /* Seta a largura da tabela com relaÃ§Ã£o a pÃ¡gina. */
         desc.setWidths(widths);
         desc.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
         desc.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED);
-        desc.addCell(new Phrase("Frequência da Atividade :" + a.getNome(), fonteRodaPe)); //o nome da atividade
+        desc.addCell(new Phrase("FrequÃªncia da Atividade :" + a.getNome(), fonteRodaPe)); //o nome da atividade
         desc.addCell(new Phrase("Gerada em :" + UtilSeven.treatToString(new Date()), fonteRodaPe));
         return desc;
     }

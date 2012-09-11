@@ -2,7 +2,7 @@ package br.ufc.pet.evento;
 
 import java.util.ArrayList;
 
-public class Participante extends Perfil {
+public class Participante extends Perfil implements Comparable<Participante> {
 
     private ArrayList<Inscricao> inscricoes;
 
@@ -28,6 +28,11 @@ public class Participante extends Perfil {
             }
         }
         return null;
+    }
+
+    @Override
+    public int compareTo(Participante p) {
+        return this.getUsuario().getNome().compareToIgnoreCase(p.getUsuario().getNome());
     }
 }
  

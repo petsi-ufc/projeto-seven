@@ -11,6 +11,8 @@ import br.ufc.pet.services.InscricaoService;
 import br.ufc.pet.services.ModalidadeInscricaoService;
 import br.ufc.pet.services.TipoAtividadeService;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,8 +27,40 @@ public class CmdSelecionarEvento implements Comando {
         HttpSession session = request.getSession();
         Participante p = (Participante) session.getAttribute("user");
 
+
+        String id = request.getParameter("id");
+
         EventoService es = new EventoService();
-        Evento ev = es.getEventoById(Long.parseLong(request.getParameter("id")));
+        Evento ev;
+
+        //Verifica se o id que foi n?o ? nulo e ? um numero passado como parametro ? valido
+        try{
+            ev = es.getEventoById(Long.parseLong(id));
+        }catch(NullPointerException e){
+            session.setAttribute("erro", "Evento inv?lido");
+            return "/part/part_buscar_evento.jsp";
+
+        }catch(NumberFormatException e){
+            session.setAttribute("erro", "Evento inv?lido");
+            return "/part/part_buscar_evento.jsp";
+        }
+
+
+        if(ev == null){
+            session.setAttribute("erro", "Evento inv?lido");
+            return "/part/part_buscar_evento.jsp";
+        }
+
+        //Verifica a se est? no per?odo de inscri??es
+        Date hoje = new Date();
+        if (hoje.before(ev.getInicioPeriodoInscricao())){
+            session.setAttribute("erro", "Ops!, as inscri??es para este evento ainda n?o come?aram!");
+            return "/part/part_buscar_evento.jsp";
+        }
+        if (hoje.after(ev.getFimPeriodoInscricao())){
+            session.setAttribute("erro", "Ops!, as inscri??es para este evento ja terminaram!");
+            return "/part/part_buscar_evento.jsp";
+        }
 
         InscricaoService is = new InscricaoService();
         ArrayList<Inscricao> inscricoesPart = is.getAllInscricaoByParticipanteId(p.getId());
@@ -36,7 +70,7 @@ public class CmdSelecionarEvento implements Comando {
 
         TipoAtividadeService ts = new TipoAtividadeService();
         ArrayList<TipoAtividade> arrayDeTipos= ts.getTiposDeAtividadesByEventoId(ev.getId());
-       
+
         //limpagem da montagem anterior, caso essa pagina tenha vindo de um "voltar"
         if (session.getAttribute("inscricao") != null) {
             session.removeAttribute("inscricao");
@@ -47,7 +81,7 @@ public class CmdSelecionarEvento implements Comando {
 
         for(Inscricao i : inscricoesPart){
             if(i.getEvento().getId().equals(ev.getId())){
-                session.setAttribute("erro", "Seleção inválida, você já se inscreveu neste evento.");
+                session.setAttribute("erro", "Sele??o inv?lida, voc? j? se inscreveu neste evento.");
                 return "/part/part_buscar_evento.jsp";
             }
         }

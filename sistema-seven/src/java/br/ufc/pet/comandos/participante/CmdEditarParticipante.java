@@ -24,7 +24,7 @@ public class CmdEditarParticipante implements Comando {
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
         Participante part = (Participante) session.getAttribute("user");
-        //Recuperar dados do formulário.
+        //Recuperar dados do formul?rio.
         String nome = request.getParameter("nome");
         String fone = request.getParameter("fone");
         String dataNascimentoS = request.getParameter("dt_nascimento");
@@ -41,21 +41,21 @@ public class CmdEditarParticipante implements Comando {
 
         if (nome == null || nome.trim().equals("") || email == null || email.trim().equals("")
                 || senha == null || senha.trim().equals("") || confSenha == null || confSenha.trim().equals("")) {
-            session.setAttribute("erro", "Preencha todos os campos obrigatórios.");
+            session.setAttribute("erro", "Preencha todos os campos obrigat?rios.");
             return "/part/part_conta.jsp";
         }
 
         if (!senha.trim().equals(confSenha)) {
-            session.setAttribute("erro", "A senha não confere com a sua confirmação.");
+            session.setAttribute("erro", "A senha n?o confere com a sua confirma??o.");
             return "/part/part_conta.jsp";
         }
 
-        //Validar a inserção
+        //Validar a inser??o
         UsuarioService us = new UsuarioService();
         Usuario temp = us.getByEmail(email);
         if (temp != null) {
             if (!temp.getId().equals(part.getUsuario().getId())) {
-                session.setAttribute("erro", "E-Mail já cadastrado.");
+                session.setAttribute("erro", "E-Mail j? cadastrado.");
                 return "/part/part_conta.jsp";
             }
         }
@@ -80,8 +80,8 @@ public class CmdEditarParticipante implements Comando {
         if (us.update(part.getUsuario())) {
             session.setAttribute("user", part);
             EventoService es = new EventoService();
-            session.setAttribute("eventosAbertos", es.buscarEventosAbertos());
-            session.setAttribute("sucesso", "Dados Editado com Sucesso.");
+            session.setAttribute("eventosAbertos", es.buscarEventosComInscricoesAbertas());
+            session.setAttribute("sucesso", "Dados Editados com Sucesso.");
             return "/part/index.jsp";
         } else {
             session.setAttribute("erro", "Erro ao tentar cadastrar participante.");

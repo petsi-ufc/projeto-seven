@@ -28,6 +28,10 @@ public class UsuarioDAO {
         PostgresMapConfig.getSqlMapClient().update("updateUsuario", user);
     }
 
+    public void editarSenha(Usuario user) throws SQLException {
+        PostgresMapConfig.getSqlMapClient().update("updateSenhaUsuario", user);
+    }
+
     public Usuario getById(Long id) throws SQLException {
         return (Usuario) PostgresMapConfig.getSqlMapClient().queryForObject("getUsuarioById", id);
     }
@@ -38,6 +42,10 @@ public class UsuarioDAO {
 
     public ArrayList<Usuario> getByNome(String nome) throws SQLException {
         return (ArrayList<Usuario>) PostgresMapConfig.getSqlMapClient().queryForList("getUsuarioByNome", nome);
+    }
+
+    public ArrayList<Usuario> getAll() throws SQLException {
+        return (ArrayList<Usuario>) PostgresMapConfig.getSqlMapClient().queryForList("getAllUsuarios");
     }
 
     public ArrayList<Usuario> geResponsavelAtividade(Long id) throws SQLException {

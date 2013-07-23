@@ -16,7 +16,9 @@ import br.ufc.pet.comandos.CmdVisualizarTodasProgramacoes;
 import br.ufc.pet.comandos.administrador.CmdAdicionarEvento;
 import br.ufc.pet.comandos.administrador.CmdAlterarEvento;
 import br.ufc.pet.comandos.administrador.CmdAddOrganizadorNovo;
+import br.ufc.pet.comandos.administrador.CmdBuscarEvento;
 import br.ufc.pet.comandos.administrador.CmdBuscarUsuario;
+import br.ufc.pet.comandos.administrador.CmdEditAdmin;
 import br.ufc.pet.comandos.administrador.CmdEditarOrganizador;
 import br.ufc.pet.comandos.administrador.CmdEncerrarEvento;
 import br.ufc.pet.comandos.administrador.CmdExcluirEvento;
@@ -31,7 +33,9 @@ import br.ufc.pet.comandos.organizador.CmdAdicionarHorario;
 import br.ufc.pet.comandos.organizador.CmdAdicionarModalidade;
 import br.ufc.pet.comandos.organizador.CmdAdicionarTipoAtividade;
 import br.ufc.pet.comandos.organizador.CmdAlterarPeriodoInscricaoeEvento;
+import br.ufc.pet.comandos.organizador.CmdAtualizarInscricao;
 import br.ufc.pet.comandos.organizador.CmdAtualizarModalidade;
+import br.ufc.pet.comandos.organizador.CmdBuscarInscricao;
 import br.ufc.pet.comandos.organizador.CmdBuscarParticipantedeEvento;
 import br.ufc.pet.comandos.organizador.CmdEditarAtividade;
 import br.ufc.pet.comandos.organizador.CmdExcluirAtividade;
@@ -69,6 +73,9 @@ import br.ufc.pet.comandos.organizador.CmdListarInscritosEmAtividade;
 import br.ufc.pet.comandos.organizador.CmdListarTipoAtividade;
 import br.ufc.pet.comandos.organizador.CmdListarTipoModalidade;
 import br.ufc.pet.comandos.organizador.CmdMontarPaginaAdicaoAtividade;
+import br.ufc.pet.comandos.organizador.CmdOrgRemoverAtividade;
+import br.ufc.pet.comandos.organizador.CmdOrgSelecionarAtividade;
+import br.ufc.pet.comandos.organizador.CmdOrgSubmeterInscricao;
 import br.ufc.pet.comandos.organizador.CmdOrganExcluirInscricao;
 import br.ufc.pet.comandos.organizador.CmdReceberPagamento;
 import br.ufc.pet.comandos.organizador.CmdReceberPagamentoTodasInscricoes;
@@ -294,6 +301,21 @@ public class ServletCentral extends HttpServlet {
         comandos.put("CmdEditarResponsavel", cmdo);
         cmdo = new CmdSelecionarResponsavelEdicao();
         comandos.put("CmdSelecionarResponsavelEdicao", cmdo);
+
+        cmdo = new CmdBuscarEvento();
+        comandos.put("CmdBuscarEvento", cmdo);
+        cmdo = new CmdEditAdmin();
+        comandos.put("CmdEditAdmin",cmdo);
+        cmdo = new CmdBuscarInscricao();
+        comandos.put("CmdBuscarInscricao", cmdo);
+        cmdo = new CmdAtualizarInscricao();
+        comandos.put("CmdAtualizarInscricao", cmdo);
+        cmdo = new CmdOrgRemoverAtividade();
+        comandos.put("CmdOrgRemoverAtividade", cmdo);
+        cmdo = new CmdOrgSelecionarAtividade();
+        comandos.put("CmdOrgSelecionarAtividade", cmdo);
+        cmdo = new CmdOrgSubmeterInscricao();
+        comandos.put("CmdOrgSubmeterInscricao", cmdo);
 
     }
 // <editor-fold defaultstate="collapsed" desc="Métodos HttpServlet. Clique no sinal de + à esquerda para editar o código.">

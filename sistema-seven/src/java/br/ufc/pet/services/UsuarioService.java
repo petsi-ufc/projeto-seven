@@ -95,6 +95,18 @@ public class UsuarioService {
         }
     }
 
+
+
+    public ArrayList<Usuario> getAllUsers() {
+        try {
+            ArrayList<Usuario> user = usuarioDAO.getAll();
+            return user;
+        } catch (SQLException ex) {
+            return null;
+        }
+    }
+
+
     public ArrayList<Usuario> getResponsavelAtividade(Long ativId) {
         try {
             ArrayList<Usuario> user = usuarioDAO.geResponsavelAtividade(ativId);
@@ -117,6 +129,17 @@ public class UsuarioService {
     public boolean update(Usuario u) {
         try {
             usuarioDAO.editar(u);
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public boolean updateSenhaUser(Usuario u) {
+        try {
+            usuarioDAO.editarSenha(u);
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();

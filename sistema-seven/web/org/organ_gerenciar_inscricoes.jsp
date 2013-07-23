@@ -65,7 +65,7 @@
                              }
                         %>
                         <td><%=estado%></td>
-                        <td><a href="" title="Visualizar/Editar">Visualizar/Editar</a></td>
+                        <td><a href="../ServletCentral?comando=CmdBuscarInscricao&id=<%=i.getId() %>" title="Visualizar/Editar">Visualizar/Editar</a></td>
                         <td><a href="../ServletCentral?comando=CmdOrganExcluirInscricao&iId=<%=i.getId()%>" onclick="return confirm('ATENÇÃO: Se você excluir uma inscrição que já foi paga ela não estará mais no sistema e não será possível recuperar a quantia paga. Também poderá causar a perda das vagas e dos certificados relacionados com esta inscrição. Tem certeza que dejesa excluir esta inscrição?');" title="Excluir">Excluir</a></td>
                     </tr>
                     <%}%>

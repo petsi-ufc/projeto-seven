@@ -40,6 +40,12 @@
         WHERE  id=#id#;
     </update>
 
+    <update id="updateSenhaUsuario" parameterClass="usuario">
+        UPDATE evento.usuario
+        SET senha=#senha#
+        WHERE  id=#id#;
+    </update>
+
     <select id="getUsuarioByEmail" resultClass="usuario"
             parameterClass="java.lang.String"
             resultMap="usuarioResult">
@@ -65,6 +71,14 @@
         SELECT *
         FROM evento.usuario
         WHERE nome LIKE #var#;
+    </select>
+
+
+    <select id="getAllUsuarios" resultClass="usuario"
+            resultMap="usuarioResult">
+
+        SELECT *
+        FROM evento.usuario;
     </select>
 
     <select id="getUsuariosResponsaveisByAtividadeId" resultClass="usuario"

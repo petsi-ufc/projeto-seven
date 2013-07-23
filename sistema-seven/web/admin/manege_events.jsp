@@ -43,7 +43,7 @@
                         <td><%=E.getSigla()%></td>
                         <td><%=E.getNome()%></td>
                         <td><%=br.ufc.pet.util.UtilSeven.treatToString(E.getInicioPeriodoInscricao()) + " à " + br.ufc.pet.util.UtilSeven.treatToString(E.getFimPeriodoInscricao())%></td>
-                        <td><a href="../ServletCentral?comando=CmdAlterarEvento&id=<%=E.getId()%>">Visualizar / Alterar</a></td>
+                        <td><a href="../ServletCentral?comando=CmdBuscarEvento&id=<%=E.getId()%>">Visualizar / Alterar</a></td>
                         <td><a href="../ServletCentral?comando=CmdExcluirEvento&id=<%=E.getId()%>" onclick="return confirmarExclucao()">Excluir</a></td>
                         <td><a href="../ServletCentral?comando=CmdEncerrarEvento&id=<%=E.getId()%>" onclick="return confirm('Deseja realmente encerrar Evento?')">Encerrar</a></td>
                         <td> <a href="../ServletCentral?comando=CmdVisualizarProgramacao&id=<%=E.getId()%>" title="Programacao" > Visualizar</a> </td>

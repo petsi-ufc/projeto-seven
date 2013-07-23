@@ -1,12 +1,17 @@
 package br.ufc.pet.util;
 
+import sun.misc.BASE64Encoder;
 import br.ufc.pet.evento.Atividade;
 import br.ufc.pet.evento.Horario;
 import br.ufc.pet.evento.ModalidadeInscricao;
 import br.ufc.pet.evento.PrecoAtividade;
 import br.ufc.pet.evento.TipoAtividade;
+import br.ufc.pet.evento.Usuario;
 import br.ufc.pet.services.ModalidadeInscricaoService;
 import br.ufc.pet.services.TipoAtividadeService;
+import br.ufc.pet.services.UsuarioService;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -152,5 +157,35 @@ public class UtilSeven {
                 }
         }
         return preco;
+    }
+
+    public static String criptografar(String senha) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("MD5");
+            digest.update(senha.getBytes());
+            BASE64Encoder encoder = new BASE64Encoder();
+            return encoder.encode(digest.digest());
+        } catch (NoSuchAlgorithmException ns) {
+            ns.printStackTrace();
+            return senha;
+        }
+    }//fim do método
+
+    public static void main(String args[]){
+
+        /*
+
+        UsuarioService us = new UsuarioService();
+      ArrayList<Usuario> lista = new ArrayList<Usuario>();
+      lista = us.getAllUsers();
+      for(Usuario u:lista){
+          System.out.println(u.getSenha());
+          u.setSenha(criptografar(u.getSenha()));
+          us.updateSenhaUser(u);
+          System.out.println(u.getSenha());
+      }
+         */
+
+        System.out.println(criptografar("94055771"));
     }
 }

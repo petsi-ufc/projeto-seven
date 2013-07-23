@@ -5,6 +5,7 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="br.ufc.pet.evento.Inscricao"%>
+<%@page import="br.ufc.pet.evento.Evento"%>
 <%@page import="java.util.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
@@ -15,8 +16,14 @@
                 String mensagem = (String) session.getAttribute("mensagem");
                 session.removeAttribute("inscricoesdoevento");
                 session.removeAttribute("mensagem");
+                
+                session.setAttribute("pag", "2");
 
-                session.setAttribute("pag", "1");
+    %>
+
+    <%
+            br.ufc.pet.services.EventoService es = new br.ufc.pet.services.EventoService();
+            java.util.ArrayList<br.ufc.pet.evento.Evento> eventos = es.buscarEventosAbertos();
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -32,10 +39,29 @@
             </div>
             <div id="content">
                 <h1 class="titulo">Recebimento de Pagamentos de Inscrição</h1>
-                <form style="width: 290px;" action="../ServletCentral?comando=CmdBuscarParticipantedeEvento" method="post" class="box_destaque cadastro">
+                <form style="width: 290px;" action="../ServletCentral?comando=CmdBuscarParticipantePorEmail" method="post" class="box_destaque cadastro">
+
+
                     <fieldset>
-                        <label>Número da Inscrição</label><br />
-                        <input type="text" onkeypress="return validaNumerosSilencioso(event)" name="inscricaobuscar" class="buscar"/>
+                    <label>Selecione um Evento:<br></label>
+                    <select name="evento_id" style="width: 260px;">
+                    <option value="0">Selecione</option>
+                        <%
+                         for(Evento e:eventos){
+                        %>
+                        <option value="<%=e.getId()%>"><%=e.getNome()%></option>
+                        
+                        <%}%>
+
+                </select>
+                        <br>
+                        <br>
+                        
+                    
+
+                        
+                        <label>Email do Participante</label><br />
+                        <input type="text" name="email" class="buscar"/>
                         <input type="submit" value="Buscar" class="button" /><br />
                     </fieldset>
                 </form>

@@ -36,7 +36,8 @@
                 <div id="content_right">
                     <h1 class="titulo">Pagamentos</h1>
                     <h2 class="titulo">Receber Individual</h2>
-                    <p><a href="organ_listar_pagamento.jsp" title="">Receber Pagamento de Inscrição de forma individual</a></p>
+                    <p><a href="organ_listar_pagamento.jsp" title="">Receber Pagamento de Inscrição Por Inscrição</a></p>
+                    <p><a href="organ_listar_pagamento_part.jsp" title="">Receber Pagamento de Inscrição Por Participante</a></p>
                     <h2 class="titulo">Receber Todos</h2>
                     <p><a href="../ServletCentral?comando=CmdReceberPagamentoTodasInscricoes" title="" class="button2" onclick="return confirm('Deseja realmente efetuar esta operacao?')">Receber Pagamento de todas as Inscrições</a></p>
                 <br/>

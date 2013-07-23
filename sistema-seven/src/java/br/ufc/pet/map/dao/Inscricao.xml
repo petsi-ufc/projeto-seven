@@ -41,7 +41,15 @@
         FROM evento.inscricao, evento.evento
         WHERE evento.id=inscricao.evento_id and evento.ativo=true and inscricao.participante_id=#var#;
     </select>
-    
+
+    <select id="getInscricaoByParticipanteEvento" resultClass="inscricao" parameterClass="utility"
+            resultMap="inscricaoResult">
+        SELECT inscricao.id, data_realizacao, confirmada, data_pagamento, participante_id,
+        evento_id, modalidade_id
+        FROM evento.inscricao, evento.evento
+        WHERE evento.id=inscricao.evento_id and evento.ativo=true and inscricao.participante_id=#part_id# and evento_id=#event_id#;
+    </select>
+
     <select id="getInscricaoByEventoId" resultClass="inscricao" parameterClass="long"
             resultMap="inscricaoResult">
         SELECT id, data_realizacao, confirmada, data_pagamento, participante_id,

@@ -12,6 +12,7 @@ import br.ufc.pet.evento.Usuario;
 import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.EventoService;
 import br.ufc.pet.services.UsuarioService;
+import br.ufc.pet.util.UtilSeven;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -42,7 +43,7 @@ public class CmdLogin implements Comando {
         } else {
             Usuario user = new Usuario();
             user.setEmail(email);
-            user.setSenha(senha);
+            user.setSenha(UtilSeven.criptografar(senha));
             //System.out.println("email: "+email);
             //System.out.println("senha: "+senha);
 

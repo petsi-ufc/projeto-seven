@@ -9,6 +9,7 @@ import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.EventoService;
 import br.ufc.pet.services.ParticipanteService;
 import br.ufc.pet.services.UsuarioService;
+import br.ufc.pet.util.UtilSeven;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,7 +49,7 @@ public class CmdCadastrarParticipante implements Comando {
         part.getUsuario().setEmail(email);
         part.getUsuario().setInstituicao(instituicao);
         part.getUsuario().setNome(nome);
-        part.getUsuario().setSenha(senha);
+        part.getUsuario().setSenha(UtilSeven.criptografar(senha));
         //Validar a inserção
         UsuarioService us = new UsuarioService();
         if (us.getByEmail(part.getUsuario().getEmail()) != null) {

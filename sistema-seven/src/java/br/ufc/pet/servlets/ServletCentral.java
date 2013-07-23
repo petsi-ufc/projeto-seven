@@ -36,6 +36,7 @@ import br.ufc.pet.comandos.organizador.CmdAlterarPeriodoInscricaoeEvento;
 import br.ufc.pet.comandos.organizador.CmdAtualizarInscricao;
 import br.ufc.pet.comandos.organizador.CmdAtualizarModalidade;
 import br.ufc.pet.comandos.organizador.CmdBuscarInscricao;
+import br.ufc.pet.comandos.organizador.CmdBuscarParticipantePorEmail;
 import br.ufc.pet.comandos.organizador.CmdBuscarParticipantedeEvento;
 import br.ufc.pet.comandos.organizador.CmdEditarAtividade;
 import br.ufc.pet.comandos.organizador.CmdExcluirAtividade;
@@ -316,6 +317,9 @@ public class ServletCentral extends HttpServlet {
         comandos.put("CmdOrgSelecionarAtividade", cmdo);
         cmdo = new CmdOrgSubmeterInscricao();
         comandos.put("CmdOrgSubmeterInscricao", cmdo);
+        cmdo = new CmdBuscarParticipantePorEmail();
+        comandos.put("CmdBuscarParticipantePorEmail", cmdo);
+
 
     }
 // <editor-fold defaultstate="collapsed" desc="Métodos HttpServlet. Clique no sinal de + à esquerda para editar o código.">

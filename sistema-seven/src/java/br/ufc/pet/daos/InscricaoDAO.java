@@ -6,6 +6,7 @@ package br.ufc.pet.daos;
 
 import br.ufc.pet.config.PostgresMapConfig;
 import br.ufc.pet.evento.Inscricao;
+import br.ufc.pet.evento.Utility;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -25,6 +26,9 @@ public class InscricaoDAO {
         return (Inscricao) PostgresMapConfig.getSqlMapClient().queryForObject("getInscricaoById", id);
     }
 
+    public Inscricao getParticipanteEvento(Utility utility) throws SQLException {
+        return (Inscricao) PostgresMapConfig.getSqlMapClient().queryForObject("getInscricaoByParticipanteEvento", utility);
+    }
     public ArrayList<Inscricao> getByParticipanteId(Long id) throws SQLException {
         return (ArrayList<Inscricao>) PostgresMapConfig.getSqlMapClient().queryForList("getInscricaoByParticipanteId", id);
     }

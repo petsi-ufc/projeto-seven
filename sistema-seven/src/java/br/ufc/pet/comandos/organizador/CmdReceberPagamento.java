@@ -23,6 +23,8 @@ public class CmdReceberPagamento implements Comando {
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
 
+        String pag = (String) session.getAttribute("pag");
+        
         Inscricao inscrito = new Inscricao();
         if (request.getParameter("id_confirm") == null) {
             InscricaoService insc = new InscricaoService();
@@ -45,7 +47,12 @@ public class CmdReceberPagamento implements Comando {
             Logger.getLogger(CmdReceberPagamento.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
+        if(pag.equals("1")){
+            return "/ServletCentral?comando=CmdBuscarParticipantedeEvento";
+        
+        }else if(pag.equals("2")){
+            return "/ServletCentral?comando=CmdBuscarParticipantePorEmail";
+        }
         return "/ServletCentral?comando=CmdBuscarParticipantedeEvento";
     }
 }

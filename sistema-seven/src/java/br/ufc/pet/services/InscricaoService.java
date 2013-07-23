@@ -8,6 +8,7 @@ import br.ufc.pet.daos.InscricaoDAO;
 import br.ufc.pet.evento.Atividade;
 import br.ufc.pet.evento.Inscricao;
 import br.ufc.pet.evento.PrecoAtividade;
+import br.ufc.pet.evento.Utility;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -58,6 +59,25 @@ public class InscricaoService {
         return null;
     }
 
+
+    public Inscricao getInscricaoParticipanteEvento(Utility utility) {
+        try {
+            Inscricao en = inscricaoDAO.getParticipanteEvento(utility);
+            if (en != null) {
+                en.setEvento(eS.getEventoById(en.getEvento().getId()));
+                en.setParticipante(pS.getById(en.getParticipante().getId()));
+                System.out.println(en.getParticipante() == null);
+                en.setModalidade(mS.getModalidadeInscricaoById(en.getModalidade().getId()));
+                en.setAtividades(aS.getAtividadeByInscricaoId(en.getId()));
+            }
+            return en;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+    
     public ArrayList<Inscricao> getAllInscricaoByParticipanteId(Long id) {
         try {
             ArrayList<Inscricao> a = inscricaoDAO.getByParticipanteId(id);

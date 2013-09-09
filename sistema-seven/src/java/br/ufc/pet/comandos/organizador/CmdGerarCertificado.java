@@ -16,6 +16,7 @@ import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
 import com.lowagie.text.Image;
+import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.CMYKColor;
@@ -67,6 +68,7 @@ public class CmdGerarCertificado implements Comando{
             try{
             PdfWriter.getInstance(document, baos);
             document.open();
+            document.setPageSize(PageSize.A4.rotate());
 
             /* Imagem */
 //        caminho da iamgens "http://localhost:8080/SEVEN/imagens/ufc.jpg"

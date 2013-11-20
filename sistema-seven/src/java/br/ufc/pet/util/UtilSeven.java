@@ -173,9 +173,9 @@ public class UtilSeven {
 
     public static void main(String args[]){
 
-        /*
-
-        UsuarioService us = new UsuarioService();
+        
+      /*
+      UsuarioService us = new UsuarioService();
       ArrayList<Usuario> lista = new ArrayList<Usuario>();
       lista = us.getAllUsers();
       for(Usuario u:lista){
@@ -184,8 +184,8 @@ public class UtilSeven {
           us.updateSenhaUser(u);
           System.out.println(u.getSenha());
       }
-         */
+      */
 
-        System.out.println(criptografar("94055771"));
+        //System.out.println(criptografar("94055771"));
     }
 }

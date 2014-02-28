@@ -8,6 +8,8 @@ import br.ufc.pet.evento.Usuario;
 import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.UsuarioService;
 import br.ufc.pet.util.SendMail;
+import br.ufc.pet.util.UtilSeven;
+import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,8 +30,15 @@ public class CmdRecuperarSenha implements Comando {
         if (usuario == null) {
             mensagem = "Caro Usuario o seu email nao esta cadastrado em nossa base de dados! Caso deseje acessar nosso sistema efetue seu cadastro! Obrigado";
         } else {
-            mensagem = "Prezado(a) " + usuario.getNome() + " "
-                    + "A sua senha e: " + usuario.getSenha();
+            //Gera uma nova senha
+            String senha = gerarSenha();
+            usuario.setSenha(UtilSeven.criptografar(senha));
+
+            //Salvar o cara
+            us.update(usuario);
+            mensagem = "Prezado(a) " + usuario.getNome() + ",\n "
+                    + "A sua senha temporária é: " + senha + "\n "
+                    + "Por favor, altere sua senha ao acessar o sistema.";
         }
         try {
             SendMail.sendMail(email, "SENHA DO SEVEN!", mensagem);
@@ -40,4 +49,22 @@ public class CmdRecuperarSenha implements Comando {
         }
         return "/index.jsp";
     }
+
+    public String gerarSenha(){
+
+        String senha = "";
+
+        String letras = "ABCDEFGHIJKLMNOPQRSTUVYWXZ0123456789";
+
+        Random random = new Random();
+
+        int index = -1;
+        for( int i = 0; i < 8; i++ ) {
+            index = random.nextInt( letras.length() );
+            senha += letras.substring( index, index + 1 );
+        }
+
+        return senha;
+    }
+
 }

@@ -169,6 +169,7 @@ public class UtilSeven {
             ns.printStackTrace();
             return senha;
         }
+        
     }//fim do método
 
     public static void main(String args[]){

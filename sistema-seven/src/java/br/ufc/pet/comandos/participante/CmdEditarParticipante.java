@@ -69,7 +69,7 @@ public class CmdEditarParticipante implements Comando {
         part.getUsuario().setNome(nome);
         part.getUsuario().setNumero(numero);
         part.getUsuario().setRua(rua);
-        part.getUsuario().setSenha(senha);
+        part.getUsuario().setSenha(UtilSeven.criptografar(senha));
         part.getUsuario().setSexo(sexo);
         part.getUsuario().setUf(uf);
         if (dataNascimentoS != null && !dataNascimentoS.trim().isEmpty()) {

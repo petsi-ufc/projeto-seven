@@ -6,7 +6,9 @@ package br.ufc.pet.services;
 
 import br.ufc.pet.daos.AdministradorDAO;
 import br.ufc.pet.evento.Administrador;
+import br.ufc.pet.util.UtilSeven;
 import java.sql.SQLException;
+import javassist.bytecode.analysis.Util;
 
 /**
  *
@@ -44,7 +46,7 @@ public class AdministradorService {
             if (admin != null) {
                 UsuarioService us = new UsuarioService();
                 admin.setUsuario(us.getById(admin.getUsuario().getId()));
-                admin.getUsuario().setSenha(senha);
+                admin.getUsuario().setSenha(UtilSeven.criptografar(senha));
                 us.updateSenhaUser(admin.getUsuario());
             }
         } catch (SQLException ex) {

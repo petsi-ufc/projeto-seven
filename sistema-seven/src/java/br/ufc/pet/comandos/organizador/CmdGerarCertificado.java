@@ -21,6 +21,7 @@ import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.CMYKColor;
 import com.lowagie.text.pdf.PdfCell;
+import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfTable;
@@ -62,37 +63,50 @@ public class CmdGerarCertificado implements Comando{
             response.setHeader("Content-Disposition", " attachment; filename=\"relatorio_" + inscricao.getParticipante().getUsuario().getNome() + ".pdf\"");
 
             
-            Document document = new Document();
+            Document document = new Document(PageSize.LETTER.rotate());
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             
             try{
-            PdfWriter.getInstance(document, baos);
+            PdfWriter writer = PdfWriter.getInstance(document, baos);
             document.open();
-            document.setPageSize(PageSize.A4.rotate());
+            //document.setPageSize(PageSize.A4);
 
             /* Imagem */
 //        caminho da iamgens "http://localhost:8080/SEVEN/imagens/ufc.jpg"
-            Image jpg = Image.getInstance("http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/UFC.png");
-            jpg.setAlignment(Image.LEFT | Image.UNDERLYING); /* Ajusta o alinhamento da imagem. */
-
+            
+            Image jpgTemplate = Image.getInstance("http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/template.jpg");
+            
+            
+            PdfContentByte canvas = writer.getDirectContentUnder();
+            jpgTemplate.scaleAbsolute(document.getPageSize().getWidth(), document.getPageSize().getHeight());
+            jpgTemplate.setAbsolutePosition(0, 0);
+            canvas.addImage(jpgTemplate);
             /* Fontes */
-            Font fonteCabecalho = new Font(Font.HELVETICA, 12, Font.BOLD); /* Será usada no cabeçalho. */
-
-            PdfPTable cabecalho = new PdfPTable(2);
-            float[] widths = {0.15f, 0.85f};
-            cabecalho.setWidthPercentage(90); /* Seta a largura da tabela com relação a página. */
-            cabecalho.setWidths(widths);
-            cabecalho.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
-            cabecalho.addCell(jpg);
-            cabecalho.addCell(new Phrase("Universidade Federal do Ceará\n"
-                    + "Sistema de Eventos\n", fonteCabecalho));
-            document.add(cabecalho); /* Adicionando ao documento. */
 
 
-            Paragraph cert = new Paragraph("Certificado", FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD));
+            //Font fonteCabecalho = new Font(Font.HELVETICA, 12, Font.BOLD); /* Será usada no cabeçalho. */
+
+            //PdfPTable cabecalho = new PdfPTable(2);
+            //float[] widths = {0.15f, 0.85f};
+            //cabecalho.setWidthPercentage(90); /* Seta a largura da tabela com relação a página. */
+            //cabecalho.setWidths(widths);
+            //cabecalho.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
+            
+            //cabecalho.addCell(new Phrase("Universidade Federal do Ceará\n"
+            //        + "Sistema de Eventos\n", fonteCabecalho));
+            //document.add(cabecalho); /* Adicionando ao documento. */
+            
+
+            Paragraph cert2 = new Paragraph(" ", FontFactory.getFont(FontFactory.HELVETICA, 30, Font.BOLD));
+            cert2.setAlignment(Element.ALIGN_CENTER);
+            cert2.setSpacingBefore(10);
+            cert2.setSpacingAfter(10);
+            document.add(cert2);
+
+            Paragraph cert = new Paragraph("Salomão da Silva Santos", FontFactory.getFont(FontFactory.HELVETICA, 30, Font.BOLD));
             cert.setAlignment(Element.ALIGN_CENTER);
-            cert.setSpacingBefore(10);
-            cert.setSpacingAfter(30);
+            cert.setSpacingBefore(95);
+            cert.setSpacingAfter(100);
             document.add(cert);
 
             Paragraph p1 = new Paragraph("Certificamos que " + inscricao.getParticipante().getUsuario().getNome() + " participou do " +
@@ -156,7 +170,11 @@ public class CmdGerarCertificado implements Comando{
             footer.addCell(nome);
 
             document.add(footer);
-            
+
+            document.newPage();
+
+            //document.setPageSize(PageSize.A4);
+
             document.close();
 
             }catch(Exception ex){

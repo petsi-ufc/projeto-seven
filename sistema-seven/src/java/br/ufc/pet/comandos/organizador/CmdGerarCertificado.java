@@ -104,7 +104,7 @@ public class CmdGerarCertificado implements Comando{
 
            
             Paragraph p4 = new Paragraph("    Carga horária: " + a.getCargaHoraria() + " horas", FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLD));
-            p4.setSpacingBefore(45);
+            p4.setSpacingBefore(52);
             
             document.add(p4);
             

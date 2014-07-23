@@ -63,7 +63,11 @@
                         <% } else {%>
                         <td> - </td>
                         <% }%>
+                        <% if(i.isConfirmada()){%>
                         <td><a href="../ServletCentral?comando=CmdGerarCertificado&insc_id=<%=i.getId() %>" title="Gerar Certificado">Gerar Certificado</a> </td>
+                        <% } else {%>
+                        <td> Indisponível </td>
+                        <% }%>
                         <% if (!i.isConfirmada()) {%><%--link chama o comando de visualização/edição--%>
                         <td><a href="../ServletCentral?comando=CmdVisualizarInscricao&iId=<%=i.getId()%>" title="Visualizar/Editar">Visualizar/Editar</a></td>
                         <% } else {%>

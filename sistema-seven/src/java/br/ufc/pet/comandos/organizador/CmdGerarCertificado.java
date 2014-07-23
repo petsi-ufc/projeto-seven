@@ -71,9 +71,11 @@ public class CmdGerarCertificado implements Comando{
             document.open();
             //document.setPageSize(PageSize.A4);
 
-            /* Imagem */
-//        caminho da iamgens "http://localhost:8080/SEVEN/imagens/ufc.jpg"
             
+            for(Atividade a:inscricao.getAtividades()){
+                
+            
+
             Image jpgTemplate = Image.getInstance("http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/template.jpg");
             
             
@@ -81,99 +83,34 @@ public class CmdGerarCertificado implements Comando{
             jpgTemplate.scaleAbsolute(document.getPageSize().getWidth(), document.getPageSize().getHeight());
             jpgTemplate.setAbsolutePosition(0, 0);
             canvas.addImage(jpgTemplate);
-            /* Fontes */
-
-
-            //Font fonteCabecalho = new Font(Font.HELVETICA, 12, Font.BOLD); /* Será usada no cabeçalho. */
-
-            //PdfPTable cabecalho = new PdfPTable(2);
-            //float[] widths = {0.15f, 0.85f};
-            //cabecalho.setWidthPercentage(90); /* Seta a largura da tabela com relação a página. */
-            //cabecalho.setWidths(widths);
-            //cabecalho.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
-            
-            //cabecalho.addCell(new Phrase("Universidade Federal do Ceará\n"
-            //        + "Sistema de Eventos\n", fonteCabecalho));
-            //document.add(cabecalho); /* Adicionando ao documento. */
-            
+                        
 
             Paragraph cert2 = new Paragraph(" ", FontFactory.getFont(FontFactory.HELVETICA, 30, Font.BOLD));
             cert2.setAlignment(Element.ALIGN_CENTER);
             cert2.setSpacingBefore(10);
-            cert2.setSpacingAfter(10);
+            cert2.setSpacingAfter(15);
             document.add(cert2);
 
-            Paragraph cert = new Paragraph("Salomão da Silva Santos", FontFactory.getFont(FontFactory.HELVETICA, 30, Font.BOLD));
+            Paragraph cert = new Paragraph(inscricao.getParticipante().getUsuario().getNome(), FontFactory.getFont(FontFactory.HELVETICA, 27, Font.BOLD));
             cert.setAlignment(Element.ALIGN_CENTER);
-            cert.setSpacingBefore(95);
-            cert.setSpacingAfter(100);
+            cert.setSpacingBefore(150);
+            cert.setSpacingAfter(45);
             document.add(cert);
 
-            Paragraph p1 = new Paragraph("Certificamos que " + inscricao.getParticipante().getUsuario().getNome() + " participou do " +
-                    inscricao.getEvento().getNome() + " realizado em Quixadá-Ceará, em " + UtilSeven.treatToString(inscricao.getEvento().getInicioPeriodoEvento()));
-            p1.setAlignment(Element.ALIGN_JUSTIFIED);
+            Paragraph p1 = new Paragraph(a.getNome(), FontFactory.getFont(FontFactory.HELVETICA, 27, Font.BOLD));
+            p1.setAlignment(Element.ALIGN_CENTER);
             document.add(p1);
 
+
+           
+            Paragraph p4 = new Paragraph("    Carga horária: 12 horas", FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLD));
+            p4.setSpacingBefore(45);
             
-
-            Paragraph p3 = new Paragraph("Atividades");
-            p3.setSpacingBefore(10);
-            p3.setSpacingAfter(10);
-            document.add(p3);
-
-            for(Atividade a:inscricao.getAtividades()){
-                Paragraph p4 = new Paragraph( a.getNome() + " - 12 horas");
-                p4.setSpacingAfter(5);
             document.add(p4);
-            }
-
             
-            Image jpg2 = Image.getInstance("http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/assdig.png");
-            jpg2.setAlignment(Image.ALIGN_CENTER | Image.UNDEFINED);
-            jpg2.setWidthPercentage(40);
-            jpg2.setSpacingBefore(10);
-            jpg2.setSpacingAfter(2);
-            //document.add(jpg2);
-/*
-            Perfil p = (Perfil) session.getAttribute("user");
-            Paragraph p4 = new Paragraph(p.getUsuario().getNome());
-            p4.setAlignment(Element.ALIGN_CENTER);
-            p4.setSpacingBefore(20);
-            document.add(p4);
-             
-            Paragraph p5 = new Paragraph("Coordenador do Evento");
-            p5.setAlignment(Element.ALIGN_CENTER);
-            p5.setSpacingBefore(20);
-            document.add(p5);
-*/
-
-            Perfil p = (Perfil) session.getAttribute("user");
-            PdfPTable footer = new PdfPTable(1);
-            
-            float[] width = {0.15f};
-            footer.setWidthPercentage(40); /* Seta a largura da tabela com relação a página. */
-            footer.setWidths(width);
-            footer.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
-            footer.setSpacingBefore(new Float(30));
-            
-            PdfPCell coodenador = new PdfPCell(new Paragraph(p.getUsuario().getNome()));
-            coodenador.setHorizontalAlignment(Paragraph.ALIGN_CENTER);
-            coodenador.setBorder(PdfCell.BOTTOM);
-            coodenador.setBorderWidthBottom(1.0f);
-            coodenador.setBorderColorBottom(Color.BLACK);
-            coodenador.setPaddingBottom(5.0f);
-            footer.addCell(coodenador);
-
-            PdfPCell nome = new PdfPCell(new Paragraph("Coordenador do Evento"));
-            nome.setHorizontalAlignment(Paragraph.ALIGN_CENTER);
-            nome.setBorder(PdfCell.NO_BORDER);
-            footer.addCell(nome);
-
-            document.add(footer);
-
             document.newPage();
 
-            //document.setPageSize(PageSize.A4);
+            }
 
             document.close();
 

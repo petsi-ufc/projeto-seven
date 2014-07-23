@@ -42,6 +42,7 @@
                         <th>Nome do Evento</th>
                         <th>Status do Pagamento</th>
                         <th>Gerar boleto</th>
+                        <th>Gerar certificado</th>
                         <th>Editar</th>
                         <th>Excluir</th>
                     </tr>
@@ -62,6 +63,7 @@
                         <% } else {%>
                         <td> - </td>
                         <% }%>
+                        <td><a href="../ServletCentral?comando=CmdGerarCertificado&insc_id=<%=i.getId() %>" title="Gerar Certificado">Gerar Certificado</a> </td>
                         <% if (!i.isConfirmada()) {%><%--link chama o comando de visualização/edição--%>
                         <td><a href="../ServletCentral?comando=CmdVisualizarInscricao&iId=<%=i.getId()%>" title="Visualizar/Editar">Visualizar/Editar</a></td>
                         <% } else {%>

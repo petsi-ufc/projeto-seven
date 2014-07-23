@@ -12,6 +12,7 @@ public class Atividade extends Bean {
     private TipoAtividade tipo;
     private int vagas;
     private boolean aceitaInscricao;
+    private int cargaHoraria;
 
     public Atividade() {
         this.horarios = new ArrayList<Horario>();
@@ -82,6 +83,16 @@ public class Atividade extends Bean {
         this.vagas = vagas;
     }
 
+    public int getCargaHoraria() {
+        return cargaHoraria;
+    }
+
+    public void setCargaHoraria(int cargaHoraria) {
+        this.cargaHoraria = cargaHoraria;
+    }
+
+    
+    
     public boolean temHorario(long id){
         boolean entrou = false;
         for(Horario h : getHorarios()){

@@ -30,9 +30,11 @@
                     String nome = "";
                     String local = "";
                     String vagas = "";
+                    String cargaHoraria = "";
                     if (a != null) {
                         nome = a.getNome();
                         local = a.getLocal();
+                        cargaHoraria = "" + a.getCargaHoraria();
                         vagas = "" + a.getVagas();
                     } else if (ativTemp != null) {
                         nome = ativTemp.getNome();
@@ -84,6 +86,8 @@
                         <input type="text" name="local" value="<%=local%>"/><br />
                         <label>Vagas:</label><br />
                         <input type="text" maxlength="5" onkeypress="return validaNumerosSilencioso(event)" name="vagas" value="<%=vagas%>"/><br />
+                        <label>Carga Horária:</label><br />
+                        <input type="text" maxlength="5" onkeypress="return validaNumerosSilencioso(event)" name="carga_horaria" value="<%=cargaHoraria%>"/><br />
                         <label class="clear">É inscritível? (Aceitará inscrições de participantes?):</label>
                         <% if (a == null) {%>
                         <input type="radio" name="inscritivel" value="SIM" class="radio" checked="checked"/><label style="float: left">SIM</label><br/>

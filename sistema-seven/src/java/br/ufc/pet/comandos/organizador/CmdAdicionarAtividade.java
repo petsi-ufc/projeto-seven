@@ -32,7 +32,7 @@ public class CmdAdicionarAtividade implements Comando {
         String local = request.getParameter("local");
         String vagas = request.getParameter("vagas");
         String tipo = request.getParameter("tipo_id");
-        String cargaHoraria = request.getParameter("carga_horaria");
+
         Atividade ativ = (Atividade) session.getAttribute("atividade");
         String aceitaInscricao = request.getParameter("inscritivel");
         Atividade ativTemp = new Atividade();
@@ -56,17 +56,7 @@ public class CmdAdicionarAtividade implements Comando {
             return "/org/organ_add_atividades.jsp";
         }
 
-        try {
-            ativTemp.setCargaHoraria(Integer.parseInt(cargaHoraria));
-        } catch (Exception e) {
-            ativTemp.setCargaHoraria(5);
-            session.setAttribute("atividadeTemp", ativTemp);
-            session.setAttribute("erro", "Campo Carga Horária deve ter um valor numérico.");
-            return "/org/organ_add_atividades.jsp";
-        }
-
-
-        if (tipo == null || nome == null || nome.trim().equals("") || local == null || local.equals("") || vagas == null || vagas.equals("") || cargaHoraria == null || cargaHoraria.equals("")) {
+        if (tipo == null || nome == null || nome.trim().equals("") || local == null || local.equals("") || vagas == null || vagas.equals("")) {
             session.setAttribute("atividadeTemp", ativTemp);
             session.setAttribute("erro", "Preencha todos os campos obrigatórios.");
             return "/org/organ_add_atividades.jsp";
@@ -123,8 +113,6 @@ public class CmdAdicionarAtividade implements Comando {
                 x++;
             }
 
-
-
             //Incluir os novos responsaveis
             ResponsavelAtividadeService ras = new ResponsavelAtividadeService();
             for (ResponsavelAtividade ra : resps) {
@@ -133,7 +121,6 @@ public class CmdAdicionarAtividade implements Comando {
                     ras.insertPerfilResponsavelAtividade(ra);
                 }
             }
-
 
             if (ativ == null) {
                 ativ = new Atividade();
@@ -144,7 +131,7 @@ public class CmdAdicionarAtividade implements Comando {
                 ativ.setTipo(ta);
                 ativ.setEvento(ev);
                 ativ.setResponsaveis(resps);
-                ativ.setCargaHoraria(Integer.parseInt(cargaHoraria));
+
                 //horarios escolhidos sao setados na ativadade
                 ativ.setHorarios(horariosEscolhidos);
                 if (as.adicionar(ativ)) {
@@ -161,7 +148,7 @@ public class CmdAdicionarAtividade implements Comando {
                 ativ.setTipo(ta);
                 ativ.setEvento(ev);
                 ativ.setResponsaveis(resps);
-                ativ.setCargaHoraria(Integer.parseInt(cargaHoraria));
+
                 //horarios escolhidos sao setados na ativadade
                 ativ.setHorarios(horariosEscolhidos);
                 if (as.atualizar(ativ)) {

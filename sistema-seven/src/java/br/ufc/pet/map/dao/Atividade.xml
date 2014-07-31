@@ -22,7 +22,7 @@
         <result property="tipo.id" column="tipo_id"/>
         <result property="tipo.nome" column="tipo_nome"/>
         <result property="aceitaInscricao" column="aceita_insc"/>
-        <result property="cargaHoraria" column="carga_horaria"/>
+        
 
         
 
@@ -54,7 +54,7 @@
     <select id="getAtividadeById" resultClass="atividade"
             parameterClass="long"
             resultMap="atividadeResult">
-        SELECT a.id, a.local, a.nome, a.evento_id, a.vagas, a.tipo_id, ta.nome as tipo_nome, a.aceita_insc, a.carga_horaria
+        SELECT a.id, a.local, a.nome, a.evento_id, a.vagas, a.tipo_id, ta.nome as tipo_nome, a.aceita_insc
         FROM evento.tipo_atividade ta,evento.atividade a
         WHERE
         ta.id=a.tipo_id and a.id=#var#;
@@ -63,7 +63,7 @@
     <select id="getAtividadesByEventoId" resultClass="atividade"
             parameterClass="long"
             resultMap="atividadeResult">
-        SELECT a.id, a.local, a.nome, a.evento_id, a.vagas, a.tipo_id, ta.nome as tipo_nome,a.aceita_insc, a.carga_horaria
+        SELECT a.id, a.local, a.nome, a.evento_id, a.vagas, a.tipo_id, ta.nome as tipo_nome,a.aceita_insc
         FROM evento.atividade a, evento.tipo_atividade ta
         WHERE a.tipo_id=ta.id and
         a.evento_id=#var#;
@@ -72,14 +72,14 @@
     <select id="getAtividadesByInscricaoId" resultClass="atividade"
             parameterClass="long"
             resultMap="atividadeResult">
-        SELECT a.id, "local", a.nome, a.evento_id, a.vagas, a.tipo_id, ta.nome as tipo_nome, a.aceita_insc, a.carga_horaria
+        SELECT a.id, "local", a.nome, a.evento_id, a.vagas, a.tipo_id, ta.nome as tipo_nome, a.aceita_insc
         FROM evento.atividade as a, evento.tipo_atividade as ta, evento.inscricao_atividade as ia WHERE a.tipo_id=ta.id and a.id = ia.atividade_id and ia.inscricao_id=#var#;
     </select>
 
     <insert id="addAtividade" parameterClass="atividade" >
         INSERT INTO evento.atividade(
-        id, "local", nome, evento_id, tipo_id, vagas, aceita_insc, carga_horaria)
-        VALUES (#id#, #local#, #nome#, #evento.id#, #tipo.id#, #vagas#,#aceitaInscricao#, #cargaHoraria#);
+        id, "local", nome, evento_id, tipo_id, vagas, aceita_insc)
+        VALUES (#id#, #local#, #nome#, #evento.id#, #tipo.id#, #vagas#,#aceitaInscricao#);
 
         <!-- insere multiplas tuplas na tabela atividade_horario-->
         <iterate property="horarios" open=" INSERT INTO evento.atividade_horario(
@@ -99,7 +99,7 @@
 
         UPDATE evento.atividade
         SET  "local"=#local#, nome=#nome#, evento_id=#evento.id#, tipo_id=#tipo.id#,
-        vagas=#vagas#,aceita_insc=#aceitaInscricao#,carga_horaria=#cargaHoraria#
+        vagas=#vagas#,aceita_insc=#aceitaInscricao#
         WHERE id=#id#;
 
         <iterate property="horarios" open=" INSERT INTO evento.atividade_horario(

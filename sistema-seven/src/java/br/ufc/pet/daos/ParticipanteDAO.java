@@ -41,13 +41,20 @@ public class ParticipanteDAO {
     }
 
     public ArrayList<Participante> getParticipantesByAtividadeId(Long id) throws SQLException{
-    return (ArrayList<Participante>)PostgresMapConfig.getSqlMapClient().queryForList("getParticipanteByAtividadeId",id);
+        return (ArrayList<Participante>)PostgresMapConfig.getSqlMapClient().queryForList("getParticipanteByAtividadeId",id);
     }
+    
+    public ArrayList<Participante> getParticipanteByAtividadeIdQuites(Long id) throws SQLException{
+        return (ArrayList<Participante>)PostgresMapConfig.getSqlMapClient().queryForList("getParticipanteByAtividadeIdQuites",id);
+    }
+    
     public ArrayList<Participante> getParticipantesQuistesByEventoID(Long id) throws SQLException{
-    return (ArrayList<Participante>)PostgresMapConfig.getSqlMapClient().queryForList("getParticipantesQuitesByEventoId",id);
+        return (ArrayList<Participante>)PostgresMapConfig.getSqlMapClient().queryForList("getParticipantesQuitesByEventoId",id);
     }
 
     public ArrayList<Participante> getParticipantesByEventoID(Long id) throws SQLException {
         return (ArrayList<Participante>) PostgresMapConfig.getSqlMapClient().queryForList("getParticipantesByEventoId", id);
     }
+    
+    
 }

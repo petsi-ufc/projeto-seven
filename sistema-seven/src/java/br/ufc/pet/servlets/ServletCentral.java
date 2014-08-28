@@ -5,17 +5,13 @@
 package br.ufc.pet.servlets;
 
 import br.ufc.pet.comandos.CmdCadastrarParticipante;
-import br.ufc.pet.comandos.organizador.CmdListarParticipantes;
 import br.ufc.pet.comandos.CmdLogin;
 import br.ufc.pet.comandos.CmdLogout;
 import br.ufc.pet.comandos.CmdRecuperarSenha;
-
 import br.ufc.pet.comandos.CmdVisualizarTodasProgramacoes;
-
-
+import br.ufc.pet.comandos.administrador.CmdAddOrganizadorNovo;
 import br.ufc.pet.comandos.administrador.CmdAdicionarEvento;
 import br.ufc.pet.comandos.administrador.CmdAlterarEvento;
-import br.ufc.pet.comandos.administrador.CmdAddOrganizadorNovo;
 import br.ufc.pet.comandos.administrador.CmdBuscarEvento;
 import br.ufc.pet.comandos.administrador.CmdBuscarUsuario;
 import br.ufc.pet.comandos.administrador.CmdEditAdmin;
@@ -38,41 +34,34 @@ import br.ufc.pet.comandos.organizador.CmdAtualizarModalidade;
 import br.ufc.pet.comandos.organizador.CmdBuscarInscricao;
 import br.ufc.pet.comandos.organizador.CmdBuscarParticipantePorEmail;
 import br.ufc.pet.comandos.organizador.CmdBuscarParticipantedeEvento;
-import br.ufc.pet.comandos.organizador.CmdEditarAtividade;
-import br.ufc.pet.comandos.organizador.CmdExcluirAtividade;
-import br.ufc.pet.comandos.organizador.CmdExcluirMovimentacaoFinanceira;
-import br.ufc.pet.comandos.organizador.CmdGerarFrequenciaAtividade;
-import br.ufc.pet.comandos.organizador.CmdGerenciarEvento;
-import br.ufc.pet.comandos.organizador.CmdListarAtividadeFrequencia;
-import br.ufc.pet.comandos.organizador.CmdListarAtividades;
-import br.ufc.pet.comandos.organizador.CmdListarAtividadesDownload;
-import br.ufc.pet.comandos.organizador.CmdListarMovimentacaoFinanceira;
-import br.ufc.pet.comandos.organizador.CmdRecarregarEventosOrganizador;
-import br.ufc.pet.comandos.organizador.CmdRelatorioParticipanteAtividade;
-import br.ufc.pet.comandos.organizador.CmdRelatorioParticipantesQuites;
-import br.ufc.pet.comandos.organizador.CmdUpdateMovimentacaoFinanceira;
 import br.ufc.pet.comandos.organizador.CmdBuscarUsuarioResponsavel;
 import br.ufc.pet.comandos.organizador.CmdCadastrarUsuarioResponsavel;
+import br.ufc.pet.comandos.organizador.CmdEditarAtividade;
 import br.ufc.pet.comandos.organizador.CmdEditarHorario;
 import br.ufc.pet.comandos.organizador.CmdEditarResponsavel;
 import br.ufc.pet.comandos.organizador.CmdEditarTipoAtividade;
+import br.ufc.pet.comandos.organizador.CmdExcluirAtividade;
 import br.ufc.pet.comandos.organizador.CmdExcluirHorario;
 import br.ufc.pet.comandos.organizador.CmdExcluirModalidade;
+import br.ufc.pet.comandos.organizador.CmdExcluirMovimentacaoFinanceira;
 import br.ufc.pet.comandos.organizador.CmdExcluirTipoAtividade;
 import br.ufc.pet.comandos.organizador.CmdGerarCertificado;
-
+import br.ufc.pet.comandos.organizador.CmdGerarFrequenciaAtividade;
 import br.ufc.pet.comandos.organizador.CmdGerarFrequenciaAtividadeDownloadHtml;
-import br.ufc.pet.comandos.organizador.CmdGerenciarCertificados;
-
+import br.ufc.pet.comandos.organizador.CmdGerenciarEmissaoCertificados;
+import br.ufc.pet.comandos.organizador.CmdGerenciarEvento;
 import br.ufc.pet.comandos.organizador.CmdGerenciarInscricoes;
-
+import br.ufc.pet.comandos.organizador.CmdGerenciarLiberacaoCertificadoAtividade;
+import br.ufc.pet.comandos.organizador.CmdGerenciarUploadCertificados;
 import br.ufc.pet.comandos.organizador.CmdIncluirResponsavel;
+import br.ufc.pet.comandos.organizador.CmdListarAtividadeFrequencia;
+import br.ufc.pet.comandos.organizador.CmdListarAtividades;
+import br.ufc.pet.comandos.organizador.CmdListarAtividadesDownload;
 import br.ufc.pet.comandos.organizador.CmdListarHorarios;
-
-import br.ufc.pet.comandos.organizador.CmdListarParticipanteCertificado;
-
 import br.ufc.pet.comandos.organizador.CmdListarInscritosEmAtividade;
-
+import br.ufc.pet.comandos.organizador.CmdListarMovimentacaoFinanceira;
+import br.ufc.pet.comandos.organizador.CmdListarParticipanteCertificado;
+import br.ufc.pet.comandos.organizador.CmdListarParticipantes;
 import br.ufc.pet.comandos.organizador.CmdListarTipoAtividade;
 import br.ufc.pet.comandos.organizador.CmdListarTipoModalidade;
 import br.ufc.pet.comandos.organizador.CmdMontarPaginaAdicaoAtividade;
@@ -80,10 +69,14 @@ import br.ufc.pet.comandos.organizador.CmdOrgRemoverAtividade;
 import br.ufc.pet.comandos.organizador.CmdOrgSelecionarAtividade;
 import br.ufc.pet.comandos.organizador.CmdOrgSubmeterInscricao;
 import br.ufc.pet.comandos.organizador.CmdOrganExcluirInscricao;
+import br.ufc.pet.comandos.organizador.CmdRecarregarEventosOrganizador;
 import br.ufc.pet.comandos.organizador.CmdReceberPagamento;
 import br.ufc.pet.comandos.organizador.CmdReceberPagamentoTodasInscricoes;
+import br.ufc.pet.comandos.organizador.CmdRelatorioParticipanteAtividade;
+import br.ufc.pet.comandos.organizador.CmdRelatorioParticipantesQuites;
 import br.ufc.pet.comandos.organizador.CmdRemoverResponsavelAtividade;
 import br.ufc.pet.comandos.organizador.CmdSelecionarResponsavelEdicao;
+import br.ufc.pet.comandos.organizador.CmdUpdateMovimentacaoFinanceira;
 import br.ufc.pet.comandos.organizador.CmdVisualizarAtividade;
 import br.ufc.pet.comandos.participante.CmdEditarInscricao;
 import br.ufc.pet.comandos.participante.CmdEditarParticipante;
@@ -323,8 +316,12 @@ public class ServletCentral extends HttpServlet {
         comandos.put("CmdBuscarParticipantePorEmail", cmdo);
         cmdo = new CmdGerarCertificado();
         comandos.put("CmdGerarCertificado", cmdo);
-        cmdo = new CmdGerenciarCertificados();
-        comandos.put("CmdGerenciarCertificados", cmdo);
+        cmdo = new CmdGerenciarUploadCertificados();
+        comandos.put("CmdGerenciarUploadCertificados", cmdo);
+        cmdo = new CmdGerenciarEmissaoCertificados();
+        comandos.put("CmdGerenciarEmissaoCertificados", cmdo);
+        cmdo = new CmdGerenciarLiberacaoCertificadoAtividade();
+        comandos.put("CmdGerenciarLiberacaoCertificadoAtividade", cmdo);
 
     }
 // <editor-fold defaultstate="collapsed" desc="Métodos HttpServlet. Clique no sinal de + à esquerda para editar o código.">

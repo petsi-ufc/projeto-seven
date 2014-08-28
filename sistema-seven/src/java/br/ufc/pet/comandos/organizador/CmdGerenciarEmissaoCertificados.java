@@ -13,16 +13,16 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author junior
+ * @author Anderson
  */
-public class CmdGerenciarCertificados implements Comando{
+public class CmdGerenciarEmissaoCertificados implements Comando{
 
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         
         Evento evento = (Evento) session.getAttribute("evento");
 
-        return "/org/organ_gerenciar_certificados.jsp";
+        return "/org/organ_gerenciar_emissao_certificados.jsp";
 
     }
 

@@ -38,7 +38,8 @@
                 <h2 class="titulo">Gerenciamento das Modalidades de Inscrição no evento</h2>
                 <p><a href="../ServletCentral?comando=CmdListarTipoModalidade" title="Insere uma nova modalidade de Inscrição ao evento">Gerenciar as Modalidades de inscrição deste evento</a></p>
                 <h2 class="titulo">Gerenciar emissão de certificados</h2>
-                <p><a href="../ServletCentral?comando=CmdGerenciarCertificados" title="Gerenciar emissão de certificados">Gerenciar emissão de certificados</a></p>
+                <p><a href="../ServletCentral?comando=CmdGerenciarUploadCertificados" title="Gerenciar upload de certificados">Gerenciar upload de certificados</a></p>
+                <p><a href="../ServletCentral?comando=CmdGerenciarEmissaoCertificados" title="Gerenciar emissão de certificados">Gerenciar emissão de certificados</a></p>
                 <h2 class="titulo"> Gerenciamento de Atividades</h2>
                 
                 <p><a href="../ServletCentral?comando=CmdMontarPaginaAdicaoAtividade" title="Adicionar uma nova Atividade">Adicionar Atividade</a></p>

@@ -52,7 +52,7 @@ public class CmdGerarCertificado implements Comando {
 
         String inscricao_id = request.getParameter("insc_id");
 
-        if (inscricao_id.trim().isEmpty() || inscricao_id == null) {
+        if (inscricao_id == null || inscricao_id.trim().isEmpty()) {
             session.setAttribute("erro", "inscrição inválida!");
             return "/org/organ_gerenciar_inscricoes.jsp";
         } else {

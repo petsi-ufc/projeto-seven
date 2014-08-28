@@ -321,6 +321,20 @@ body {
     color: #FFF;
 }
 
+
+#content form.confirmaCertificado input.button {
+    float: left;
+    width: 90px;
+    height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 120px;
+    line-height: 25px;
+    background: #0E464E;
+    color: #FFF;
+    
+}
+
 #content form.cadastro input.buscar {
     float: left;
     width: 260px;

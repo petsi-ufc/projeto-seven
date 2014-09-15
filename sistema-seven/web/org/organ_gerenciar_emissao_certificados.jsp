@@ -56,7 +56,8 @@
                                 sb.append("<br>");
                             }%>
                         <td><%=sb.toString()%></td>
-                        <td><a href="../ServletCentral?comando=CmdGerenciarLiberacaoCertificadoAtividade&ativ_id=<%=a.getId()%>" title="Liberar Certificados">Liberar</a></td>
+                        <td><a href="../ServletCentral?comando=CmdGerenciarLiberacaoCertificadoAtividade&ativ_id=
+                               <%=a.getId()%>" title="Liberar Certificados">Liberar</a></td>
                     </tr>
                     <%}%>
                 </table>

@@ -3,10 +3,12 @@ package br.ufc.pet.util;
 import sun.misc.BASE64Encoder;
 import br.ufc.pet.evento.Atividade;
 import br.ufc.pet.evento.Horario;
+import br.ufc.pet.evento.InscricaoAtividade;
 import br.ufc.pet.evento.ModalidadeInscricao;
 import br.ufc.pet.evento.PrecoAtividade;
 import br.ufc.pet.evento.TipoAtividade;
 import br.ufc.pet.evento.Usuario;
+import br.ufc.pet.services.AtividadeService;
 import br.ufc.pet.services.ModalidadeInscricaoService;
 import br.ufc.pet.services.TipoAtividadeService;
 import br.ufc.pet.services.UsuarioService;
@@ -174,6 +176,22 @@ public class UtilSeven {
 
     public static void main(String args[]){
 
+        
+        
+        
+        
+        
+        
+        
+        
+        InscricaoAtividade ins = new InscricaoAtividade();
+                ins.setAtividadeId(3l);
+                ins.setInscricaoId(3l);
+                ins.setConfirmaCertificado(true);
+        AtividadeService as = new AtividadeService();
+        as.confirmaLiberacaoCertificadoAtividade(ins);
+        
+        
         
       /*
       UsuarioService us = new UsuarioService();

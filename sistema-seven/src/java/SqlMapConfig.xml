@@ -30,6 +30,7 @@
     <typeAlias alias="tipoAtividade" type="br.ufc.pet.evento.TipoAtividade"/>
     <typeAlias alias="usuario" type="br.ufc.pet.evento.Usuario"/>
     <typeAlias alias="utility" type="br.ufc.pet.evento.Utility"/>
+    <typeAlias alias="inscricaoAtividade" type="br.ufc.pet.evento.InscricaoAtividade"/>
 <!--configuration-->
     <transactionManager type="JDBC">
         <dataSource type="SIMPLE">
@@ -56,5 +57,6 @@
     <sqlMap resource="br/ufc/pet/map/dao/ResponsavelAtividade.xml"/>
     <sqlMap resource="br/ufc/pet/map/dao/TipoAtividade.xml"/>
     <sqlMap resource="br/ufc/pet/map/dao/Usuario.xml"/>
+    <sqlMap resource="br/ufc/pet/map/dao/InscricaoAtividade.xml"/>
     
 </sqlMapConfig>

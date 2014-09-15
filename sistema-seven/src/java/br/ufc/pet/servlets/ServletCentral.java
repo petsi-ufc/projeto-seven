@@ -36,6 +36,7 @@ import br.ufc.pet.comandos.organizador.CmdBuscarParticipantePorEmail;
 import br.ufc.pet.comandos.organizador.CmdBuscarParticipantedeEvento;
 import br.ufc.pet.comandos.organizador.CmdBuscarUsuarioResponsavel;
 import br.ufc.pet.comandos.organizador.CmdCadastrarUsuarioResponsavel;
+import br.ufc.pet.comandos.organizador.CmdConfirmarLiberacaoCertificado;
 import br.ufc.pet.comandos.organizador.CmdEditarAtividade;
 import br.ufc.pet.comandos.organizador.CmdEditarHorario;
 import br.ufc.pet.comandos.organizador.CmdEditarResponsavel;
@@ -322,6 +323,8 @@ public class ServletCentral extends HttpServlet {
         comandos.put("CmdGerenciarEmissaoCertificados", cmdo);
         cmdo = new CmdGerenciarLiberacaoCertificadoAtividade();
         comandos.put("CmdGerenciarLiberacaoCertificadoAtividade", cmdo);
+        cmdo = new CmdConfirmarLiberacaoCertificado();
+        comandos.put("CmdConfirmarLiberacaoCertificado", cmdo);
 
     }
 // <editor-fold defaultstate="collapsed" desc="Métodos HttpServlet. Clique no sinal de + à esquerda para editar o código.">

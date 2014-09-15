@@ -7,6 +7,7 @@ package br.ufc.pet.services;
 import br.ufc.pet.daos.InscricaoDAO;
 import br.ufc.pet.evento.Atividade;
 import br.ufc.pet.evento.Inscricao;
+import br.ufc.pet.evento.InscricaoAtividade;
 import br.ufc.pet.evento.PrecoAtividade;
 import br.ufc.pet.evento.Utility;
 import java.sql.SQLException;
@@ -188,5 +189,11 @@ public class InscricaoService {
             Logger.getLogger(UsuarioService.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+    
+    
+    public void confirmaLiberacaoCertificadoAtividade(InscricaoAtividade a ){
+    
+    
     }
 }

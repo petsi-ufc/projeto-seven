@@ -6,6 +6,7 @@ package br.ufc.pet.daos;
 
 import br.ufc.pet.config.PostgresMapConfig;
 import br.ufc.pet.evento.Atividade;
+import br.ufc.pet.evento.InscricaoAtividade;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -53,4 +54,13 @@ public class AtividadeDAO {
         }
         return id + 1L;
     }
+    
+    
+    
+     public void confirmaLiberacaoCertificadoAtividade(InscricaoAtividade utility) throws SQLException{
+        
+         
+         PostgresMapConfig.getSqlMapClient().update("confirmaLiberacaoCertificadoAtividade", utility);
+         
+     }
 }

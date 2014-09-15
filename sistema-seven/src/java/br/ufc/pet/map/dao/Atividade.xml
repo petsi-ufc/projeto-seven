@@ -113,6 +113,9 @@
         </iterate>
 
     </update>
+    
+    
+    
 
     <delete id="deleteAtividade" parameterClass="long">
         DELETE FROM evento.atividade_horario WHERE atividade_id=#var#;
@@ -127,6 +130,8 @@
         SELECT MAX(id)
         FROM evento.atividade;
     </select>
-
+    
+    
+  
 
 </sqlMap>

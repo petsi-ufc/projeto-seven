@@ -7,8 +7,11 @@ package br.ufc.pet.services;
 import br.ufc.pet.daos.AtividadeDAO;
 import br.ufc.pet.evento.Atividade;
 import br.ufc.pet.evento.Horario;
+import br.ufc.pet.evento.InscricaoAtividade;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -134,4 +137,23 @@ public class AtividadeService {
         }
         return conf;
     }
+    
+    
+    public boolean confirmaLiberacaoCertificadoAtividade(InscricaoAtividade utility ){
+    
+        
+        if (utility==null || utility.getAtividadeId()==null)
+            return false;
+        
+        try {
+            atividadeDAO.confirmaLiberacaoCertificadoAtividade(utility);
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+           
+    }
+    
+    
 }

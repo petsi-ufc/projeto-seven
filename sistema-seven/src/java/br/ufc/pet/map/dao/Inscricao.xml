@@ -113,4 +113,10 @@
         WHERE ins.evento_id=#evento.id# and p.usuario_id=u.id and ins.participante_id= p.id and u.nome ILIKE '%$participante.usuario.nome$%';
 
     </select>
+    
+     <!-- <update id="confirmaLiberacaoCertificadoAtividade" parameterClass="utilityIA" >
+        UPDATE evento.inscricao_atividade
+        SET evento.inscricao_atividade.certificado_liberado=#certificado_liberado#
+        WHERE evento.inscricao_atividade.inscricao_id = #inscricao_id# and evento.inscricao_atividade.atividade_id = #atividade_id#;
+    </update> -->
 </sqlMap>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Document   : InscricaoAtividade.xml
+    Created on : 10 de Setembro de 2014, 17:13
+    Author     : Anderson & Salomão
+    
+    
+    
+    -->
+    
+    
+ <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="inscricaoAtividade">
+
+    <resultMap id="inscricaoAtividadeResult" class="inscricaoAtividade">
+        <result property="atividadeId" column="atividade_id"/>
+        <result property="inscricaoId" column="inscricao_id"/>
+        <result property="confirmaCertificado" column="certificado_liberado"/>
+   </resultMap>
+
+
+ <update id="confirmaLiberacaoCertificadoAtividade" parameterClass="inscricaoAtividade" >
+        UPDATE evento.inscricao_atividade
+        SET certificado_liberado=#confirmaCertificado#
+        WHERE inscricao_id = #inscricaoId# and atividade_id = #atividadeId#;
+   </update> 
+   
+   
+   
+
+</sqlMap>

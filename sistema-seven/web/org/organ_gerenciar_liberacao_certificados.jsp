@@ -6,6 +6,7 @@
 <%@page import="br.ufc.pet.evento.Participante"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList" %>
+<%@page import="java.lang.Exception" %>
 <%@page import="br.ufc.pet.evento.Atividade,br.ufc.pet.evento.Organizador,br.ufc.pet.evento.Organizacao,br.ufc.pet.evento.ResponsavelAtividade" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
@@ -40,6 +41,17 @@
                     ArrayList<Atividade> ats = e.getAtividades();
                     
                     ArrayList<Participante> parts = (ArrayList) session.getAttribute("participantes");
+                    Long idAtividade = 0L;
+                    try{
+                        idAtividade = (Long) session.getAttribute("ativ_id");
+                        //System.out.println("TEMP: "+temp);
+                       // idAtividade = Long.parseLong(temp);
+                        
+                    }catch(Exception e1){
+                        System.out.println("Exception :: NULL");
+                        idAtividade = 0L;
+                    }
+                    
         %>
         <div id="container">
             <div id="top">
@@ -49,10 +61,10 @@
             <div id="content">
                 <h1 class="titulo">Selecionar Participantes para Liberar Certificado</h1>
                 <%@include file="/error.jsp" %>
-                <%if (ats == null || ats.size() == 0) {%>
+                <%if (parts == null || parts.size() == 0) {%>
                 <center><label>Sem participantes quites nesta atividade</label></center>
                 <%} else {%>
-                <form name="formVerificarAluno" action="" class="confirmaCertificado" method="post" onsubmit="return confirm('Deseja realmente liberar os certificados para os participantes selecionados?');" >
+                <form name="formVerificarAluno" action="../ServletCentral?comando=CmdConfirmarLiberacaoCertificado" class="confirmaCertificado" method="post" onsubmit="return confirm('Deseja realmente liberar os certificados para os participantes selecionados?');" >
                     <table>
                         <tr>
                             <th><input type="checkbox" onclick="checkAllCheckboxes();" /></th>
@@ -62,13 +74,14 @@
                         </tr>
                         <%for (Participante p : parts) {%>
                         <tr>
-                            <td><input type="checkbox" name="verificaAluno" /></td>
+                            <td><input type="checkbox" name="verificaAluno" value="<%=p.getInscricaoByEvento(e.getId()).getId() %>" /></td>
                             <td><%=p.getUsuario().getNome() %></td>
                             <td><%=p.getUsuario().getInstituicao() %></td>
                             <td><%=p.getUsuario().getEmail() %></td>
                         </tr>
                         <%}%>
                     </table>
+                    <input type="hidden" name="ativ_id" value="<%=idAtividade %>" />
                     <input type="submit" value="Liberar" class="button" />
                 </form>
                 <% }%>

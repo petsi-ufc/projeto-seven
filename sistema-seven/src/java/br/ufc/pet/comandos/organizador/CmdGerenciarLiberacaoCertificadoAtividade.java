@@ -37,17 +37,21 @@ public class CmdGerenciarLiberacaoCertificadoAtividade implements Comando {
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
         String temp = request.getParameter("ativ_id");
-        System.out.print(temp);
-        Long id = Long.parseLong(temp);
-        Atividade at = new AtividadeService().getAtividadeById(id); //pega a atividade pelo id
+        //System.out.println("erro aqui: "+temp);
+        temp = temp.replace(" ", "");
+        Long idAtividade = Long.parseLong(temp);
+        
+        Atividade at = new AtividadeService().getAtividadeById(idAtividade); //pega a atividade pelo idAtividade
         //System.out.println(at == null);
         ParticipanteService partS = new ParticipanteService();
-        ArrayList<Participante> parts = partS.getParticipanteByAtividadeIdQuites(id);
+        ArrayList<Participante> parts = partS.getParticipanteByAtividadeIdQuites(idAtividade);
         if (parts == null || parts.isEmpty()) {
             session.setAttribute("erro", "Atividade sem participantes quites no momento");
             return "/org/organ_gerenciar_emissao_certificados.jsp";
         } else {
             session.setAttribute("participantes", parts);
+            session.setAttribute("ativ_id", idAtividade);
+            
             return "/org/organ_gerenciar_liberacao_certificados.jsp";
         }
         

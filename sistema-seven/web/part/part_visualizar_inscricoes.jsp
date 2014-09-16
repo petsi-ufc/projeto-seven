@@ -3,6 +3,8 @@
     Created on : 26/03/2010, 16:35:48
     Author     : Caio
 --%>
+<%@page import="br.ufc.pet.evento.InscricaoAtividade"%>
+<%@page import="br.ufc.pet.services.AtividadeService"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
 <%@page import="br.ufc.pet.evento.Inscricao"%>
@@ -17,6 +19,8 @@
                 Participante p = (Participante) session.getAttribute("user");
                 ArrayList<Inscricao> array = p.getInscricoes();
                 String estado;//será utilizada para dizer se uma inscrição está ou não está consolidada
+                
+                
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -46,7 +50,21 @@
                         <th>Editar</th>
                         <th>Excluir</th>
                     </tr>
-                    <% for (Inscricao i : array) {%>
+                    <% 
+                    
+                    AtividadeService as = new AtividadeService();
+                    ArrayList<InscricaoAtividade> ias = null;
+
+                    for (Inscricao i : array) {
+                        ias = as.getIncricaoAtividadeByInscricao(i.getId());
+                        boolean liberarCertificado = false;
+                        for(InscricaoAtividade ia : ias){
+                            if(ia.isConfirmaCertificado()){
+                                liberarCertificado = true;
+                                break;
+                            }
+                        }
+                    %>
                     <tr>
                         <td><%=i.getModalidade().getTipo()%></td>
                         <td><%=i.getEvento().getNome()%></td>
@@ -63,7 +81,7 @@
                         <% } else {%>
                         <td> - </td>
                         <% }%>
-                        <% if(i.isConfirmada()){%>
+                        <% if(liberarCertificado){%>
                         <td><a href="../ServletCentral?comando=CmdGerarCertificado&insc_id=<%=i.getId() %>" title="Gerar Certificado">Gerar Certificado</a> </td>
                         <% } else {%>
                         <td> Indisponível </td>

@@ -7,8 +7,10 @@ package br.ufc.pet.comandos.organizador;
 import br.ufc.pet.evento.Atividade;
 import br.ufc.pet.evento.Horario;
 import br.ufc.pet.evento.Inscricao;
+import br.ufc.pet.evento.InscricaoAtividade;
 import br.ufc.pet.evento.Perfil;
 import br.ufc.pet.interfaces.Comando;
+import br.ufc.pet.services.AtividadeService;
 import br.ufc.pet.services.HorarioService;
 import br.ufc.pet.services.InscricaoService;
 import br.ufc.pet.util.UtilSeven;
@@ -70,9 +72,17 @@ public class CmdGerarCertificado implements Comando {
                 PdfWriter writer = PdfWriter.getInstance(document, baos);
                 document.open();
                 //document.setPageSize(PageSize.A4);
-
+                
+                
+                AtividadeService as = new AtividadeService();
+                ArrayList<InscricaoAtividade> ia = as.getIncricaoAtividadeByInscricao(inscricao.getId());
+                ArrayList<Long> idsAtiv = CmdGerarCertificado.getIdsAtividadeCeriticadoLiberado(ia);
 
                 for (Atividade a : inscricao.getAtividades()) {
+                    
+                    if(!idsAtiv.contains(a.getId())){
+                        continue;
+                    }
 
                     Image jpgTemplate = Image.getInstance("http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/imagens/template.jpg");
 
@@ -86,16 +96,16 @@ public class CmdGerarCertificado implements Comando {
                     Paragraph cert2 = new Paragraph(" ", FontFactory.getFont(FontFactory.HELVETICA, 30, Font.BOLD));
                     cert2.setAlignment(Element.ALIGN_CENTER);
                     cert2.setSpacingBefore(10);
-                    cert2.setSpacingAfter(15);
+                    cert2.setSpacingAfter(20);
                     document.add(cert2);
 
-                    Paragraph cert = new Paragraph(inscricao.getParticipante().getUsuario().getNome(), FontFactory.getFont(FontFactory.HELVETICA, 27, Font.BOLD));
+                    Paragraph cert = new Paragraph(inscricao.getParticipante().getUsuario().getNome(), FontFactory.getFont(FontFactory.HELVETICA, 22, Font.BOLD));
                     cert.setAlignment(Element.ALIGN_CENTER);
                     cert.setSpacingBefore(150);
-                    cert.setSpacingAfter(45);
+                    cert.setSpacingAfter(55);
                     document.add(cert);
 
-                    Paragraph p1 = new Paragraph(a.getNome(), FontFactory.getFont(FontFactory.HELVETICA, 27, Font.BOLD));
+                    Paragraph p1 = new Paragraph(a.getNome(), FontFactory.getFont(FontFactory.HELVETICA, 22, Font.BOLD));
                     p1.setAlignment(Element.ALIGN_CENTER);
                     document.add(p1);
 
@@ -113,10 +123,11 @@ public class CmdGerarCertificado implements Comando {
 
                     }
 
-                    cargaHoraria = cargaHoraria/60;
+                    cargaHoraria = Math.ceil(cargaHoraria/60);
+                    int ch = (int) cargaHoraria;
 
-                    Paragraph p4 = new Paragraph("    Carga horária: " + cargaHoraria + " horas.", FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLD));
-                    p4.setSpacingBefore(52);
+                    Paragraph p4 = new Paragraph("    Carga horária: " + ch + " horas.", FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLD));
+                    p4.setSpacingBefore(48);
 
                     document.add(p4);
 
@@ -155,5 +166,14 @@ public class CmdGerarCertificado implements Comando {
         }
 
         return "/org/organ_gerenciar_inscricoes.jsp";
+    }
+    
+    private static ArrayList<Long> getIdsAtividadeCeriticadoLiberado(ArrayList<InscricaoAtividade> ias){
+        ArrayList<Long> ids = new ArrayList<Long>();
+        for(InscricaoAtividade ia : ias){
+            if(ia.isConfirmaCertificado())
+                ids.add(ia.getAtividadeId());
+        }
+        return ids;
     }
 }

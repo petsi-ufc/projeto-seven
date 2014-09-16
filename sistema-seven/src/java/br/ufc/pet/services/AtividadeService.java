@@ -7,7 +7,9 @@ package br.ufc.pet.services;
 import br.ufc.pet.daos.AtividadeDAO;
 import br.ufc.pet.evento.Atividade;
 import br.ufc.pet.evento.Horario;
+import br.ufc.pet.evento.Inscricao;
 import br.ufc.pet.evento.InscricaoAtividade;
+import br.ufc.pet.evento.PrecoAtividade;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -155,5 +157,28 @@ public class AtividadeService {
            
     }
     
+    public ArrayList<InscricaoAtividade> getIncricaoAtividadeByInscricao(Long idInscricao) throws SQLException{
+        try {
+            ArrayList<InscricaoAtividade> ia = atividadeDAO.getIncricaoAtividadeByInscricao(idInscricao);
+            return ia;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+     }
+    
+    
+    /*public double getPrecoInscricao(Long idAtividade, Inscricao i) {
+       
+        for (PrecoAtividade p : i.getModalidade().getPrecoAtividades()) {
+            for (Atividade a : i.getAtividades()) {
+                if (a.getTipo().getId().equals(p.getTipoAtividadeId()) && 
+                        a.getId().compareTo(idAtividade)==0) {
+                    return p.getValor();
+                }
+            }
+        }
+        return 0;
+    }*/
     
 }

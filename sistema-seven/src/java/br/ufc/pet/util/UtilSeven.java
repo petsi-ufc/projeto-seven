@@ -12,12 +12,15 @@ import br.ufc.pet.services.AtividadeService;
 import br.ufc.pet.services.ModalidadeInscricaoService;
 import br.ufc.pet.services.TipoAtividadeService;
 import br.ufc.pet.services.UsuarioService;
+import com.sun.org.apache.xalan.internal.xsltc.runtime.BasisLibrary;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -174,12 +177,15 @@ public class UtilSeven {
         
     }//fim do método
 
-    public static void main(String args[]){
-
+    public static void main(String args[]) throws SQLException{
+        
+        /*AtividadeService as = new AtividadeService();
+        ArrayList<Long> ids = UtilSeven.getIdsAtividadeCeriticadoLiberado(as.getIncricaoAtividadeByInscricao(126L));
         
         
-        
-        
+        for(Long l : ids){
+            System.out.println(l);
+        }
         
         
         
@@ -193,7 +199,7 @@ public class UtilSeven {
         
         
         
-      /*
+      
       UsuarioService us = new UsuarioService();
       ArrayList<Usuario> lista = new ArrayList<Usuario>();
       lista = us.getAllUsers();
@@ -207,4 +213,13 @@ public class UtilSeven {
 
         //System.out.println(criptografar("94055771"));
     }
+    
+    /*private static ArrayList<Long> getIdsAtividadeCeriticadoLiberado(ArrayList<InscricaoAtividade> ias){
+        ArrayList<Long> ids = new ArrayList<Long>();
+        for(InscricaoAtividade ia : ias){
+            if(ia.isConfirmaCertificado())
+                ids.add(ia.getAtividadeId());
+        }
+        return ids;
+    }*/
 }

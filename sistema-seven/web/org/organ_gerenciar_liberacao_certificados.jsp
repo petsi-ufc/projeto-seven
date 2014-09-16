@@ -3,6 +3,7 @@
     Created on : 27/08/2014
     Author     : Anderson
 --%>
+<%@page import="br.ufc.pet.evento.Inscricao"%>
 <%@page import="br.ufc.pet.evento.Participante"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList" %>
@@ -64,6 +65,7 @@
                 <%if (parts == null || parts.size() == 0) {%>
                 <center><label>Sem participantes quites nesta atividade</label></center>
                 <%} else {%>
+                
                 <form name="formVerificarAluno" action="../ServletCentral?comando=CmdConfirmarLiberacaoCertificado" class="confirmaCertificado" method="post" onsubmit="return confirm('Deseja realmente liberar os certificados para os participantes selecionados?');" >
                     <table>
                         <tr>

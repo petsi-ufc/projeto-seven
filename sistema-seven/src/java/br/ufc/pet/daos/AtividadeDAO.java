@@ -63,4 +63,9 @@ public class AtividadeDAO {
          PostgresMapConfig.getSqlMapClient().update("confirmaLiberacaoCertificadoAtividade", utility);
          
      }
+     
+     public ArrayList<InscricaoAtividade> getIncricaoAtividadeByInscricao(Long idInscricao) throws SQLException{
+         return (ArrayList<InscricaoAtividade>) PostgresMapConfig.getSqlMapClient().queryForList("getIncricaoAtividadeByInscricao", idInscricao);
+     }
+             
 }

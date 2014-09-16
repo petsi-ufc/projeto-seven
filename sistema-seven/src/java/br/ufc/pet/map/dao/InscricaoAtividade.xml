@@ -21,13 +21,21 @@
    </resultMap>
 
 
+    <select id="getIncricaoAtividadeByInscricao" resultClass="long" parameterClass="long" 
+        resultMap="inscricaoAtividadeResult">
+        SELECT inscricao_id, atividade_id, certificado_liberado
+        FROM evento.inscricao_atividade
+        WHERE inscricao_id=#var#;
+
+    </select> 
+
  <update id="confirmaLiberacaoCertificadoAtividade" parameterClass="inscricaoAtividade" >
         UPDATE evento.inscricao_atividade
         SET certificado_liberado=#confirmaCertificado#
         WHERE inscricao_id = #inscricaoId# and atividade_id = #atividadeId#;
    </update> 
    
-   
+     
    
 
 </sqlMap>

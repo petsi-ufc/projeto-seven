@@ -1,6 +1,5 @@
 package br.ufc.pet.util;
 
-import sun.misc.BASE64Encoder;
 import br.ufc.pet.evento.Atividade;
 import br.ufc.pet.evento.Horario;
 import br.ufc.pet.evento.InscricaoAtividade;
@@ -13,6 +12,9 @@ import br.ufc.pet.services.ModalidadeInscricaoService;
 import br.ufc.pet.services.TipoAtividadeService;
 import br.ufc.pet.services.UsuarioService;
 import com.sun.org.apache.xalan.internal.xsltc.runtime.BasisLibrary;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import sun.misc.BASE64Encoder;
 
 /**
  *
@@ -178,6 +181,18 @@ public class UtilSeven {
     }//fim do método
 
     public static void main(String args[]) throws SQLException{
+        /*
+        
+        Path path = Paths.get("web/resources/templates_certificados_uploads");
+        
+        
+        System.out.println(path.toAbsolutePath());
+        String x = path.toAbsolutePath().toString();
+        System.out.println("Valor de X:"+x);
+        System.out.println(Files.exists(path));
+        
+        */
+        
         
         /*AtividadeService as = new AtividadeService();
         ArrayList<Long> ids = UtilSeven.getIdsAtividadeCeriticadoLiberado(as.getIncricaoAtividadeByInscricao(126L));

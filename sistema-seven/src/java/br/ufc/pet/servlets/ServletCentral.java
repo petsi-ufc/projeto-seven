@@ -37,6 +37,7 @@ import br.ufc.pet.comandos.organizador.CmdBuscarParticipantedeEvento;
 import br.ufc.pet.comandos.organizador.CmdBuscarUsuarioResponsavel;
 import br.ufc.pet.comandos.organizador.CmdCadastrarUsuarioResponsavel;
 import br.ufc.pet.comandos.organizador.CmdConfirmarLiberacaoCertificado;
+
 import br.ufc.pet.comandos.organizador.CmdEditarAtividade;
 import br.ufc.pet.comandos.organizador.CmdEditarHorario;
 import br.ufc.pet.comandos.organizador.CmdEditarResponsavel;
@@ -78,6 +79,7 @@ import br.ufc.pet.comandos.organizador.CmdRelatorioParticipantesQuites;
 import br.ufc.pet.comandos.organizador.CmdRemoverResponsavelAtividade;
 import br.ufc.pet.comandos.organizador.CmdSelecionarResponsavelEdicao;
 import br.ufc.pet.comandos.organizador.CmdUpdateMovimentacaoFinanceira;
+import br.ufc.pet.comandos.organizador.CmdUploadModeloCertificado;
 import br.ufc.pet.comandos.organizador.CmdVisualizarAtividade;
 import br.ufc.pet.comandos.participante.CmdEditarInscricao;
 import br.ufc.pet.comandos.participante.CmdEditarParticipante;
@@ -188,10 +190,13 @@ public class ServletCentral extends HttpServlet {
         comandos.put("CmdListarAtividadesDownload", cmdo);
         cmdo = new CmdListarAtividadeFrequencia();
         comandos.put("CmdListarAtividadeFrequencia", cmdo);
+        
         cmdo = new CmdRelatorioParticipanteAtividade();
         comandos.put("CmdRelatorioParticipanteAtividade", cmdo);
+        
         cmdo = new CmdGerarFrequenciaAtividade();
         comandos.put("CmdGerarFrequenciaAtividade", cmdo);
+        
         cmdo = new CmdSelecionarAtividade();
         comandos.put("CmdSelecionarAtividade", cmdo);
         cmdo = new CmdRemoverAtividade();
@@ -315,6 +320,8 @@ public class ServletCentral extends HttpServlet {
         comandos.put("CmdOrgSubmeterInscricao", cmdo);
         cmdo = new CmdBuscarParticipantePorEmail();
         comandos.put("CmdBuscarParticipantePorEmail", cmdo);
+        
+        
         cmdo = new CmdGerarCertificado();
         comandos.put("CmdGerarCertificado", cmdo);
         cmdo = new CmdGerenciarUploadCertificados();
@@ -325,6 +332,18 @@ public class ServletCentral extends HttpServlet {
         comandos.put("CmdGerenciarLiberacaoCertificadoAtividade", cmdo);
         cmdo = new CmdConfirmarLiberacaoCertificado();
         comandos.put("CmdConfirmarLiberacaoCertificado", cmdo);
+        
+        cmdo = new CmdUploadModeloCertificado();
+        comandos.put("CmdUploadModeloCertificado", cmdo);
+        
+        
+        
+        
+        
+        
+        
+       
+        
 
     }
 // <editor-fold defaultstate="collapsed" desc="Métodos HttpServlet. Clique no sinal de + à esquerda para editar o código.">

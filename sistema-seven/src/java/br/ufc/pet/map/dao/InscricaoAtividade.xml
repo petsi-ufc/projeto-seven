@@ -29,7 +29,7 @@
 
     </select> 
 
- <update id="confirmaLiberacaoCertificadoAtividade" parameterClass="inscricaoAtividade" >
+    <update id="confirmaLiberacaoCertificadoAtividade" parameterClass="inscricaoAtividade" >
         UPDATE evento.inscricao_atividade
         SET certificado_liberado=#confirmaCertificado#
         WHERE inscricao_id = #inscricaoId# and atividade_id = #atividadeId#;

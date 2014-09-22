@@ -4,16 +4,16 @@
  */
 package br.ufc.pet.comandos.organizador;
 
-import br.ufc.pet.evento.Evento;
+import br.ufc.pet.evento.Atividade;
+import br.ufc.pet.evento.Inscricao;
 import br.ufc.pet.evento.InscricaoAtividade;
 import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.AtividadeService;
-import br.ufc.pet.services.EventoService;
-import br.ufc.pet.util.UtilSeven;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import br.ufc.pet.services.InscricaoService;
+import br.ufc.pet.util.SendMail;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -42,10 +42,24 @@ public class CmdConfirmarLiberacaoCertificado implements Comando {
 
                 InscricaoAtividade ia = new InscricaoAtividade();
                 ia.setAtividadeId(idAtividade);
+                Atividade ativ = ativServ.getAtividadeById(idAtividade);
+                InscricaoService inscServ = new InscricaoService();
                 for (Long id : ids) {
+                    Inscricao insc = inscServ.getInscricaoById(id);
                     ia.setInscricaoId(id);
                     ia.setConfirmaCertificado(true);
                     ativServ.confirmaLiberacaoCertificadoAtividade(ia);
+                    //enviar email
+                    String messageBody = "Avisamos que seu certificado da atividade "+ativ.getNome()
+                            + " está liberado para download na sua conta do SEven. Para Isso vá em: "
+                            + "Minhas Inscrições -> Gerar Certificado.\n\n"
+                            + "Atenciosamente, \n\nEquipe PET";
+                    String subject = "Liberação do Certificado da Atividade "+ativ.getNome()+" no evento "+insc.getEvento().getNome();
+                    try {
+                        SendMail.sendMail(insc.getParticipante().getUsuario().getEmail(), subject, messageBody);
+                    } catch (MessagingException ex) {
+                        Logger.getLogger(CmdConfirmarLiberacaoCertificado.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
                 
             } catch (NumberFormatException e){
@@ -55,18 +69,7 @@ public class CmdConfirmarLiberacaoCertificado implements Comando {
         
         }
 
-        /*Evento evento = (Evento) session.getAttribute("evento");
-        evento.setInicioPeriodoEvento(UtilSeven.treatToDate(inicioEvento));
-        evento.setFimPeriodoEvento(UtilSeven.treatToDate(fimEvento));
-        evento.setInicioPeriodoInscricao(UtilSeven.treatToDate(inicioInscricao));
-        evento.setFimPeriodoInscricao(UtilSeven.treatToDate(fimInscricao));
-        EventoService eventoService = new EventoService();
-        if (!eventoService.atualizar(evento)) {
-            session.setAttribute("erro", "Modificação sem sucesso");
-        }
-        session.setAttribute("sucesso", "Modificação realizada com sucesso");
-        session.setAttribute("evento", evento);*/
-
+        session.setAttribute("sucesso", "Certificados liberados com sucesso");
         return "/org/organ_gerenciar_atividades.jsp";
     }
 }

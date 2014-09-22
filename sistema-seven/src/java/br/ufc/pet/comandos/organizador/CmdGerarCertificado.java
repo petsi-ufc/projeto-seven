@@ -32,6 +32,9 @@ import com.lowagie.text.pdf.PdfWriter;
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -84,8 +87,13 @@ public class CmdGerarCertificado implements Comando {
                         continue;
                     }
 
-                    Image jpgTemplate = Image.getInstance("http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/imagens/template.jpg");
-
+                    //Image jpgTemplate = Image.getInstance("http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/imagens/template.jpg");
+                    Path path = Paths.get("templates_certificados_uploads/"+inscricao.getEvento().getId());
+                    if(!Files.exists(path)){
+                        path = Paths.get("templates_certificados_uploads/template_padrao.jpg");
+                    }
+                    Image jpgTemplate = Image.getInstance(path.toAbsolutePath().toString());
+                       
 
                     PdfContentByte canvas = writer.getDirectContentUnder();
                     jpgTemplate.scaleAbsolute(document.getPageSize().getWidth(), document.getPageSize().getHeight());

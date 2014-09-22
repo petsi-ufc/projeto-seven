@@ -12,7 +12,6 @@ import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.AtividadeService;
 import br.ufc.pet.services.EventoService;
 import br.ufc.pet.services.ParticipanteService;
-import br.ufc.pet.services.UsuarioService;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

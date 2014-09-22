@@ -146,6 +146,7 @@ public class InscricaoService {
             for (Atividade a : i.getAtividades()) {
                 if (a.getTipo().getId().equals(p.getTipoAtividadeId())) {
                     preco += p.getValor();
+                    
                 }
             }
         }

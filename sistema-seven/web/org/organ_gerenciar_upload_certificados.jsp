@@ -13,6 +13,22 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link href="../css/estilo.css" rel="stylesheet" type="text/css" />
         <title>Centro de Controle :: Organizador</title>
+        <script type="text/javascript">
+	function checkFile() {
+		var fileElement = document.getElementById("uploadFile");
+		var fileExtension = "";
+		if (fileElement.value.lastIndexOf(".") > 0) {
+			fileExtension = fileElement.value.substring(fileElement.value
+					.lastIndexOf(".") + 1, fileElement.value.length);
+		}
+		if (fileExtension == "jpg") {
+			return true;
+		} else {
+			alert("Você deve selecionar um arquivo no formarto 'jpg' para upload.");
+			return false;
+		}
+	}
+</script>
     </head>
     <body>
         <%
@@ -31,18 +47,24 @@
                 <table>
                     <tr>
 
-                        <td><form action="../ServletCentral?comando=CmdAlterarPeriodoInscricaoeEvento" method="POST" class="cadastro">
-                         <label>Upload do template do certificado: </label><br/>
-                         <input type="text" name="inicioEvento" maxlength="10" value="" onkeypress="return formataData(this,event)"><br/>
-                         <input type="submit" value="Enviar" class="button" onclick="return confirm('Deseja realmente executar essa modificação?')" />
-                         <a href="" title="" onclick="history.back(); return false;" class="voltarCadastro">Voltar</a><br />
+                        <td>
+                         
+               
                         </form>
+                        <form action="../ServletCentral?comando=CmdUploadModeloCertificado&id_evento=<%=e.getId() %>" method="post" enctype="multipart/form-data" onsubmit="return checkFile();">
+                                
+                                
+                                <input type="file" name="arquivo" id="uploadFile"> 
+                                     
+                                <input type="submit" value="Enviar">
+                            </form>        
+	</form>
                          </td>
                          <td>
                             <br>
                              <p style="text-align: left">
                              <b>Deve ser feito o upload de um template seguindo os passos abaixo:</b><br>
-                             1º Faça o download do template de exemplo<a href="#">Aqui</a>.<br>
+                             1º Faça o download do template de exemplo<a href="../resources/template.pptx">Aqui</a>.<br>
                              2º Abra com o Power Point<br>
                              3º Edite o modelo de certificado ao seu gosto, porém deixe as ciaxas pretas como estão.)<br>
                              4º Depois apague as caixas pretas. (O sistema irá preencher esses espaços com informações do participante)<br>

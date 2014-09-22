@@ -31,6 +31,7 @@
     <typeAlias alias="usuario" type="br.ufc.pet.evento.Usuario"/>
     <typeAlias alias="utility" type="br.ufc.pet.evento.Utility"/>
     <typeAlias alias="inscricaoAtividade" type="br.ufc.pet.evento.InscricaoAtividade"/>
+    
 <!--configuration-->
     <transactionManager type="JDBC">
         <dataSource type="SIMPLE">

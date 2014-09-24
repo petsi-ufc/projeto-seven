@@ -85,14 +85,11 @@ public class CmdGerarCertificado implements Comando {
                     
                     if(!idsAtiv.contains(a.getId())){
                         continue;
-                    }
-
-                    //Image jpgTemplate = Image.getInstance("http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/imagens/template.jpg");
-                    Path path = Paths.get("templates_certificados_uploads/"+inscricao.getEvento().getId());
-                    if(!Files.exists(path)){
-                        path = Paths.get("templates_certificados_uploads/template_padrao.jpg");
-                    }
-                    Image jpgTemplate = Image.getInstance(path.toAbsolutePath().toString());
+                    }    
+                    
+                    String path = "/SEVEN_ARQUIVOS/templates_certificados_upload/"+inscricao.getEvento().getId();
+                    
+                    Image jpgTemplate = Image.getInstance(path);
                        
 
                     PdfContentByte canvas = writer.getDirectContentUnder();

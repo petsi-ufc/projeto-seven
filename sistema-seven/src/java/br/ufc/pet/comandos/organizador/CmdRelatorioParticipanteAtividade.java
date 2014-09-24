@@ -36,7 +36,11 @@ public class CmdRelatorioParticipanteAtividade implements Comando {
     @SuppressWarnings("static-access")
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
-        String caminhoImagem = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/ufc.jpg";
+        String hostName = request.getServerName();
+        String caminhoImagem = "http://"+request.getServerName()+request.getContextPath()+"/imagens/ufc.jpg";
+        if(hostName.equals("localhost")){
+            caminhoImagem = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/ufc.jpg";
+        }
         Long id = Long.parseLong(request.getParameter("idAtv"));
         Atividade at = new AtividadeService().getAtividadeById(id); //pega a atividade pelo id
         //System.out.println(at == null);

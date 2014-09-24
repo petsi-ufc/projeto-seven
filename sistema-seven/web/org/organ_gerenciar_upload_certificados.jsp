@@ -66,7 +66,7 @@
                              <b>Deve ser feito o upload de um template seguindo os passos abaixo:</b><br>
                              1º Faça o download do template de exemplo<a href="../resources/template.pptx">Aqui</a>.<br>
                              2º Abra com o Power Point<br>
-                             3º Edite o modelo de certificado ao seu gosto, porém deixe as ciaxas pretas como estão.)<br>
+                             3º Edite o modelo de certificado ao seu gosto, porém deixe as caixas pretas como estão.<br>
                              4º Depois apague as caixas pretas. (O sistema irá preencher esses espaços com informações do participante)<br>
                              5º Salve o tempate em formato .jpg<br>
                              6º Faça o upload do template.<br>

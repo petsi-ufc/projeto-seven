@@ -23,6 +23,7 @@ public class ConnectionFactory {
     public static Connection getConnection() throws Exception {
         try {
             Class.forName("org.postgresql.Driver");
+            
             return DriverManager.getConnection("jdbc:postgresql://localhost:5432/seven", "postgres", "postgres");
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());

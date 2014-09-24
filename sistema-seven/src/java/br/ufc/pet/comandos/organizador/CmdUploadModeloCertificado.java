@@ -34,8 +34,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -54,24 +52,16 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  * @author salomao
  */
 public class CmdUploadModeloCertificado implements Comando {
-    
-     private File diretorio;
-    
-    
+
     @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         
         HttpSession session = request.getSession(true);
         
         String idEvento = request.getParameter("id_evento");
-        
-        Path path = Paths.get("templates_certificados_uploads");
 
-        diretorio = new File(path.toAbsolutePath().toString());
-  
-        diretorio.mkdirs();
         
-        
+        String path = "/SEVEN_ARQUIVOS/templates_certificados_upload/"+idEvento;
 
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
         if (!isMultipart) {
@@ -80,8 +70,6 @@ public class CmdUploadModeloCertificado implements Comando {
         }
 
         DiskFileItemFactory factory = new DiskFileItemFactory();
-
-        factory.setRepository(diretorio);
 
         ServletFileUpload upload = new ServletFileUpload(factory);
 
@@ -93,8 +81,7 @@ public class CmdUploadModeloCertificado implements Comando {
                 FileItem item = iter.next();
                 if (!item.isFormField()) {
 
-                    //processUploadedFile(item);
-                    File uploadedFile = new File(diretorio, idEvento);
+                    File uploadedFile = new File(path);
                     item.write(uploadedFile);
                 }
             }

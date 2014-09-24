@@ -37,8 +37,11 @@ public class CmdRelatorioParticipantesQuites implements Comando {
     @SuppressWarnings("static-access")
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
-        //String caminhoImagem = "/Turmas/ufc_logo.png";//"http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/ufc.jpg";
-        String caminhoImagem = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/ufc.jpg";//"http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/ufc.jpg";
+        String hostName = request.getServerName();
+        String caminhoImagem = "http://"+request.getServerName()+request.getContextPath()+"/imagens/ufc.jpg";
+        if(hostName.equals("localhost")){
+            caminhoImagem = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/ufc.jpg";
+        }
         Evento en = (Evento) session.getAttribute("evento");
         ParticipanteService partS = new ParticipanteService();
         ArrayList<Participante> parts = partS.getParticipantesQuitesByEventoId(en.getId());

@@ -56,14 +56,14 @@
                     ArrayList<InscricaoAtividade> ias = null;
 
                     for (Inscricao i : array) {
-                        ias = as.getIncricaoAtividadeByInscricao(i.getId());
+                        //ias = as.getIncricaoAtividadeByInscricao(i.getId());
                         boolean liberarCertificado = false;
-                        for(InscricaoAtividade ia : ias){
+                        /*for(InscricaoAtividade ia : ias){
                             if(ia.isConfirmaCertificado()){
                                 liberarCertificado = true;
                                 break;
                             }
-                        }
+                        }*/
                     %>
                     <tr>
                         <td><%=i.getModalidade().getTipo()%></td>

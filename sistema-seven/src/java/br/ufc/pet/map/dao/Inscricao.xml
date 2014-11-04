@@ -4,6 +4,7 @@
 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 
 <sqlMap namespace="Inscricao">
+    
     <resultMap id="inscricaoResult" class="inscricao">
         <result property="id" column="id"/>
         <result property="dataRealizada" column="data_realizacao"/>

@@ -18,6 +18,7 @@
     <%          //recupera participante da sessão
                 Participante p = (Participante) session.getAttribute("user");
                 ArrayList<Inscricao> array = p.getInscricoes();
+                
                 String estado;//será utilizada para dizer se uma inscrição está ou não está consolidada
                 
                 
@@ -37,7 +38,7 @@
             <div id="content">
                 <h1 class="titulo">Visualizar Minhas Inscrições</h1>
                 <p><a href="../ServletCentral?comando=CmdListarEventosAbertos" title="Nova Inscrição">Nova Inscrição</a></p>
-                <%if (array.isEmpty()) {%>
+                <%if (array==null || array.isEmpty()) {%>
                 <center><label>Não há inscrições cadastradas</label></center>
                 <%} else {%>
                 <table>
@@ -53,17 +54,20 @@
                     <% 
                     
                     AtividadeService as = new AtividadeService();
-                    ArrayList<InscricaoAtividade> ias = null;
-
+                    ArrayList<InscricaoAtividade> ias = new ArrayList<InscricaoAtividade>();                 
                     for (Inscricao i : array) {
-                        //ias = as.getIncricaoAtividadeByInscricao(i.getId());
                         boolean liberarCertificado = false;
-                        /*for(InscricaoAtividade ia : ias){
-                            if(ia.isConfirmaCertificado()){
+                        ias = as.getIncricaoAtividadeByInscricao(i.getId());  
+                        if(ias!=null){
+                        for (int cont=0; cont<ias.size();cont++){                     
+                          System.out.println(ias.get(cont).isConfirmaCertificado());
+                          if(ias.get(cont).isConfirmaCertificado()){
                                 liberarCertificado = true;
                                 break;
-                            }
-                        }*/
+                           }
+                        }
+                        }
+                        
                     %>
                     <tr>
                         <td><%=i.getModalidade().getTipo()%></td>

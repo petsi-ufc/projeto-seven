@@ -12,6 +12,13 @@ public class InscricaoAtividade extends Bean{
     private Long inscricaoId;
     private boolean confirmaCertificado;
 
+    
+    
+    public InscricaoAtividade(){
+    
+    }
+    
+    
     public Long getAtividadeId() {
         return atividadeId;
     }
@@ -29,9 +36,14 @@ public class InscricaoAtividade extends Bean{
     }
 
     public boolean isConfirmaCertificado() {
-        return confirmaCertificado;
+        return this.confirmaCertificado;
     }
-
+/*
+    public boolean getConfirmaCertificado() {
+        return  this.confirmaCertificado;
+                
+    }*/
+    
     public void setConfirmaCertificado(boolean confirmaCertificado) {
         this.confirmaCertificado = confirmaCertificado;
     }

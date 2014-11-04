@@ -97,8 +97,6 @@ public class CmdAddOrganizadorNovo implements Comando {
                     }
                 }
             }
-
-
             session.setAttribute("erro", " falha ao cadastradar!");
             return "/admin/organ_listar_movimentacao.jsp";
 

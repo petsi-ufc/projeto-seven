@@ -51,7 +51,8 @@ public class CmdConfirmarLiberacaoCertificado implements Comando {
                     ativServ.confirmaLiberacaoCertificadoAtividade(ia);
                     //enviar email
                     String messageBody = "Avisamos que seu certificado da atividade "+ativ.getNome()
-                            + " está liberado para download na sua conta do SEven. Para Isso vá em: "
+                            + " está liberado para download na sua conta do SEven. "
+                            + "Acesse o sistema com sua conta de usuário, depois vá em: \n"
                             + "Minhas Inscrições -> Gerar Certificado.\n\n"
                             + "Atenciosamente, \n\nEquipe PET";
                     String subject = "Liberação do Certificado da Atividade "+ativ.getNome()+" no evento "+insc.getEvento().getNome();

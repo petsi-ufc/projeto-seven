@@ -65,7 +65,7 @@ public class CmdGerarCertificado implements Comando {
             Inscricao inscricao = is.getInscricaoById(Long.parseLong(inscricao_id));
 
             response.setContentType("application/pdf");
-            response.setHeader("Content-Disposition", " attachment; filename=\"relatorio_" + inscricao.getParticipante().getUsuario().getNome() + ".pdf\"");
+            response.setHeader("Content-Disposition", " attachment; filename=\"certificado_" + inscricao.getParticipante().getUsuario().getNome() + ".pdf\"");
 
 
             Document document = new Document(PageSize.LETTER.rotate());

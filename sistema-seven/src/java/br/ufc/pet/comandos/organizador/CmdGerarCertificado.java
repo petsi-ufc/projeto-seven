@@ -104,7 +104,7 @@ public class CmdGerarCertificado implements Comando {
                     cert2.setSpacingAfter(20);
                     document.add(cert2);
 
-                    Paragraph cert = new Paragraph(inscricao.getParticipante().getUsuario().getNome(), FontFactory.getFont(FontFactory.HELVETICA, 22, Font.BOLD));
+                    Paragraph cert = new Paragraph(inscricao.getParticipante().getUsuario().getNome().toUpperCase(), FontFactory.getFont(FontFactory.HELVETICA, 22, Font.BOLD));
                     cert.setAlignment(Element.ALIGN_CENTER);
                     cert.setSpacingBefore(150);
                     cert.setSpacingAfter(55);

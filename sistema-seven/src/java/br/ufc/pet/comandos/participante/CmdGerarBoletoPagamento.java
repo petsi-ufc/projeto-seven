@@ -33,8 +33,10 @@ public class CmdGerarBoletoPagamento implements Comando {
     @SuppressWarnings("static-access")
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
-        String caminhoImagem = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/ufc.jpg";
+        //String caminhoImagem = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/ufc.jpg";
 
+        String caminhoImagem ="/SEVEN_ARQUIVOS/templates_certificados_upload/UFC.png";
+        
         Long idInc = Long.parseLong(request.getParameter("id"));
         Inscricao inscricao = new InscricaoService().getInscricaoById(idInc); //pega a inscricao pelo id
         inscricao.setParticipante((Participante) session.getAttribute("user"));

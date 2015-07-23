@@ -41,7 +41,12 @@ public class CmdAdicionarModalidade implements Comando {
                 PrecoAtividade preco = new PrecoAtividade();
                 preco.setModalidadeId(modalidade.getId());
                 preco.setTipoAtividadeId(t.getId());
-                preco.setValor(Double.parseDouble(request.getParameter("preco_" + t.getId().toString())));
+                try{
+                    preco.setValor(Double.parseDouble( (request.getParameter("preco_" + t.getId().toString())).replace(",", ".")));
+                } catch(NumberFormatException e){
+                    session.setAttribute("erro", "Valor inválido!");
+                    return "/ServletCentral?comando=CmdListarTipoModalidade";
+                }
                 precos.add(preco);
             }
             modalidade.setPrecoAtividades(precos);
@@ -78,7 +83,12 @@ public class CmdAdicionarModalidade implements Comando {
                 // modalidade = ms.getModalidadeInscricaoByTipo(nomeModalidade);
                 //precoAtiv.setModalidadeId(modalidade.getId());
                 precoAtiv.setTipoAtividadeId(t.getId());
-                precoAtiv.setValor(Double.parseDouble(request.getParameter("preco_" + t.getId().toString())));
+                try{
+                    precoAtiv.setValor(Double.parseDouble( (request.getParameter("preco_" + t.getId().toString())).replace(",", ".")));
+                } catch(NumberFormatException e){
+                    session.setAttribute("erro", "Valor inválido!");
+                    return "/ServletCentral?comando=CmdListarTipoModalidade";
+                }
                 precos.add(precoAtiv);
             }
             modalidade.setPrecoAtividades(precos);

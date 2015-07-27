@@ -38,6 +38,7 @@
                 <%@include file="organ_menu.jsp" %>
             </div>
             <div id="content">
+                 <%@include file="/error.jsp" %>
                 <h1 class="titulo">Recebimento de Pagamentos de Inscrição</h1>
                 <form style="width: 290px;" action="../ServletCentral?comando=CmdBuscarParticipantePorEmail" method="post" class="box_destaque cadastro">
 

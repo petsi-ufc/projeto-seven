@@ -37,10 +37,10 @@ public class CmdBuscarParticipantePorEmail implements Comando {
             String email = request.getParameter("email");
             String evento = request.getParameter("evento_id");
 
-            if (email.equals("") || email == null || email.trim().isEmpty() == true) {
+            if (email == null || email.equals("") || email.trim().isEmpty()) {
                 session.setAttribute("mensagem", "vazio");
                 return "/org/organ_listar_pagamento_part.jsp";
-            }else if (evento.equals("") || evento == null || evento.trim().isEmpty() == true) {
+            } else if (evento == null || evento.equals("") || evento.trim().isEmpty()) {
                 session.setAttribute("mensagem", "vazio");
                 return "/org/organ_listar_pagamento_part.jsp";
             }
@@ -48,6 +48,12 @@ public class CmdBuscarParticipantePorEmail implements Comando {
             
             UsuarioService us = new UsuarioService();
             Usuario user = us.getByEmail(email);
+            
+            
+            if(user == null){
+                session.setAttribute("mensagem", "naoencontrado");
+                return "/org/organ_listar_pagamento_part.jsp";
+            } 
 
 
             ParticipanteService ps = new ParticipanteService();
@@ -64,7 +70,6 @@ public class CmdBuscarParticipantePorEmail implements Comando {
         } else {
             inscricoesdoevento = (Inscricao) session.getAttribute("pago");
             session.removeAttribute("pago");
-            System.out.println("PASSEIIIIIII " + inscricoesdoevento.getId());
         }
         Evento evento = (Evento) session.getAttribute("evento");
 

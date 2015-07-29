@@ -27,10 +27,13 @@ public class CmdAdicionarHorario implements Comando {
         String hf = request.getParameter("hora_final");
         String mf = request.getParameter("min_final");
         String dia = request.getParameter("dia");
-        HorarioService hs = new HorarioService();
+        
         Horario novoH = new Horario();
         Horario horEdit = (Horario) session.getAttribute("horario");
         session.removeAttribute("horario");
+        
+        Evento evento = (Evento) session.getAttribute("evento");
+        HorarioService hs = new HorarioService(evento.getInicioPeriodoEvento(), evento.getFimPeriodoEvento());
 
         if (hi == null || mi == null || hi.trim().equals("") || mi.trim().equals("") || hf == null || hf.equals("") || mf == null || mf.equals("") || dia == null || dia.equals("")) {
             session.setAttribute("erro", "Preencha todos os campos obrigatórios.");
@@ -53,9 +56,15 @@ public class CmdAdicionarHorario implements Comando {
                 } else {
                     novoH.setDia(UtilSeven.treatToDate(dia));
                 }
-                Evento evento = (Evento) session.getAttribute("evento");
+                
+                
                 novoH.setEventoId(evento.getId());
-                hs.adicionar(novoH);
+                
+                
+                if(!hs.adicionar(novoH)){
+                    session.setAttribute("erro", "A data informada não é válida!");
+                    return "/org/organ_add_horario.jsp";
+                }
                 ArrayList<Horario> hors = (ArrayList<Horario>) session.getAttribute("horarios");
                 hors.add(novoH);
                 session.setAttribute("sucesso", "Horário adicionado com sucesso!");
@@ -83,7 +92,8 @@ public class CmdAdicionarHorario implements Comando {
                 if (hs.atualizar(horEdit)) {
                     session.setAttribute("sucesso", "Horário atualizado com sucesso!");
                 } else {
-                    session.setAttribute("erro", "Falha na atualização!");
+                    session.setAttribute("erro", "A data informada não é válida!");
+                    return "/org/organ_add_horario.jsp";
                 }
             }
         }

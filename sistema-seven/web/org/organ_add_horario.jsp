@@ -6,7 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<%@page import="java.util.ArrayList,br.ufc.pet.evento.Horario" %>
+<%@page 
+    import="java.util.ArrayList,br.ufc.pet.evento.Horario,br.ufc.pet.evento.Evento,java.text.DateFormat, java.text.SimpleDateFormat" 
+ %>
 <html>
     <%@include file="../ErroAutenticacaoUser.jsp" %>
     <head>
@@ -32,6 +34,14 @@
                         data = br.ufc.pet.util.UtilSeven.treatToString(horario.getDia());
                         titulo = "Editar";
                     }
+                    Evento evento = (Evento) session.getAttribute("evento");
+                    String dataInicio = "--/--/----";
+                    String dataFim = "--/--/----";
+                    if(evento != null){
+                        DateFormat format = new SimpleDateFormat("dd/MM/YYYY");
+                        dataInicio = format.format(evento.getInicioPeriodoEvento());
+                        dataFim = format.format(evento.getFimPeriodoEvento());
+                    }
         %>
         <div id="container">
             <div id="top">
@@ -50,7 +60,10 @@
                         <input style="width: 70px;" maxlength="2" type="text"  onkeypress="return validaNumerosSilencioso(event)"name="hora_final" value="<%=hf%>"/>:
                         <input style="width: 70px;" maxlength="2" type="text"  onkeypress="return validaNumerosSilencioso(event)"name="min_final" value="<%=mf%>"/><br /><br/>
                         <label>Data:</label><br />
-                        <input style="width: 152px;"type="text" onkeypress="return formataData(this,event)" maxlength="10" name="dia" value="<%=data%>"/><br />
+                        <input style="width: 152px;"type="text" onkeypress="return formataData(this,event)" maxlength="10" name="dia" value="<%=data%>"/><br><br>
+                                
+                        <label>Data do Evento - De: <strong><%=dataInicio%></strong>  </label> 
+                        <label> até: <strong><%=dataFim%></strong> </label> 
                     </fieldset>
                     <input type="submit" value="Enviar" class="button" onclick="return confirm('Deseja realmente enviar esses dados?')" />
                     <a href="../ServletCentral?comando=CmdListarHorarios" title="" class="voltarCadastro">Voltar</a>

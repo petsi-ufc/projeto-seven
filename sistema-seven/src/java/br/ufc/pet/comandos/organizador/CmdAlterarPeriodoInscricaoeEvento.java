@@ -5,12 +5,17 @@
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Evento;
+import br.ufc.pet.evento.Organizador;
 import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.EventoService;
+import br.ufc.pet.util.SendMail;
 import br.ufc.pet.util.UtilSeven;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -77,8 +82,18 @@ public class CmdAlterarPeriodoInscricaoeEvento implements Comando {
             return "/org/organ_periodos_inscricao_e_evento.jsp";
         }
 
-
+        //Variáveis usadas para pegar o periodo(data) antiga
+        //que o evento iria ocorrer.
+        String vDiaInicio, vDiaFim, vDiaInicioInsc, vDiaFimInsc;
+        
         Evento evento = (Evento) session.getAttribute("evento");
+        
+        vDiaInicio = UtilSeven.treatToString(evento.getInicioPeriodoEvento());
+        vDiaFim = UtilSeven.treatToString(evento.getFimPeriodoEvento());
+        
+        vDiaInicioInsc = UtilSeven.treatToString(evento.getInicioPeriodoInscricao());
+        vDiaFimInsc = UtilSeven.treatToString(evento.getFimPeriodoInscricao());
+        
         evento.setInicioPeriodoEvento(UtilSeven.treatToDate(inicioEvento));
         evento.setFimPeriodoEvento(UtilSeven.treatToDate(fimEvento));
         evento.setInicioPeriodoInscricao(UtilSeven.treatToDate(inicioInscricao));
@@ -87,6 +102,26 @@ public class CmdAlterarPeriodoInscricaoeEvento implements Comando {
         if (!eventoService.atualizar(evento)) {
             session.setAttribute("erro", "Modificação sem sucesso");
         }
+        
+        //Enviando email para todos os organizadores 
+        //informando que a data do evento foi alterada.
+        String msg = "As datas do evento "+evento.getNome()+" foram alteradas.\n"
+                + "De: "+vDiaInicio+" até "+vDiaFim+ 
+                "  para\n"
+                + "De: "+inicioEvento+" até "+fimEvento+
+                "\n\nIncrições:\n"+
+                "De: "+vDiaInicioInsc+" até "+vDiaFimInsc+
+                "  para\n"+
+                "De: "+inicioInscricao+" até "+fimInscricao+"\n"+
+                "\nPor favor verifique as datas das atividades!";
+        for(Organizador org : evento.getOrganizadores()){
+            try {
+                SendMail.sendMail(org.getUsuario().getEmail(), "(SEVEN) Alteração de data no evento "+evento.getNome(), msg);
+            } catch (MessagingException ex) {
+               System.out.println("Erro ao enviar o email para os organizadores: "+ex);
+            }
+        }
+        
         session.setAttribute("sucesso", "Modificação realizada com sucesso");
         session.setAttribute("evento", evento);
 

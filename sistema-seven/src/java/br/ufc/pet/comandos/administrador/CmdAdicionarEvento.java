@@ -6,8 +6,10 @@ package br.ufc.pet.comandos.administrador;
 
 import br.ufc.pet.evento.Administrador;
 import br.ufc.pet.evento.Evento;
+import br.ufc.pet.evento.Organizador;
 import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.EventoService;
+import br.ufc.pet.util.SendMail;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,6 +17,7 @@ import br.ufc.pet.util.UtilSeven;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.mail.MessagingException;
 
 /**
  *
@@ -148,6 +151,15 @@ public class CmdAdicionarEvento implements Comando {
                 EventoService es = new EventoService();
                 es.atualizar(E);
                 admin.addEvento(E);
+                
+                for(Organizador org : E.getOrganizadores()){
+                    try {
+                        String msg = "O administrador alterou os dados do evento, por favor verifique os horários das atividades!";
+                        SendMail.sendMail(org.getUsuario().getEmail(), "(SEVEN) Alteração no evento "+E.getNome(), msg);
+                    } catch (MessagingException ex) {
+                    System.out.println("Erro ao enviar o email para os organizadores: "+ex);
+                }
+        }
                 session.setAttribute("sucesso", "Evento alterado com sucesso");
 
             }

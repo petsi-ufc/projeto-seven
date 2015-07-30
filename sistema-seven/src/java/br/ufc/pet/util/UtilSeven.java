@@ -1,9 +1,11 @@
 package br.ufc.pet.util;
 
 import br.ufc.pet.evento.Atividade;
+import br.ufc.pet.evento.Evento;
 import br.ufc.pet.evento.Horario;
 import br.ufc.pet.evento.InscricaoAtividade;
 import br.ufc.pet.evento.ModalidadeInscricao;
+import br.ufc.pet.evento.Organizador;
 import br.ufc.pet.evento.PrecoAtividade;
 import br.ufc.pet.evento.TipoAtividade;
 import br.ufc.pet.evento.Usuario;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import javax.mail.MessagingException;
 import sun.misc.BASE64Encoder;
 
 /**
@@ -166,7 +169,9 @@ public class UtilSeven {
         }
         return preco;
     }
-
+    
+    
+    
     public static String criptografar(String senha) {
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");

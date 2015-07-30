@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Franklin
+ * @author Anderson
  */
 public class CmdConfirmarLiberacaoCertificado implements Comando {
 

@@ -133,3 +133,14 @@ function formataCPF(campo,teclapres)
     }
     return formatar(campo, '###.###.###-##', teclapres);
 }
+
+function validaGeracaoCertificado(nome){
+//    var msg = 'Após gerar o certificado você não poderá mais editar seu nome. ';
+//    msg += 'Atualmente seu nome no sistema é "'+nome+'", e esse será usado em todos os certificados gerados. ';
+//    msg += 'Se este não for o nome que você deseja utilizar em seus certificados clique em "Cancelar", acesse a opção "Gerecionar Conta" -> "Editar Dados" e atualize suas informaçoes. ';
+//    msg += 'Se este é o nome que deseja utilizar em seus cetificados, clique em "OK". ';
+//    msg += '\nDeseja realmente utilizar esse nome em seus certificados?';
+//    var result = confirm(msg);
+//    return result;
+    return true;
+}

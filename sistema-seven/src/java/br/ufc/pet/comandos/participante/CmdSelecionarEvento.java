@@ -37,28 +37,28 @@ public class CmdSelecionarEvento implements Comando {
         try{
             ev = es.getEventoById(Long.parseLong(id));
         }catch(NullPointerException e){
-            session.setAttribute("erro", "Evento inv?lido");
+            session.setAttribute("erro", "Evento inválido");
             return "/part/part_buscar_evento.jsp";
 
         }catch(NumberFormatException e){
-            session.setAttribute("erro", "Evento inv?lido");
+            session.setAttribute("erro", "Evento inválido");
             return "/part/part_buscar_evento.jsp";
         }
 
 
         if(ev == null){
-            session.setAttribute("erro", "Evento inv?lido");
+            session.setAttribute("erro", "Evento inválido");
             return "/part/part_buscar_evento.jsp";
         }
 
         //Verifica a se est? no per?odo de inscri??es
         Date hoje = new Date();
         if (hoje.before(ev.getInicioPeriodoInscricao())){
-            session.setAttribute("erro", "Ops!, as inscri??es para este evento ainda n?o come?aram!");
+            session.setAttribute("erro", "Ops!, as inscrições para este evento ainda não começaram!");
             return "/part/part_buscar_evento.jsp";
         }
         if (hoje.after(ev.getFimPeriodoInscricao())){
-            session.setAttribute("erro", "Ops!, as inscri??es para este evento ja terminaram!");
+            session.setAttribute("erro", "Ops!, as inscrições para este evento ja terminaram!");
             return "/part/part_buscar_evento.jsp";
         }
 
@@ -81,7 +81,7 @@ public class CmdSelecionarEvento implements Comando {
 
         for(Inscricao i : inscricoesPart){
             if(i.getEvento().getId().equals(ev.getId())){
-                session.setAttribute("erro", "Sele??o inv?lida, voc? j? se inscreveu neste evento.");
+                session.setAttribute("erro", "Seleção inválida, você já se inscreveu neste evento.");
                 return "/part/part_buscar_evento.jsp";
             }
         }

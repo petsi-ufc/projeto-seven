@@ -42,6 +42,16 @@ public class InscricaoService {
             return false;
         }
     }
+    
+    public boolean atualizar(Inscricao inscricao){
+        try {
+            inscricaoDAO.update(inscricao);
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
 
     public Inscricao getInscricaoById(long id) {
         try {

@@ -16,6 +16,7 @@ public class Usuario extends Bean {
     private String numero;
     private String cidade;
     private String uf;
+    private boolean certificadoGerado;
     
 
     public String getBairro() {
@@ -108,6 +109,14 @@ public class Usuario extends Bean {
 
     public void setUf(String uf) {
         this.uf = uf;
+    }
+    
+    public boolean isCertificadoGerado(){
+        return this.certificadoGerado;
+    }
+    
+    public void setCertificadoGerado(boolean certificadoGerado){
+        this.certificadoGerado = certificadoGerado;
     }
 
     public boolean validaSenha(String senha) {

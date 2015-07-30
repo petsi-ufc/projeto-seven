@@ -22,6 +22,10 @@ public class InscricaoDAO {
         inscricao.setId(id);
         PostgresMapConfig.getSqlMapClient().insert("addInscricao", inscricao);
     }
+    
+    public void update(Inscricao inscricao) throws SQLException {
+        PostgresMapConfig.getSqlMapClient().update("updateInscricao", inscricao);
+    }
 
     public Inscricao getById(Long id) throws SQLException {
         return (Inscricao) PostgresMapConfig.getSqlMapClient().queryForObject("getInscricaoById", id);

@@ -27,6 +27,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link href="../css/estilo.css" rel="stylesheet" type="text/css" />
         <title>Centro de Controle :: Administrador</title>
+        <script src="../Script.js" ></script>
     </head>
     <body>
         <div id="container">
@@ -86,7 +87,7 @@
                         <td> - </td>
                         <% }%>
                         <% if(liberarCertificado){%>
-                        <td><a href="../ServletCentral?comando=CmdGerarCertificado&insc_id=<%=i.getId() %>" title="Gerar Certificado">Gerar Certificado</a> </td>
+                        <td><a onclick="return validaGeracaoCertificado('<%=p.getUsuario().getNome().toUpperCase()%>');" href="../ServletCentral?comando=CmdGerarCertificado&insc_id=<%=i.getId() %>" title="Gerar Certificado">Gerar Certificado</a> </td>
                         <% } else {%>
                         <td> Indisponível </td>
                         <% }%>

@@ -12,6 +12,7 @@ public class Inscricao extends Bean {
     private ArrayList<Atividade> atividades;
     private Participante participante;
     private ModalidadeInscricao modalidade;
+    private String codigoValidacaoCertificado;
 
     public Inscricao() {
         this.confirmada = false;
@@ -76,6 +77,14 @@ public class Inscricao extends Bean {
 
     public void setModalidade(ModalidadeInscricao modalidade) {
         this.modalidade = modalidade;
+    }
+    
+    public String getCodigoValidacaoCertificado(){
+        return this.codigoValidacaoCertificado;
+    }
+    
+    public void setCodigoValidacaoCertificado(String codigoValidacaoCertificado){
+        this.codigoValidacaoCertificado = codigoValidacaoCertificado;
     }
 
     public String confimadaToString() {

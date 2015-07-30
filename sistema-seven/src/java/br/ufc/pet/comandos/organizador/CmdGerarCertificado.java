@@ -8,37 +8,26 @@ import br.ufc.pet.evento.Atividade;
 import br.ufc.pet.evento.Horario;
 import br.ufc.pet.evento.Inscricao;
 import br.ufc.pet.evento.InscricaoAtividade;
-import br.ufc.pet.evento.Perfil;
 import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.AtividadeService;
 import br.ufc.pet.services.HorarioService;
 import br.ufc.pet.services.InscricaoService;
+import br.ufc.pet.services.UsuarioService;
 import br.ufc.pet.util.UtilSeven;
 import com.lowagie.text.Document;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
+import com.lowagie.text.HeaderFooter;
 import com.lowagie.text.Image;
 import com.lowagie.text.PageSize;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.Phrase;
-import com.lowagie.text.pdf.CMYKColor;
-import com.lowagie.text.pdf.PdfCell;
 import com.lowagie.text.pdf.PdfContentByte;
-import com.lowagie.text.pdf.PdfPCell;
-import com.lowagie.text.pdf.PdfPTable;
-import com.lowagie.text.pdf.PdfTable;
 import com.lowagie.text.pdf.PdfWriter;
-import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -70,9 +59,51 @@ public class CmdGerarCertificado implements Comando {
 
             Document document = new Document(PageSize.LETTER.rotate());
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            
+            if(inscricao.getCodigoValidacaoCertificado()==null || inscricao.getCodigoValidacaoCertificado().trim().isEmpty()){
+               String chave = "";
+               chave += inscricao.getId();
+               chave += inscricao.getParticipante().getUsuario().getNome();
+               for(Atividade a : inscricao.getAtividades()){
+                   chave += a.getNome();
+               }
+               String codigo = UtilSeven.criptografar(chave);
+               inscricao.setCodigoValidacaoCertificado(codigo);
+               is.atualizar(inscricao);
+            } 
+            
+            if(!inscricao.getParticipante().getUsuario().isCertificadoGerado()){
+                inscricao.getParticipante().getUsuario().setCertificadoGerado(true);
+                UsuarioService us = new UsuarioService();
+                us.update(inscricao.getParticipante().getUsuario());
+            }
 
             try {
                 PdfWriter writer = PdfWriter.getInstance(document, baos);
+                
+                
+                //String linkVerificacao = "https://"+request.getServerName()+request.getContextPath()+"/validacao_documentos";
+                String linkVerificacao = "https://sistemas.quixada.ufc.br/SEVEN/";
+                String rodape = "Para verificar a autenticidade deste documento entre em \n"+linkVerificacao+" por meio do código: \n";
+                
+                
+                Font fonteRodape = new Font();
+                fonteRodape.setSize(9);
+                Phrase ph1 = new Phrase(rodape, fonteRodape);
+                
+                Font fonteCodigo = new Font();
+                fonteCodigo.setSize(10);
+                fonteCodigo.setStyle(Font.BOLD);                
+                Phrase ph2 = new Phrase(inscricao.getCodigoValidacaoCertificado(), fonteCodigo);
+                ph1.add(ph2);
+                
+                
+                HeaderFooter hf = new HeaderFooter(ph1, false);
+                hf.disableBorderSide(HeaderFooter.TOP);
+                hf.disableBorderSide(HeaderFooter.BOTTOM);
+                document.setFooter(hf);
+                
+                
                 document.open();
                 //document.setPageSize(PageSize.A4);
                 
@@ -135,7 +166,7 @@ public class CmdGerarCertificado implements Comando {
                     p4.setSpacingBefore(48);
 
                     document.add(p4);
-
+                    
                     document.newPage();
 
                 }

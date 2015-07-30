@@ -78,7 +78,11 @@
                         <%@include file="../error.jsp" %>
                         <label style="float: right;">* Campos obrigatórios</label><br/>
                         <label>Nome (*):</label><br />
-                        <input type="text" maxlength="50" value="<%=part.getUsuario().getNome()%>" name="nome" /><br />
+                        <input type="text" maxlength="50" value="<%=part.getUsuario().getNome()%>" name="nome" 
+                            <% if(part.getUsuario().isCertificadoGerado()) {%>   
+                                disabled="disabled"
+                            <% } %>
+                        /><br />
                         <label>Telefone:</label><br />
                         <input type="text" maxlength="12" value="<%=fone%>" onkeypress="return formataContato(this, event)" name="fone" /><br />
                         <label>E-mail (*):</label><br />

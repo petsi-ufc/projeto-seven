@@ -409,8 +409,9 @@ body {
      position: relative;
      top: 50px;
      left: 175px;
-     
+}
 
-     
-
+input[disabled='disabled'] {
+    border: 1px solid #999;
+    background-color: #ccc;   
 }

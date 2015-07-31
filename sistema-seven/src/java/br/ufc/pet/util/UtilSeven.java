@@ -2,19 +2,12 @@ package br.ufc.pet.util;
 
 import br.ufc.pet.evento.Atividade;
 import br.ufc.pet.evento.Horario;
-import br.ufc.pet.evento.InscricaoAtividade;
 import br.ufc.pet.evento.ModalidadeInscricao;
 import br.ufc.pet.evento.PrecoAtividade;
 import br.ufc.pet.evento.TipoAtividade;
-import br.ufc.pet.evento.Usuario;
-import br.ufc.pet.services.AtividadeService;
 import br.ufc.pet.services.ModalidadeInscricaoService;
 import br.ufc.pet.services.TipoAtividadeService;
-import br.ufc.pet.services.UsuarioService;
-import com.sun.org.apache.xalan.internal.xsltc.runtime.BasisLibrary;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -22,8 +15,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 import sun.misc.BASE64Encoder;
+
+
 
 /**
  *
@@ -166,7 +160,8 @@ public class UtilSeven {
         }
         return preco;
     }
-
+    
+    
     public static String criptografar(String senha) {
         try {
             MessageDigest digest = MessageDigest.getInstance("MD5");

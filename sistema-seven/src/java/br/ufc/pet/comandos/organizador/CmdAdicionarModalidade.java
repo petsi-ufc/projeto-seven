@@ -84,7 +84,12 @@ public class CmdAdicionarModalidade implements Comando {
                 //precoAtiv.setModalidadeId(modalidade.getId());
                 precoAtiv.setTipoAtividadeId(t.getId());
                 try{
-                    precoAtiv.setValor(Double.parseDouble( (request.getParameter("preco_" + t.getId().toString())).replace(",", ".")));
+                    if(evento.isGratuito()){
+                        precoAtiv.setValor(0.0);
+                    }else{
+                        precoAtiv.setValor(Double.parseDouble( (request.getParameter("preco_" + t.getId().toString())).replace(",", ".")));
+
+                    }
                 } catch(NumberFormatException e){
                     session.setAttribute("erro", "Valor inválido!");
                     return "/ServletCentral?comando=CmdListarTipoModalidade";

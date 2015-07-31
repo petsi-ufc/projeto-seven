@@ -41,12 +41,12 @@ public class CmdEditarParticipante implements Comando {
 
         if (nome == null || nome.trim().equals("") || email == null || email.trim().equals("")
                 || senha == null || senha.trim().equals("") || confSenha == null || confSenha.trim().equals("")) {
-            session.setAttribute("erro", "Preencha todos os campos obrigat?rios.");
+            session.setAttribute("erro", "Preencha todos os campos obrigatórios.");
             return "/part/part_conta.jsp";
         }
 
         if (!senha.trim().equals(confSenha)) {
-            session.setAttribute("erro", "A senha n?o confere com a sua confirma??o.");
+            session.setAttribute("erro", "A senha não confere com a sua confirmação.");
             return "/part/part_conta.jsp";
         }
 
@@ -55,8 +55,11 @@ public class CmdEditarParticipante implements Comando {
         Usuario temp = us.getByEmail(email);
         if (temp != null) {
             if (!temp.getId().equals(part.getUsuario().getId())) {
-                session.setAttribute("erro", "E-Mail j? cadastrado.");
+                session.setAttribute("erro", "E-Mail já cadastrado.");
                 return "/part/part_conta.jsp";
+            }
+            if(!temp.getSenha().equals(senha)){
+                senha = UtilSeven.criptografar(senha);
             }
         }
 
@@ -69,7 +72,7 @@ public class CmdEditarParticipante implements Comando {
         part.getUsuario().setNome(nome);
         part.getUsuario().setNumero(numero);
         part.getUsuario().setRua(rua);
-        part.getUsuario().setSenha(UtilSeven.criptografar(senha));
+        part.getUsuario().setSenha(senha);
         part.getUsuario().setSexo(sexo);
         part.getUsuario().setUf(uf);
         if (dataNascimentoS != null && !dataNascimentoS.trim().isEmpty()) {

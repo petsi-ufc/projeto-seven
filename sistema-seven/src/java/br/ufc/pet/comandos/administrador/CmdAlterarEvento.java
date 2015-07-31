@@ -6,12 +6,15 @@ package br.ufc.pet.comandos.administrador;
 
 import br.ufc.pet.evento.Administrador;
 import br.ufc.pet.evento.Evento;
+import br.ufc.pet.evento.Organizador;
 import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.EventoService;
+import br.ufc.pet.util.SendMail;
 import br.ufc.pet.util.UtilSeven;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -24,7 +27,7 @@ public class CmdAlterarEvento implements Comando {
 
     public String executa(HttpServletRequest request, HttpServletResponse response) {
 
-         HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession(true);
         Administrador admin = (Administrador) session.getAttribute("user");
 
         String nomeEvento = request.getParameter("nome_evento");
@@ -65,7 +68,7 @@ public class CmdAlterarEvento implements Comando {
             return "/admin/edit_events.jsp";
         } else if (UtilSeven.validaData(inicioInscricao) != true || UtilSeven.validaData(fimInscricao) != true
                 || !UtilSeven.validaData(inicioEvento) || !UtilSeven.validaData(fimEvento)) {
-            session.setAttribute("erro", "Data InvÃ¡lida, digite no formato dd/mm/aaaa");
+            session.setAttribute("erro", "Data Inválida, digite no formato dd/mm/aaaa");
             return "/admin/edit_events.jsp";
         } else {
 
@@ -74,7 +77,7 @@ public class CmdAlterarEvento implements Comando {
             }
             catch(NumberFormatException e){
                 System.out.print(limiteDeAtividadesPorParticipante);
-                session.setAttribute("erro", "Limite de atividades invalido. Por favor digite apenas nÃºmeros.");
+                session.setAttribute("erro", "Limite de atividades invalido. Por favor digite apenas números.");
                 return "/admin/edit_events.jsp";
             }
 
@@ -87,23 +90,23 @@ public class CmdAlterarEvento implements Comando {
                 return "/admin/edit_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).before(data)) {
-                session.setAttribute("erro", "Data de inicio das incriÃ§Ãµes anterior a data de hoje.");
+                session.setAttribute("erro", "Data de inicio das incrições anterior a data de hoje.");
                 return "/admin/edit_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).after(UtilSeven.treatToDate(fimEvento))) {
-                session.setAttribute("erro", "Data de inicio das inscriÃ§Ãµes posterior ao termino do evento.");
+                session.setAttribute("erro", "Data de inicio das inscrições posterior ao termino do evento.");
                 return "/admin/edit_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).after(UtilSeven.treatToDate(inicioEvento))) {
-                session.setAttribute("erro", "Data de inicio das inscriÃ§Ãµes posterior ao inicio do evento.");
+                session.setAttribute("erro", "Data de inicio das inscrições posterior ao inicio do evento.");
                 return "/admin/edit_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).after(UtilSeven.treatToDate(fimInscricao))) {
-                session.setAttribute("erro", "Data de inicio das inscriÃ§Ãµes posterior ao termino das inscriÃ§Ãµes.");
+                session.setAttribute("erro", "Data de inicio das inscrições posterior ao termino das inscrições.");
                 return "/admin/edit_events.jsp";
             }
             if (UtilSeven.treatToDate(fimInscricao).after(UtilSeven.treatToDate(inicioEvento))) {
-                session.setAttribute("erro", "Data de fim das inscriÃ§Ãµes posterior ao inicio do evento.");
+                session.setAttribute("erro", "Data de fim das inscrições posterior ao inicio do evento.");
                 return "/admin/edit_events.jsp";
             }
 
@@ -126,8 +129,9 @@ public class CmdAlterarEvento implements Comando {
   
                 es.atualizar(E);
                 admin.addEvento(E);
+                
                 session.setAttribute("sucesso", "Evento alterado com sucesso");
-
+                
 
         }
         return "/admin/manege_events.jsp";

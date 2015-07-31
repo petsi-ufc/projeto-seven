@@ -24,7 +24,8 @@ public class SendMail {
 
         mailProps.put("mail.smtp.host", mailServer);
         mailProps.put("mail.smtp.auth", "true");
-        Session mailSession = Session.getDefaultInstance(mailProps, new Authenticator() {
+        
+        Session mailSession = Session.getInstance(mailProps, new Authenticator() {
 
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {

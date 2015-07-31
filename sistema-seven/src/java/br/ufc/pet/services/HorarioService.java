@@ -5,9 +5,12 @@
 package br.ufc.pet.services;
 
 import br.ufc.pet.daos.HorarioDAO;
+import br.ufc.pet.evento.Evento;
 import br.ufc.pet.evento.Horario;
+import br.ufc.pet.util.SendMail;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -16,9 +19,20 @@ import java.util.ArrayList;
 public class HorarioService {
 
     private HorarioDAO horarioDAO;
-
+    
+    //Atributos de data usados para conferir se os horários cadastrados estão entre
+    //os dias de evento.
+    private Date dataEventoFim;
+    private Date dataEventoInicio;
+    
     public HorarioService() {
         horarioDAO = new HorarioDAO();
+    }
+    
+    public HorarioService(Date dataEventoInicio, Date dataEventoFim) {
+        horarioDAO = new HorarioDAO();
+        this.dataEventoFim = dataEventoFim;
+        this.dataEventoInicio = dataEventoInicio;
     }
 
     public Horario getHorarioById(long id) {
@@ -63,8 +77,11 @@ public class HorarioService {
 
     public boolean adicionar(Horario horario) {
         try {
-            horarioDAO.insert(horario);
-            return true;
+            if(conferirHorario(horario)){
+                horarioDAO.insert(horario);
+                return true;
+            }
+            return false;
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
@@ -82,11 +99,29 @@ public class HorarioService {
 
     public boolean atualizar(Horario horario) {
         try {
-            horarioDAO.update(horario);
-            return true;
+            if(conferirHorario(horario)){
+                horarioDAO.update(horario);
+                return true;
+            }
+            return false;
         } catch (SQLException ex) {
             ex.printStackTrace();
             return false;
         }
     }
+    
+    //Esse método confere se a data do horário informado pelo organizador está
+    //entre a data de inicio e de fim do evento.
+    public boolean conferirHorario(Horario horario){
+        if(dataEventoFim != null && dataEventoInicio != null){
+           if(horario.getDia().before(dataEventoFim) && 
+                   horario.getDia().after(dataEventoInicio)
+               ||  horario.getDia().equals(dataEventoInicio)
+               ||  horario.getDia().equals(dataEventoFim))
+                     return true;
+          return false;
+        }
+        return false;
+    }
+    
 }

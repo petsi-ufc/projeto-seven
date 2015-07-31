@@ -77,6 +77,8 @@ public class CmdGerarCertificado implements Comando {
                 UsuarioService us = new UsuarioService();
                 us.update(inscricao.getParticipante().getUsuario());
             }
+            
+            session.setAttribute("user", inscricao.getParticipante());
 
             try {
                 PdfWriter writer = PdfWriter.getInstance(document, baos);

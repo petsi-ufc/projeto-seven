@@ -16,14 +16,7 @@
     </head>
     <body>
         <div id="container">
-            <div id="top">
-                <div id="menu">
-                    <ul>
-                        <li><a href="index.jsp" title="Página Inicial">Home</a></li>
-                        <li><a href="contato.jsp" title="Contato">Contato</a></li>
-                    </ul>
-                </div>
-            </div>
+            <%@include file="menu_index.jsp"%>
             <div id="content">
                 <p>CAMPUS DA UFC EM QUIXADÁ</p><p>ESTRADA DO CEDRO, KM 5</p><p>63900000 - QUIXADÁ - CE</p>
                 <p>E-MAIL:<a href="mailto: <pet-ufc-si_quixada@googlegroups.com>,"> pet-ufc-si_quixada@googlegroups.com</a></p>

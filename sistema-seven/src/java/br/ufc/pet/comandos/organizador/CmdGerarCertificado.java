@@ -85,8 +85,8 @@ public class CmdGerarCertificado implements Comando {
                 
                 
                 //String linkVerificacao = "https://"+request.getServerName()+request.getContextPath()+"/validacao_documentos";
-                String linkVerificacao = "https://sistemas.quixada.ufc.br/SEVEN/";
-                String rodape = "Para verificar a autenticidade deste documento entre em \n"+linkVerificacao+" por meio do código: \n";
+                String linkVerificacao = "https://sistemas.quixada.ufc.br/SEVEN/validacao/";                           
+                String rodape = "Para verificar a autenticidade deste documento acesse o endereço\n"+linkVerificacao+" e informe o código:\n";
                 
                 
                 Font fonteRodape = new Font();

@@ -28,7 +28,7 @@ public class UsuarioService {
 
         Usuario user = getByEmail(usuarioEntrada.getEmail());
         //System.out.println("id do usuario:  "+user.getId());
-
+        
         if (user != null) {
             Perfil perfil = null;
             if (conta.trim().equals("participante")) {

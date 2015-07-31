@@ -37,7 +37,7 @@
                         <label>Repita a senha (*):</label><br />
                         <input type="password" maxlength="50" name="rsenha" /><br />
                         <input type="hidden" value="CmdEditAdmin" name="comando">
-                        <input type="hidden" value="<%=admin.getId()%>" name="id">
+                        <input type="hidden" value="<%=admin.getUsuario().getId()%>" name="id">
                         <br>
                     <input type="submit" value="Atualizar" style="margin-left:0px;" class="button" onclick="return confirmarCadastrado()" />
 

@@ -69,6 +69,15 @@
         FROM evento.evento
         WHERE sigla=#var#;
     </select>
+    
+    <select id="getEventoByNome" resultClass="evento"
+    	parameterClass="java.lang.String"
+    	resultMap="eventoResult">
+        SELECT id, nome, sigla, tema, inicio_inscricao, fim_inscricao, ativo,
+            admin_id,descricao,inicio,fim, limite_atividade_por_participante
+        FROM evento.evento
+        WHERE UPPER(nome)=UPPER(#var#);
+    </select>
 
 
     <select id="getAllEventos" resultClass="evento" resultMap="eventoResult">

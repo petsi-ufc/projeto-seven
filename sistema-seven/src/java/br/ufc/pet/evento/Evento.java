@@ -183,5 +183,11 @@ public class Evento extends Bean {
     public int getLimiteAtividadePorParticipante() {
        return this.limiteAtividadePorParticipante;
     }
+
+    @Override
+    public String toString() {
+        return "Evento{" + "nome=" + nome + ", sigla=" + sigla + ", tema=" + tema + ", inicioPeriodoInscricao=" + inicioPeriodoInscricao + ", fimPeriodoInscricao=" + fimPeriodoInscricao + ", descricao=" + descricao + ", ativo=" + ativo + ", atividades=" + atividades + ", organizadores=" + organizadores + ", administrador=" + administrador + ", movimentacoesFinanceiras=" + movimentacoesFinanceiras + ", inicioPeriodoEvento=" + inicioPeriodoEvento + ", fimPeriodoEvento=" + fimPeriodoEvento + ", limiteAtividadePorParticipante=" + limiteAtividadePorParticipante + '}';
+    }
+    
 }
  

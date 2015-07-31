@@ -19,6 +19,7 @@ public class Evento extends Bean {
     private Date inicioPeriodoEvento;
     private Date fimPeriodoEvento;
     private int limiteAtividadePorParticipante;
+    private boolean gratuito;
 
     public Date getFimPeriodoEvento() {
         return fimPeriodoEvento;
@@ -182,6 +183,14 @@ public class Evento extends Bean {
     
     public int getLimiteAtividadePorParticipante() {
        return this.limiteAtividadePorParticipante;
+    }
+    
+    public void setGratuito(boolean gratuito){
+        this.gratuito = gratuito;
+    }
+    
+    public boolean isGratuito(){
+        return this.gratuito;
     }
 }
  

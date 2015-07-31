@@ -18,14 +18,16 @@
         <result property="inicioPeriodoEvento" column="inicio"/>
         <result property="fimPeriodoEvento" column="fim"/>
         <result property="limiteAtividadePorParticipante" column="limite_atividade_por_participante"/> 
+        <result property="gratuito" column="gratuito"/>
     </resultMap>
 
     <insert id="addEvento" parameterClass="evento" >
         
         INSERT INTO evento.evento (id, nome, sigla, tema, inicio_inscricao,
-            fim_inscricao, ativo, admin_id,descricao,inicio,fim, limite_atividade_por_participante)
+            fim_inscricao, ativo, admin_id,descricao,inicio,fim, limite_atividade_por_participante, gratuito)
         VALUES (#id#, #nome#, #sigla#, #tema#, #inicioPeriodoInscricao#,
-            #fimPeriodoInscricao#, #ativo#, #administrador.id#, #descricao#,#inicioPeriodoEvento#,#fimPeriodoEvento#, #limiteAtividadePorParticipante#);
+            #fimPeriodoInscricao#, #ativo#, #administrador.id#, #descricao#,#inicioPeriodoEvento#,#fimPeriodoEvento#, #limiteAtividadePorParticipante#, 
+            #gratuito#);
     </insert>
 
     <update id="updateEvento" parameterClass="evento">
@@ -37,6 +39,7 @@
             inicio=#inicioPeriodoEvento#,
             fim=#fimPeriodoEvento#,
             limite_atividade_por_participante = #limiteAtividadePorParticipante#
+            gratuito = #gratuito#
         WHERE id = #id#;
     </update>
     
@@ -56,7 +59,7 @@
     	parameterClass="java.lang.Long"
     	resultMap="eventoResult">
         SELECT id, nome, sigla, tema, inicio_inscricao, fim_inscricao, ativo,
-            admin_id,descricao,inicio,fim, limite_atividade_por_participante
+            admin_id,descricao,inicio,fim, limite_atividade_por_participante, gratuito
         FROM evento.evento
         WHERE id=#var#;
     </select>
@@ -65,7 +68,7 @@
     	parameterClass="java.lang.String"
     	resultMap="eventoResult">
         SELECT id, nome, sigla, tema, inicio_inscricao, fim_inscricao, ativo,
-            admin_id,descricao,inicio,fim, limite_atividade_por_participante
+            admin_id,descricao,inicio,fim, limite_atividade_por_participante, gratuito
         FROM evento.evento
         WHERE sigla=#var#;
     </select>

@@ -6,8 +6,10 @@ package br.ufc.pet.comandos.administrador;
 
 import br.ufc.pet.evento.Administrador;
 import br.ufc.pet.evento.Evento;
+import br.ufc.pet.evento.ModalidadeInscricao;
 import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.EventoService;
+import br.ufc.pet.services.ModalidadeInscricaoService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -44,6 +46,8 @@ public class CmdAdicionarEvento implements Comando {
         session.setAttribute("fimInscricao", fimInscricao);
         String limiteDeAtividadesPorParticipante = request.getParameter("limite_de_atividades_por_participante");
         session.setAttribute("limiteDeAtividadesPorParticipante", limiteDeAtividadesPorParticipante);
+        String gratuito = request.getParameter("gratuito");
+        session.setAttribute("gratuito", gratuito);
 
         
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -65,7 +69,7 @@ public class CmdAdicionarEvento implements Comando {
             return "/admin/add_events.jsp";
         } else if (UtilSeven.validaData(inicioInscricao) != true || UtilSeven.validaData(fimInscricao) != true
                 || !UtilSeven.validaData(inicioEvento) || !UtilSeven.validaData(fimEvento)) {
-            session.setAttribute("erro", "Data InvÃ¡lida, digite no formato dd/mm/aaaa");
+            session.setAttribute("erro", "Data Invá¡lida, digite no formato dd/mm/aaaa");
             return "/admin/add_events.jsp";
         } else {
             
@@ -74,7 +78,7 @@ public class CmdAdicionarEvento implements Comando {
             }
             catch(NumberFormatException e){
                 System.out.print(limiteDeAtividadesPorParticipante);
-                session.setAttribute("erro", "Limite de atividades invalido. Por favor digite apenas nÃºmeros.");
+                session.setAttribute("erro", "Limite de atividades invalido. Por favor digite apenas números.");
                 return "/admin/add_events.jsp";
             }
             
@@ -87,32 +91,45 @@ public class CmdAdicionarEvento implements Comando {
                 return "/admin/add_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).before(data)) {
-                session.setAttribute("erro", "Data de inicio das incriÃ§Ãµes anterior a data de hoje.");
+                session.setAttribute("erro", "Data de inicio das inscrições anterior a data de hoje.");
                 return "/admin/add_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).after(UtilSeven.treatToDate(fimEvento))) {
-                session.setAttribute("erro", "Data de inicio das inscriÃ§Ãµes posterior ao termino do evento.");
+                session.setAttribute("erro", "Data de inicio das inscrições posterior ao termino do evento.");
                 return "/admin/add_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).after(UtilSeven.treatToDate(inicioEvento))) {
-                session.setAttribute("erro", "Data de inicio das inscriÃ§Ãµes posterior ao inicio do evento.");
+                session.setAttribute("erro", "Data de inicio das inscrições posterior ao inicio do evento.");
                 return "/admin/add_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).after(UtilSeven.treatToDate(fimInscricao))) {
-                session.setAttribute("erro", "Data de inicio das inscriÃ§Ãµes posterior ao termino das inscriÃ§Ãµes.");
+                session.setAttribute("erro", "Data de inicio das inscrições posterior ao termino das inscriÃ§Ãµes.");
                 return "/admin/add_events.jsp";
             }
             if (UtilSeven.treatToDate(fimInscricao).after(UtilSeven.treatToDate(inicioEvento))) {
-                session.setAttribute("erro", "Data de fim das inscriÃ§Ãµes posterior ao inicio do evento.");
+                session.setAttribute("erro", "Data de fim das inscrições posterior ao inicio do evento.");
                 return "/admin/add_events.jsp";
             }
             if (request.getParameter("operacao_evento").equalsIgnoreCase("0")){
                 EventoService es = new EventoService();
                 if (es.getEventoBySigla(siglaEvento) != null) {
-                    session.setAttribute("erro", "Evento jÃ¡ cadastrado");
+                    session.setAttribute("erro", "Evento já cadastrado");
                     return "/admin/add_events.jsp";
                 }
+                
                 E = new Evento();
+                
+                /*
+                Verificando o valor que veio do formulário e atribuindo ao atributo do
+                objeto evento (E)
+                */
+                
+                if(request.getParameter("gratuito").equals("true")){
+                    E.setGratuito(true);
+                }else{ 
+                    E.setGratuito(false);
+                }
+                
                 E.setNome(nomeEvento);
                 E.setSigla(siglaEvento);
                 E.setTema(tema);
@@ -123,8 +140,23 @@ public class CmdAdicionarEvento implements Comando {
                 E.setAdministrador(admin);
                 E.setDescricao(descricao);
                 E.setLimiteAtividadePorParticipante(limiteDeAtividades);
+                System.out.println(E);
                 if (es.adicionar(E)) {
                     admin.addEvento(E);
+                    
+                    /*
+                    Adicionando modalidade padrão ao evento gratuito. 
+                    */
+                    if(E.isGratuito()){
+                        ModalidadeInscricaoService modalidadeInscricaoService = new ModalidadeInscricaoService();
+                        ModalidadeInscricao modalidadeInscricao = new ModalidadeInscricao();
+                        modalidadeInscricao.setTipo("Gratuito - "+E.getSigla());
+                        Evento eventoAux =  es.getEventoBySigla(E.getSigla());
+                        modalidadeInscricao.setEventoId(eventoAux.getId());
+                        modalidadeInscricaoService.adicionarModalidadeGratuita(modalidadeInscricao);
+                    }
+                    
+                    
                     session.setAttribute("sucesso", "Evento adicionado com sucesso");
                     System.out.println("Adicionei na sessÃ£o");
                     return "/admin/manege_events.jsp";

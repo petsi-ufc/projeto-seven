@@ -23,12 +23,10 @@ public class CmdEditAdmin implements Comando{
         if( temp != null){
          String senha = request.getParameter("senha");
          String rsenha = request.getParameter("rsenha");
-         
            if(senha.equals(rsenha)){
                 long id = Long.parseLong(temp);
                 AdministradorService adm = new AdministradorService();
                 adm.alterarSenhaAdmin(id, senha);
-                System.out.println("cheguei aqui");
             }
         }
             return "/admin/index.jsp";

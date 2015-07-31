@@ -64,7 +64,7 @@ public class CmdLogin implements Comando {
                 session.setAttribute("user", perfil);
                 return "/org/index.jsp";
             } else if (perfil instanceof Administrador) {
-                //System.out.println("Administrador id " + perfil.getId());
+                System.out.println("Administrador IDDDDDDDDDDDDDDDDDDDDDDD: " + perfil.getId());
                 session.setAttribute("user", perfil);
                 return "/admin/index.jsp";
             }

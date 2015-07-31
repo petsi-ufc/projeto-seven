@@ -103,7 +103,7 @@
                         <label>UF (*):</label><br />
                         <input type="text" maxlength="50" value="<%=uf%>" name="uf" /><br />
                         <label>Senha (*):</label><br />
-                        <input type="password" maxlength="50" value="<%=part.getUsuario().getSenha()%>" name="senha" /><br />
+                        <input type="password" maxlength="50" value="<%=confirSenha%>" name="senha" /><br />
                         <label>Repita a senha (*):</label><br />
                         <input type="password" maxlength="50" value="<%=confirSenha%>" name="r-senha" /><br />
                     </fieldset>

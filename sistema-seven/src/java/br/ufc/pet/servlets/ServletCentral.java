@@ -8,6 +8,7 @@ import br.ufc.pet.comandos.CmdCadastrarParticipante;
 import br.ufc.pet.comandos.CmdLogin;
 import br.ufc.pet.comandos.CmdLogout;
 import br.ufc.pet.comandos.CmdRecuperarSenha;
+import br.ufc.pet.comandos.CmdValidarDocumento;
 import br.ufc.pet.comandos.CmdVisualizarTodasProgramacoes;
 import br.ufc.pet.comandos.administrador.CmdAddOrganizadorNovo;
 import br.ufc.pet.comandos.administrador.CmdAdicionarEvento;
@@ -336,15 +337,9 @@ public class ServletCentral extends HttpServlet {
         cmdo = new CmdUploadModeloCertificado();
         comandos.put("CmdUploadModeloCertificado", cmdo);
         
+        cmdo = new CmdValidarDocumento();
+        comandos.put("CmdValidarDocumento", cmdo);
         
-        
-        
-        
-        
-        
-       
-        
-
     }
 // <editor-fold defaultstate="collapsed" desc="Métodos HttpServlet. Clique no sinal de + à esquerda para editar o código.">
 

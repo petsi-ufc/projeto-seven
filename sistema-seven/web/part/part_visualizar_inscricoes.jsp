@@ -3,6 +3,7 @@
     Created on : 26/03/2010, 16:35:48
     Author     : Caio
 --%>
+<%@page import="br.ufc.pet.services.UsuarioService"%>
 <%@page import="br.ufc.pet.evento.InscricaoAtividade"%>
 <%@page import="br.ufc.pet.services.AtividadeService"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -17,16 +18,23 @@
 
     <%          //recupera participante da sessão
                 Participante p = (Participante) session.getAttribute("user");
+                
                 ArrayList<Inscricao> array = p.getInscricoes();
                 
                 String estado;//será utilizada para dizer se uma inscrição está ou não está consolidada
                 
+                //Para atualizão de dados em relação ao certificado
+                UsuarioService us = new UsuarioService();
+                p.setUsuario(us.getById(p.getUsuario().getId()));
+                session.setAttribute("user", p);
                 
     %>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link href="../css/estilo.css" rel="stylesheet" type="text/css" />
+        <link href="../css/modal.css" rel="stylesheet" type="text/css" />
         <title>Centro de Controle :: Administrador</title>
+        <script src="../Script.js" ></script>
     </head>
     <body>
         <div id="container">
@@ -86,7 +94,7 @@
                         <td> - </td>
                         <% }%>
                         <% if(liberarCertificado){%>
-                        <td><a href="../ServletCentral?comando=CmdGerarCertificado&insc_id=<%=i.getId() %>" title="Gerar Certificado">Gerar Certificado</a> </td>
+                        <td><a href="../ServletCentral?comando=CmdGerarCertificado&insc_id=<%=i.getId()%>" title="Gerar Certificado" onclick="return clickGerarCerticiado(<%=p.getUsuario().isCertificadoGerado()%>, <%=i.getId()%>);" >Gerar Certificado</a> </td>
                         <% } else {%>
                         <td> Indisponível </td>
                         <% }%>
@@ -104,6 +112,27 @@
                 </div>
             </div>         
             <div id="footer"></div>
+        </div>
+                
+        <div id="openModal" class="modalDialog">
+            <div>
+		<a href="#close" title="Close" class="close">X</a>
+                <p>
+                    Após gerar o certificado você não poderá mais editar seu nome. 
+                    Atualmente seu nome no sistema é 
+                    <b><%=p.getUsuario().getNome().toUpperCase()%>,</b>
+                    e esse será usado em todos os certificados gerados.
+                </p>
+                <p>
+                    Deseja realmente utilizar esse nome em seus certificados?
+                </p>
+                    <a id="linkGerarCertificado"    
+                       href="../ServletCentral?comando=CmdGerarCertificado&insc_id="
+                       onclick="clickSimModal();" >
+                            <button id="btModalSim" class="btModal" >SIM</button>
+                    </a>
+                    <a href="part_conta.jsp" ><button id="btModalAlterar" class="btModal" >ALTERAR MEUS DADOS</button></a>
+            </div>
         </div>
     </body>
 </html>

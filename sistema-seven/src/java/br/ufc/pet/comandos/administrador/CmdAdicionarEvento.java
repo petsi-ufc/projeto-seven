@@ -68,7 +68,7 @@ public class CmdAdicionarEvento implements Comando {
             return "/admin/add_events.jsp";
         } else if (UtilSeven.validaData(inicioInscricao) != true || UtilSeven.validaData(fimInscricao) != true
                 || !UtilSeven.validaData(inicioEvento) || !UtilSeven.validaData(fimEvento)) {
-            session.setAttribute("erro", "Data InvÃ¡lida, digite no formato dd/mm/aaaa");
+            session.setAttribute("erro", "Data Inválida, digite no formato dd/mm/aaaa");
             return "/admin/add_events.jsp";
         } else {
             
@@ -77,42 +77,45 @@ public class CmdAdicionarEvento implements Comando {
             }
             catch(NumberFormatException e){
                 System.out.print(limiteDeAtividadesPorParticipante);
-                session.setAttribute("erro", "Limite de atividades invalido. Por favor digite apenas nÃºmeros.");
+                session.setAttribute("erro", "Limite de atividades inválido. Por favor digite apenas números.");
                 return "/admin/add_events.jsp";
             }
             
             if (UtilSeven.treatToDate(inicioEvento).before(data)) {
-                session.setAttribute("erro", "Data de inicio do evento anterior a data de hoje.");
+                session.setAttribute("erro", "Data de início do evento anterior a data de hoje.");
                 return "/admin/add_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioEvento).after(UtilSeven.treatToDate(fimEvento))) {
-                session.setAttribute("erro", "Data de inicio do evento posterior ao termino do evento.");
+                session.setAttribute("erro", "Data de início do evento posterior ao término do evento.");
                 return "/admin/add_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).before(data)) {
-                session.setAttribute("erro", "Data de inicio das incriÃ§Ãµes anterior a data de hoje.");
+                session.setAttribute("erro", "Data de início das incrições anterior a data de hoje.");
                 return "/admin/add_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).after(UtilSeven.treatToDate(fimEvento))) {
-                session.setAttribute("erro", "Data de inicio das inscriÃ§Ãµes posterior ao termino do evento.");
+                session.setAttribute("erro", "Data de início das inscrições posterior ao término do evento.");
                 return "/admin/add_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).after(UtilSeven.treatToDate(inicioEvento))) {
-                session.setAttribute("erro", "Data de inicio das inscriÃ§Ãµes posterior ao inicio do evento.");
+                session.setAttribute("erro", "Data de início das inscrições posterior ao início do evento.");
                 return "/admin/add_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).after(UtilSeven.treatToDate(fimInscricao))) {
-                session.setAttribute("erro", "Data de inicio das inscriÃ§Ãµes posterior ao termino das inscriÃ§Ãµes.");
+                session.setAttribute("erro", "Data de início das inscrições posterior ao término das inscrições.");
                 return "/admin/add_events.jsp";
             }
             if (UtilSeven.treatToDate(fimInscricao).after(UtilSeven.treatToDate(inicioEvento))) {
-                session.setAttribute("erro", "Data de fim das inscriÃ§Ãµes posterior ao inicio do evento.");
+                session.setAttribute("erro", "Data de fim das inscrições posterior ao início do evento.");
                 return "/admin/add_events.jsp";
             }
             if (request.getParameter("operacao_evento").equalsIgnoreCase("0")){
                 EventoService es = new EventoService();
-                if (es.getEventoBySigla(siglaEvento) != null) {
-                    session.setAttribute("erro", "Evento jÃ¡ cadastrado");
+                Evento aux1 = es.getEventoBySigla(siglaEvento);
+                Evento aux2 = es.getEventoByNome(nomeEvento);
+                
+                if ( (aux1 != null && aux1.isAtivo()) || (aux2 != null && aux2.isAtivo())) {
+                    session.setAttribute("erro", "Evento já cadastrado");
                     return "/admin/add_events.jsp";
                 }
                 E = new Evento();
@@ -129,7 +132,7 @@ public class CmdAdicionarEvento implements Comando {
                 if (es.adicionar(E)) {
                     admin.addEvento(E);
                     session.setAttribute("sucesso", "Evento adicionado com sucesso");
-                    System.out.println("Adicionei na sessÃ£o");
+                    System.out.println("Adicionei na sessão");
                     return "/admin/manege_events.jsp";
 
                 } else {

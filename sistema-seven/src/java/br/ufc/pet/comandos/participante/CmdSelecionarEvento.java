@@ -81,7 +81,7 @@ public class CmdSelecionarEvento implements Comando {
 
         for(Inscricao i : inscricoesPart){
             if(i.getEvento().getId().equals(ev.getId())){
-                session.setAttribute("erro", "Seleo inválida, você já se inscreveu neste evento.");
+                session.setAttribute("erro", "Seleção inválida, você já se inscreveu neste evento.");
                 return "/part/part_buscar_evento.jsp";
             }
         }

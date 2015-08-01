@@ -15,14 +15,7 @@
     </head>
     <body>
         <div id="container">
-            <div id="top">
-                <div id="menu">
-                    <ul>
-                        <li><a href="index.jsp" title="Página Inicial">Home</a></li>
-                        <li><a href="contato.jsp" title="Contato">Contato</a></li>
-                    </ul>
-                </div>
-            </div>
+            <%@include file="menu_index.jsp"%>
             <br/>
             <form id="form_recuperar_senha" action="ServletCentral?comando=CmdRecuperarSenha" method="POST" class="box_destaque cadastro">
                 <fieldset>

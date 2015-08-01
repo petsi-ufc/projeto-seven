@@ -10,7 +10,6 @@ import br.ufc.pet.evento.Organizador;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 /**
  *
@@ -119,6 +118,25 @@ public class EventoService {
         try {
 
             Evento en = eventoDAO.getBySilga(sigla);
+            if (en == null) {
+                return null;
+            }
+            OrganizadorService orgS = new OrganizadorService();
+            en.setOrganizadores(orgS.getOrganizadoresByEventoId(en.getId()));
+            AtividadeService aS = new AtividadeService();
+            en.setAtividades(aS.getAtividadeByEventoId(en.getId()));
+            return en;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+
+    }
+    
+    public Evento getEventoByNome(String nome) {
+        try {
+
+            Evento en = eventoDAO.getByNome(nome);
             if (en == null) {
                 return null;
             }

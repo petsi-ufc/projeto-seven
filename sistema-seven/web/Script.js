@@ -133,3 +133,21 @@ function formataCPF(campo,teclapres)
     }
     return formatar(campo, '###.###.###-##', teclapres);
 }
+
+//variavel auxiliar para saber se o usuario gerou certificado  na sessão
+var flagCertificadoGerado = false;
+function clickGerarCerticiado(flagUsuarioSessao, id){
+    if(flagUsuarioSessao || flagCertificadoGerado){
+        return true;
+    } else {
+        var link = document.getElementById('linkGerarCertificado').href;
+        document.getElementById('linkGerarCertificado').href = link + id;
+        location = "part_visualizar_inscricoes.jsp#openModal";
+        return false;
+    }
+}
+
+function clickSimModal(){
+    flagCertificadoGerado = true;
+    document.getElementById('openModal').style = "display: none";
+}

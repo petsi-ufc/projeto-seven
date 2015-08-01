@@ -31,25 +31,8 @@
     </head>
     <body>
         <div id="container">
-            <div id="top">                
-                <%-- Incluindo Menu --%>
-
-                <%--   <%if(session.getAttribute("user") instanceof Organizador){ %>
-                        <%@ include file="/org/organ_menu.jsp" %>
-
-                   <% }%>
-                   <%
-                    if(session.getAttribute("user") instanceof Participante){ %>
-                        <%@include file="/part/part_menu.jsp" %>
-
-                   <% }%>
-                   <%
-                     if(session.getAttribute("user") instanceof Administrador){ %>
-                        <%@include file="/admin/admin_menu.jsp" %>
-
-                   <%}%>--%>                
-
-            </div>
+            <%@include file="menu_index.jsp"%>
+            
             <div id="content">
                 <!--<div id="content_left"></div>-->
                 <h1 class="titulo">Programação</h1>

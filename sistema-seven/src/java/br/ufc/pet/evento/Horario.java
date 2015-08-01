@@ -4,6 +4,8 @@ import br.ufc.pet.util.UtilSeven;
 import java.util.Date;
 
 public class Horario extends Bean implements Comparable<Horario> {
+    
+    public static int DIA_EM_MINUTOS = 1440;
 
     private Date dia;
     private int horaInicial;
@@ -131,8 +133,5 @@ public class Horario extends Bean implements Comparable<Horario> {
 
         return dia;
 
-    }
-    //  public int compareTo(Horario o) {
-    //throw new UnsupportedOperationException("Not supported yet.");
-    //}
+    }    
 }

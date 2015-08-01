@@ -157,7 +157,7 @@ public class AtividadeService {
            
     }
     
-    public ArrayList<InscricaoAtividade> getIncricaoAtividadeByInscricao(Long idInscricao) throws SQLException{
+    public ArrayList<InscricaoAtividade> getIncricaoAtividadeByInscricao(Long idInscricao){
         try {
             ArrayList<InscricaoAtividade> ia = atividadeDAO.getIncricaoAtividadeByInscricao(idInscricao);
             return ia;
@@ -165,20 +165,5 @@ public class AtividadeService {
             ex.printStackTrace();
             return null;
         }
-     }
-    
-    
-    /*public double getPrecoInscricao(Long idAtividade, Inscricao i) {
-       
-        for (PrecoAtividade p : i.getModalidade().getPrecoAtividades()) {
-            for (Atividade a : i.getAtividades()) {
-                if (a.getTipo().getId().equals(p.getTipoAtividadeId()) && 
-                        a.getId().compareTo(idAtividade)==0) {
-                    return p.getValor();
-                }
-            }
-        }
-        return 0;
-    }*/
-    
+   }
 }

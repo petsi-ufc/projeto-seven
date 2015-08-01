@@ -7,7 +7,6 @@ package br.ufc.pet.daos;
 import br.ufc.pet.config.PostgresMapConfig;
 import br.ufc.pet.evento.Inscricao;
 import br.ufc.pet.evento.Utility;
-import br.ufc.pet.evento.InscricaoAtividade;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -22,9 +21,17 @@ public class InscricaoDAO {
         inscricao.setId(id);
         PostgresMapConfig.getSqlMapClient().insert("addInscricao", inscricao);
     }
+    
+    public void update(Inscricao inscricao) throws SQLException {
+        PostgresMapConfig.getSqlMapClient().update("updateInscricao", inscricao);
+    }
 
     public Inscricao getById(Long id) throws SQLException {
         return (Inscricao) PostgresMapConfig.getSqlMapClient().queryForObject("getInscricaoById", id);
+    }
+    
+    public Inscricao getByCodigoValidacao(String codigo) throws SQLException {
+        return (Inscricao) PostgresMapConfig.getSqlMapClient().queryForObject("getInscricaoByCodigoValidacao", codigo);
     }
 
     public Inscricao getParticipanteEvento(Utility utility) throws SQLException {
@@ -37,7 +44,6 @@ public class InscricaoDAO {
     private Long getProxId() throws SQLException {
         Long l = (Long) PostgresMapConfig.getSqlMapClient().queryForObject("getMaxIdInscricao");
         if(l == null){
-            //System.out.println(l);
             l = 0L;
         }
         return l+1;
@@ -72,7 +78,5 @@ public class InscricaoDAO {
          return (ArrayList<Inscricao>) PostgresMapConfig.getSqlMapClient().queryForList("getAllInscricoesByEventoId", id);
     }
     
-    /*public void confirmaLiberacaoCertificadoAtividade(InscricaoAtividade utility) throws SQLException{
-        PostgresMapConfig.getSqlMapClient().queryForObject("confirmaLiberacaoCertificadoAtividade", utility);
-    }*/
+    
 }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos;
 
 import br.ufc.pet.evento.Atividade;
@@ -11,14 +7,12 @@ import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.AtividadeService;
 import br.ufc.pet.services.InscricaoService;
 import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Escritorio projetos
+/*
+ * @author Anderson
  */
 public class CmdValidarDocumento implements Comando {
 

@@ -114,6 +114,11 @@
                         <input type="text" name="fim_periodo_inscricao" value="<%=fimIn%>" maxlength="10" onkeypress="return formataData(this,event)"/><br />
                         <label>Maximo de atividades por participante (Digite 0 (zero) para ilimitado):</label><br />
                         <input type="text" name="limite_de_atividades_por_participante" value="<%=limiteDeAtividadesPorParticipante%>" onkeypress="return validaNumerosSilencioso(event)"/><br />
+                        <label>O evento é gratuito?</label><br />
+                        <input type="radio" name="gratuito" value="true" class="radio"/>
+                        <label style="float: left">Sim</label><br />
+                        <input type="radio" name="gratuito" value="false" class="radio" checked />
+                        <label style="float: left">Não</label><br />
                         <label>Descrição:</label><br />
                         <textarea cols="1" rows="10" name="descricao"><%=descricao%></textarea>
                     </fieldset>

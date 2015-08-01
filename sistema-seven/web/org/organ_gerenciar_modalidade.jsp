@@ -28,12 +28,12 @@
                 <%@include file="organ_menu.jsp"%>
             </div>
             <div id="content">
-                <h1 class="titulo">Gerenciar Modalidades de Inscriçao do evento <%= e.getNome() %></h1>
+                <h1 class="titulo">Gerenciar Modalidades de Inscriçao do evento <%= e.getNome()%></h1>
                 <%@include file="/error.jsp"%>
                 <p><a href="organ_add_modalidade.jsp" title="Adicionar Modalidade">Adicionar Modalidade</a></p>
                 <table>
                     <%if (modalidades == null || modalidades.size() == 0) {%>
-                    <center><label>Sem Modalidades Cadastradas no momento</label></center>
+                    <center><label>Sem Modalidades Cadastradas no momento.</label></center>
                     <%} else {%>
                     <tr>
                         <th>Nome</th>

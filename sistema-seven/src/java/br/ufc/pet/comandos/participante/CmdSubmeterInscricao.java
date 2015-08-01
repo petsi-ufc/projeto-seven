@@ -5,6 +5,7 @@
 package br.ufc.pet.comandos.participante;
 
 import br.ufc.pet.evento.Atividade;
+import br.ufc.pet.evento.Evento;
 import br.ufc.pet.evento.Inscricao;
 import br.ufc.pet.evento.Participante;
 import br.ufc.pet.interfaces.Comando;
@@ -28,6 +29,8 @@ public class CmdSubmeterInscricao implements Comando {
         //este comando grava a inscricao no banco de dados
         Inscricao ins = (Inscricao) session.getAttribute("inscricao");
         InscricaoService iS = new InscricaoService();
+        
+        Evento evento = ins.getEvento();
 
         //reconhecer se é nova ou é uma edição, no caso de edição, deleta a antiga e insere a nova
         if (ins.getId() == null) {//nova, nao tem ID setado ainda
@@ -44,7 +47,16 @@ public class CmdSubmeterInscricao implements Comando {
                     }
                 }
             }
-
+            
+            
+            //Verificando se o evento é gratuito, se for, a inscrição é confirmada.
+            if(evento != null){
+                if(evento.isGratuito()){
+                    ins.setConfirmada(true);
+                }
+            }
+            
+            
             iS.adicionar(ins);
             ArrayList<Inscricao> array = ins.getParticipante().getInscricoes();
             array.add(ins);
@@ -82,6 +94,14 @@ public class CmdSubmeterInscricao implements Comando {
                 }
             }
             iS.excluir(ins.getId());
+            
+            //Verificando se o evento é gratuito, se for, a inscrição é confirmada.
+            if(evento != null){
+                if(evento.isGratuito()){
+                    ins.setConfirmada(true);
+                }
+            }
+            
             iS.adicionar(ins);
             ArrayList<Inscricao> array = ins.getParticipante().getInscricoes();
             array.add(ins);

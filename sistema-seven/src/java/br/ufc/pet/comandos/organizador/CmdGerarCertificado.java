@@ -112,7 +112,7 @@ public class CmdGerarCertificado implements Comando {
                 
                 AtividadeService as = new AtividadeService();
                 ArrayList<InscricaoAtividade> ia = as.getIncricaoAtividadeByInscricao(inscricao.getId());
-                ArrayList<Long> idsAtiv = CmdGerarCertificado.getIdsAtividadeCeriticadoLiberado(ia);
+                ArrayList<Long> idsAtiv = Atividade.getIdsAtividadeCeriticadoLiberado(ia);
 
                 for (Atividade a : inscricao.getAtividades()) {
                     
@@ -147,24 +147,9 @@ public class CmdGerarCertificado implements Comando {
                     p1.setAlignment(Element.ALIGN_CENTER);
                     document.add(p1);
 
-                    HorarioService hs = new HorarioService();
-                    ArrayList<Horario> horarios = hs.getHorariosByAtivideId(a.getId());
-
-                    double cargaHoraria = 0;
-
-                    for(Horario horario: horarios){
-                        //Calculo da Carga horaria da aividade
-                        //((HoraFinal - HoraInicial)*60(converte para minutos)) + (minFinal - MinInicial)
-                        int minutos = ((horario.getHoraFinal() - horario.getHoraInicial())*60) + (horario.getMinutoFinal() - horario.getMinutoInicial());
-
-                        cargaHoraria = cargaHoraria + minutos;
-
-                    }
-
-                    cargaHoraria = Math.ceil(cargaHoraria/60);
-                    int ch = (int) cargaHoraria;
-
-                    Paragraph p4 = new Paragraph("    Carga horária: " + ch + " horas.", FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLD));
+                    int cargaHoraria = a.getCargaHoraria();
+                    String aux = (cargaHoraria > 1) ? " horas." : " hora.";
+                    Paragraph p4 = new Paragraph("    Carga horária: " + cargaHoraria + aux, FontFactory.getFont(FontFactory.HELVETICA, 18, Font.BOLD));
                     p4.setSpacingBefore(48);
 
                     document.add(p4);
@@ -204,14 +189,5 @@ public class CmdGerarCertificado implements Comando {
         }
 
         return "/org/organ_gerenciar_inscricoes.jsp";
-    }
-    
-    private static ArrayList<Long> getIdsAtividadeCeriticadoLiberado(ArrayList<InscricaoAtividade> ias){
-        ArrayList<Long> ids = new ArrayList<Long>();
-        for(InscricaoAtividade ia : ias){
-            if(ia.isConfirmaCertificado())
-                ids.add(ia.getAtividadeId());
-        }
-        return ids;
     }
 }

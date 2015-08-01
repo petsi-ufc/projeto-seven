@@ -69,6 +69,23 @@ public class InscricaoService {
         }
         return null;
     }
+    
+    public Inscricao getInscricaoByCodigoValidacao(String codigo){
+        try {
+            Inscricao en = inscricaoDAO.getByCodigoValidacao(codigo);
+            if (en != null) {
+                en.setEvento(eS.getEventoById(en.getEvento().getId()));
+                en.setParticipante(pS.getById(en.getParticipante().getId()));
+                System.out.println(en.getParticipante() == null);
+                en.setModalidade(mS.getModalidadeInscricaoById(en.getModalidade().getId()));
+                en.setAtividades(aS.getAtividadeByInscricaoId(en.getId()));
+            }
+            return en;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
 
 
     public Inscricao getInscricaoParticipanteEvento(Utility utility) {

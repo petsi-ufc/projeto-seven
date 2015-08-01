@@ -93,4 +93,25 @@ public class Atividade extends Bean {
 
         return entrou;
     }
+    
+    public int getCargaHoraria(){
+        double minutos = 0;
+        for(Horario h : this.horarios){
+            int minutoInicial = (h.getHoraInicial()*60)+h.getMinutoInicial();
+            int minutoFinal = (h.getHoraFinal()*60)+h.getMinutoFinal();
+            if(minutoFinal < minutoInicial) minutoFinal += Horario.DIA_EM_MINUTOS;
+            minutos += (minutoFinal-minutoInicial);
+        }
+        int cargaHoraria = (int) Math.ceil(minutos/60);
+        return cargaHoraria;
+    }
+    
+    public static ArrayList<Long> getIdsAtividadeCeriticadoLiberado(ArrayList<InscricaoAtividade> ias){
+        ArrayList<Long> ids = new ArrayList<Long>();
+        for(InscricaoAtividade ia : ias){
+            if(ia.isConfirmaCertificado())
+                ids.add(ia.getAtividadeId());
+        }
+        return ids;
+    }
 }

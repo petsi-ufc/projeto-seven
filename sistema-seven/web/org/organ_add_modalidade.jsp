@@ -65,7 +65,7 @@
                                 }%>
                             <td><%=tp.getNome()%></td>
                             <%if(e.isGratuito()){%>
-                                <td><input type="text" name="preco_<%=tp.getId()%>" value="<%=valor%>" size="10"  disabled/></td>
+                                <td><input type="text" name="preco_<%=tp.getId()%>" value="<%=valor%>" size="10"  disabled="disabled"/></td>
                             <%}else{%>
                                 <td><input type="text" name="preco_<%=tp.getId()%>" value="<%=valor%>" size="10" /></td>
                             <%}%>

@@ -19,6 +19,7 @@ public class Evento extends Bean {
     private Date inicioPeriodoEvento;
     private Date fimPeriodoEvento;
     private int limiteAtividadePorParticipante;
+    private boolean gratuito;
 
     public Date getFimPeriodoEvento() {
         return fimPeriodoEvento;
@@ -184,10 +185,17 @@ public class Evento extends Bean {
        return this.limiteAtividadePorParticipante;
     }
 
+    public void setGratuito(boolean gratuito){
+        this.gratuito = gratuito;
+    }
+    
+    public boolean isGratuito(){
+        return this.gratuito;
+    }
+    
     @Override
     public String toString() {
         return "Evento{" + "nome=" + nome + ", sigla=" + sigla + ", tema=" + tema + ", inicioPeriodoInscricao=" + inicioPeriodoInscricao + ", fimPeriodoInscricao=" + fimPeriodoInscricao + ", descricao=" + descricao + ", ativo=" + ativo + ", atividades=" + atividades + ", organizadores=" + organizadores + ", administrador=" + administrador + ", movimentacoesFinanceiras=" + movimentacoesFinanceiras + ", inicioPeriodoEvento=" + inicioPeriodoEvento + ", fimPeriodoEvento=" + fimPeriodoEvento + ", limiteAtividadePorParticipante=" + limiteAtividadePorParticipante + '}';
     }
-    
 }
  

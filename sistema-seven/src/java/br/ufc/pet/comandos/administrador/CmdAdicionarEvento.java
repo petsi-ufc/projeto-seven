@@ -6,6 +6,7 @@ package br.ufc.pet.comandos.administrador;
 
 import br.ufc.pet.evento.Administrador;
 import br.ufc.pet.evento.Evento;
+
 import br.ufc.pet.evento.Organizador;
 import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.EventoService;
@@ -47,6 +48,8 @@ public class CmdAdicionarEvento implements Comando {
         session.setAttribute("fimInscricao", fimInscricao);
         String limiteDeAtividadesPorParticipante = request.getParameter("limite_de_atividades_por_participante");
         session.setAttribute("limiteDeAtividadesPorParticipante", limiteDeAtividadesPorParticipante);
+        String gratuito = request.getParameter("gratuito");
+        session.setAttribute("gratuito", gratuito);
 
         
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -118,7 +121,20 @@ public class CmdAdicionarEvento implements Comando {
                     session.setAttribute("erro", "Evento já cadastrado");
                     return "/admin/add_events.jsp";
                 }
+                
                 E = new Evento();
+                
+                /*
+                Verificando o valor que veio do formulário e atribuindo ao atributo do
+                objeto evento (E)
+                */
+                
+                if(request.getParameter("gratuito").equals("true")){
+                    E.setGratuito(true);
+                }else{ 
+                    E.setGratuito(false);
+                }
+                
                 E.setNome(nomeEvento);
                 E.setSigla(siglaEvento);
                 E.setTema(tema);

@@ -145,7 +145,6 @@ public class CmdAdicionarEvento implements Comando {
                 E.setAdministrador(admin);
                 E.setDescricao(descricao);
                 E.setLimiteAtividadePorParticipante(limiteDeAtividades);
-                System.out.println(E);
                 if (es.adicionar(E)) {
                     admin.addEvento(E);
                     session.setAttribute("sucesso", "Evento adicionado com sucesso");

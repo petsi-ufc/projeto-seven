@@ -20,12 +20,6 @@ public class ModalidadeInscricaoDAO {
         modalidadeInscricao.setId(id);
         PostgresMapConfig.getSqlMapClient().insert("addModalidadeInscricao", modalidadeInscricao);
     }
-     
-    public void insertGratuita(ModalidadeInscricao modalidadeInscricao) throws SQLException {
-        Long id = getProxId();
-        modalidadeInscricao.setId(id);
-        PostgresMapConfig.getSqlMapClient().insert("addModalidadeInscricaoGratuita", modalidadeInscricao);
-    }
 
     public void delete(Long id) throws SQLException {
         PostgresMapConfig.getSqlMapClient().delete("deleteModalidadeInscricao", id);

@@ -30,16 +30,6 @@ public class ModalidadeInscricaoService {
             return false;
         }
     }
-    
-    public boolean adicionarModalidadeGratuita(ModalidadeInscricao modalidadeInscricao) {
-        try {
-            modalidadeInscricaoDAO.insertGratuita(modalidadeInscricao);
-            return true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            return false;
-        }
-    }
 
     public boolean atualizar(ModalidadeInscricao modalidadeInscricao){
         try {

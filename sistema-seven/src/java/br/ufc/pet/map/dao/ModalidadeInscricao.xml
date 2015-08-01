@@ -60,12 +60,6 @@
         </iterate>
 
     </insert>
-    
-    <insert id="addModalidadeInscricaoGratuita" parameterClass="modalidadeInscricao" >
-        INSERT INTO evento.modalidade_inscricao(
-        id, tipo, evento_id)
-        VALUES (#id#, #tipo#, #eventoId#);
-    </insert>
 
     <update id="updateModalidadeInscricao" parameterClass="modalidadeInscricao">
         UPDATE evento.modalidade_inscricao

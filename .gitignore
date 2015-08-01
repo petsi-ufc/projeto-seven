@@ -18,3 +18,4 @@ target
 .DS_Store
 /sistema-seven/build/
 /sistema-seven/dist/
+/sistema-seven/nbproject/*

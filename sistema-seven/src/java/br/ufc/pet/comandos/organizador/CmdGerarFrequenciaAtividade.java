@@ -65,7 +65,7 @@ public class CmdGerarFrequenciaAtividade implements Comando {
         UsuarioService us = new UsuarioService();
         ArrayList<Horario> horarios = at.getHorarios();
         if (horarios == null || horarios.size() == 0) {
-            session.setAttribute("erro", "HorÃ¡rios nÃ£o definidos!");
+            session.setAttribute("erro", "Horários não definidos!");
             return "/org/organ_listar_atividades_frequencia.jsp";
         }
         nHorario = horarios.size();
@@ -98,9 +98,9 @@ public class CmdGerarFrequenciaAtividade implements Comando {
             cabecalho.setWidths(widths);
             cabecalho.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
             cabecalho.addCell(jpg);
-            cabecalho.addCell(new Phrase("Universidade Federal do CearÃ¡\n"
+            cabecalho.addCell(new Phrase("Universidade Federal do Ceará\n"
                     + "Sistema de Eventos\n"
-                    + "Lista de FrequÃªncia", fonteCabecalho));
+                    + "Lista de Frequência", fonteCabecalho));
             document.add(cabecalho); /* Adicionando ao documento. */
             try {
                 /* Adicionando ao documento. */ 
@@ -128,7 +128,7 @@ public class CmdGerarFrequenciaAtividade implements Comando {
             }
             table.setWidths(widths);
             table.getDefaultCell().setGrayFill(0.5f);
-            table.addCell(new Phrase("NÂº", fonteDesc));
+            table.addCell(new Phrase("Nº", fonteDesc));
             table.addCell(new Phrase("Nome", fonteDesc));
             for (int i = 0; i < nHorario; i++) {
                 String data = UtilSeven.treatToString(horarios.get(i).getDia());
@@ -153,7 +153,7 @@ public class CmdGerarFrequenciaAtividade implements Comando {
                     minFinal = "0" + minFinal;
                 }
 
-                table.addCell(new Phrase("" + data + "\n" + horaInicial + ":" + minInicial + " Ã s " + horaFinal + ":" + minFinal + "", fonteDesc));
+                table.addCell(new Phrase("" + data + "\n" + horaInicial + ":" + minInicial + " às " + horaFinal + ":" + minFinal + "", fonteDesc));
             }
             // adiciona os compromissos no pdf
             for (int i = 0; parts != null && i < parts.size(); i++) {
@@ -233,7 +233,7 @@ public class CmdGerarFrequenciaAtividade implements Comando {
         desc.setWidths(widths);
         desc.getDefaultCell().setBorder(PdfPCell.NO_BORDER);
         desc.getDefaultCell().setHorizontalAlignment(PdfPCell.ALIGN_JUSTIFIED);
-        desc.addCell(new Phrase("FrequÃªncia da Atividade :" + a.getNome(), fonteRodaPe)); //o nome da atividade
+        desc.addCell(new Phrase("Frequência da Atividade :" + a.getNome(), fonteRodaPe)); //o nome da atividade
         desc.addCell(new Phrase("Gerada em :" + UtilSeven.treatToString(new Date()), fonteRodaPe));
         return desc;
     }

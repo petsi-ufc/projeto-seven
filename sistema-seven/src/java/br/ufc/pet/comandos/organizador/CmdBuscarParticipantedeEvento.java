@@ -39,7 +39,6 @@ public class CmdBuscarParticipantedeEvento implements Comando {
         } else {
             inscricoesdoevento = (Inscricao) session.getAttribute("pago");
             session.removeAttribute("pago");
-            System.out.println("PASSEIIIIIII " + inscricoesdoevento.getId());
         }
         Evento evento = (Evento) session.getAttribute("evento");
 

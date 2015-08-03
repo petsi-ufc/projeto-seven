@@ -87,28 +87,33 @@
                     </tr>
                     <%}%>
                 </table>
-                <table id="data_table" class="extend">
-                    <thead>
-                        <tr>
-                            <th width="50px">N°</th>
-                            <th>Nome</th>
+                <center>
+                    <div style="width: 80%;">
+                         <table id="data_table" class="extend">
+                            <thead>
+                                <tr>
+                                    <th width="50px">N°</th>
+                                    <th>Nome</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%for (int i = 0; parts != null && i < parts.size(); i++) {%>
-                        <tr>
-                            <td><%=i + 1%></td>
-                            <%
-                                Participante p = parts.get(i);
-                            %>
-                            <td><%=p.getUsuario().getNome()%></td>
-                        </tr>
-                        <%}%>
-                    </tbody>
-                </table>
-
-
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%for (int i = 0; parts != null && i < parts.size(); i++) {%>
+                                <tr>
+                                    <td><%=i + 1%></td>
+                                    <%
+                                        Participante p = parts.get(i);
+                                    %>
+                                    <td><%=p.getUsuario().getNome()%></td>
+                                </tr>
+                                <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </center>
+                <a href=""  style="float: left; margin-bottom: 10px"
+                   title="" onclick="history.back();
+                           return false;" class="voltarCadastro">Voltar</a>
 
             </div>
             <div id="footer"></div>

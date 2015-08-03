@@ -44,23 +44,6 @@
 
 
                     <fieldset>
-                    <label>Selecione um Evento:<br></label>
-                    <select name="evento_id" style="width: 260px;">
-                    <option value="0">Selecione</option>
-                        <%
-                         for(Evento e:eventos){
-                        %>
-                        <option value="<%=e.getId()%>"><%=e.getNome()%></option>
-                        
-                        <%}%>
-
-                </select>
-                        <br>
-                        <br>
-                        
-                    
-
-                        
                         <label>Email do Participante</label><br />
                         <input type="text" name="email" class="buscar"/>
                         <input type="submit" value="Buscar" class="button" /><br />

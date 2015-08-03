@@ -90,7 +90,11 @@
                         </tbody>
                     </table>
                     <input type="hidden" name="ativ_id" value="<%=idAtividade%>" />
-                    <input type="submit" value="Liberar" class="button" style="margin-left: 0px;" />
+                    <input type="submit" value="Liberar" class="button" style="margin-left: 0px; border: 0px; font-family: Verdana, Tahoma, Arial;" />
+                    <br><br><br><br>
+                    <a href=""  style="float: left; margin-bottom: 10px"
+                       title="" onclick="history.back();
+                            return false;" class="voltarCadastro">Voltar</a>
                 </form>
                 <% }%>
             </div>

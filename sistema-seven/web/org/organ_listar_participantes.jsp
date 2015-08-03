@@ -83,7 +83,10 @@
                         <%}%>
                         </tbody>
                     </table>
-                </fieldset>               
+                </fieldset>
+                <a href=""  style="float: left; margin-bottom: 10px"
+               title="" onclick="history.back();
+                            return false;" class="voltarCadastro">Voltar</a>
             </div>
         </div>      
     </body>

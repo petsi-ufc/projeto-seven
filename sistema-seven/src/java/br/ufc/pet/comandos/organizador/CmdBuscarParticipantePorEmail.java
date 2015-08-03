@@ -13,7 +13,6 @@ import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.InscricaoService;
 import br.ufc.pet.services.ParticipanteService;
 import br.ufc.pet.services.UsuarioService;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -35,12 +34,12 @@ public class CmdBuscarParticipantePorEmail implements Comando {
 
             //String participante = (String) session.getAttribute("participantebuscar");
             String email = request.getParameter("email");
-            String evento = request.getParameter("evento_id");
+            Evento evento = (Evento) session.getAttribute("evento");
 
             if (email == null || email.equals("") || email.trim().isEmpty()) {
                 session.setAttribute("mensagem", "vazio");
                 return "/org/organ_listar_pagamento_part.jsp";
-            } else if (evento == null || evento.equals("") || evento.trim().isEmpty()) {
+            } else if (evento == null) {
                 session.setAttribute("mensagem", "vazio");
                 return "/org/organ_listar_pagamento_part.jsp";
             }
@@ -62,7 +61,7 @@ public class CmdBuscarParticipantePorEmail implements Comando {
 
             InscricaoService inscricaoservice = new InscricaoService();
             Utility u = new Utility();
-            u.setEvent_id(Long.parseLong(evento));
+            u.setEvent_id(evento.getId());
             u.setPart_id(part.getId());
             
             inscricoesdoevento = inscricaoservice.getInscricaoParticipanteEvento(u);

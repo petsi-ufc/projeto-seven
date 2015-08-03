@@ -19,9 +19,11 @@
                 document.forms[formName].submit();
             }
         </script>
-
-
         <title>Lista de Participantes Inscritos</title>
+        <script language="javascript" src="../jquery/jquery-1.10.2.js"></script>
+        <script language="javascript" src="../jquery/jquery-ui-1.10.4.custom.min.js"></script>
+        <script type="text/javascript" src="../jquery/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../jquery/initDataTable.js"></script>
     </head>
     <%--sComboPeriodo = "<select name=\"periodo\" onchange=\"forceSubmitCarregarTurmasPeriodo(\'form_avalicao\');\">";--%>
     <%  ArrayList<Participante> parts = (ArrayList<Participante>) session.getAttribute("listPartic");
@@ -54,7 +56,7 @@
                 </fieldset
                 <fieldset>
                     <% if (parts != null && !parts.isEmpty()) {%>
-                    <table align="left" style="width: 100%; ">
+                    <table id="data_table" align="left" style="width: 100%; ">
                         <thead>
                             <tr>
                                 <th>Nº</th>
@@ -81,7 +83,10 @@
                         <%}%>
                         </tbody>
                     </table>
-                </fieldset>               
+                </fieldset>
+                <a href=""  style="float: left; margin-bottom: 10px"
+               title="" onclick="history.back();
+                            return false;" class="voltarCadastro">Voltar</a>
             </div>
         </div>      
     </body>

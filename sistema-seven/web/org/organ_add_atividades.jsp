@@ -11,6 +11,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link href="../css/estilo.css" rel="stylesheet" type="text/css" />
+        <script language="javascript" src="../jquery/jquery-1.10.2.js"></script>
+        <script language="javascript" src="../jquery/jquery-ui-1.10.4.custom.min.js"></script>
+        <script type="text/javascript" src="../jquery/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../jquery/initDataTable.js"></script>
         <script type="text/javascript">
             function forceSubmitListarRelatoriosAtividades(formName) {
                 document.forms[formName].action = "organ_add_responsavel.jsp";
@@ -18,6 +22,11 @@
             }
         </script>
         <title>Centro de Controle :: Administrador</title>
+        <style type="text/css">
+            #content form.cadastro input {
+                width: 200px;
+            }
+        </style>
     </head>
     <body>
         <%
@@ -56,7 +65,7 @@
                         <h2 class="titulo">Responsáveis da atividade</h2>
                         <a href="#" onclick="forceSubmitListarRelatoriosAtividades('formAddAtividade')">Adicionar Responsavel</a><br>
                             <%if (resps != null && !resps.isEmpty()) {%>
-                            <table border="1" style="margin-top: 10px;">                           
+                            <table id="data_table" border="1" style="margin-top: 10px;">                           
                                 <thead>
                                     <tr>
                                         <th>Nome</th>
@@ -81,11 +90,11 @@
                             <%}%>
                             <h2 class="titulo">Dados da atividade</h2>
                             <label class="clear">Nome:</label>
-                            <input type="text" name="nome_atividade" value="<%=nome%>"/><br />
+                            <input type="text" name="nome_atividade" style="width: 400px;" value="<%=nome%>"/><br />
                             <label>Local:</label><br />
-                            <input type="text" name="local" value="<%=local%>"/><br />
+                            <input type="text" name="local" style="width: 400px;" value="<%=local%>"/><br />
                             <label>Vagas:</label><br />
-                            <input type="text" maxlength="5" onkeypress="return validaNumerosSilencioso(event)" name="vagas" value="<%=vagas%>"/><br />
+                            <input type="text" maxlength="5" style="width: 400px;" onkeypress="return validaNumerosSilencioso(event)" name="vagas" value="<%=vagas%>"/><br />
 
                             <label class="clear">É inscritível? (Aceitará inscrições de participantes?):</label>
                             <% if (a == null) {%>
@@ -114,7 +123,7 @@
                             }%>
                             <h2 class="titulo">Horários da atividade</h2>
                             <label>Horários:</label><br />
-                            <table border="1" style="margin-top: 10px;">
+                            <table class="data_table" border="1" style="margin-top: 10px;">
                                 <thead> <tr><th> Marcar</th><th>Horarios Disponiveis</th> </tr> </thead>
                                 <tbody>
                                     <%

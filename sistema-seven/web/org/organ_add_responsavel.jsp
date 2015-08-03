@@ -16,6 +16,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link href="../css/estilo.css" rel="stylesheet" type="text/css" />
         <title>Centro de Controle :: Administrador</title>
+        <script language="javascript" src="../jquery/jquery-1.10.2.js"></script>
+        <script language="javascript" src="../jquery/jquery-ui-1.10.4.custom.min.js"></script>
+        <script type="text/javascript" src="../jquery/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../jquery/initDataTable.js"></script>
     </head>
     <body>
         <% ArrayList<Usuario> us = (ArrayList<Usuario>) session.getAttribute("usuarios");
@@ -66,7 +70,7 @@
                     <input type="submit" name="btnBuscar" value="Buscar" class="button"><br><br>
                 </form>
                 <% if (us != null && us.size() > 0) {%>
-                <table border="1" align="left">
+                <table id="data_table" border="1" align="left">
                     <thead>
                         <tr>
                             <th>NOME</th>

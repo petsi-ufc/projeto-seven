@@ -14,27 +14,26 @@
         <link href="../css/estilo.css" rel="stylesheet" type="text/css" />
         <title>Centro de Controle :: Organizador</title>
         <script type="text/javascript">
-	function checkFile() {
-		var fileElement = document.getElementById("uploadFile");
-		var fileExtension = "";
-		if (fileElement.value.lastIndexOf(".") > 0) {
-			fileExtension = fileElement.value.substring(fileElement.value
-					.lastIndexOf(".") + 1, fileElement.value.length);
-		}
-		if (fileExtension == "jpg") {
-			return true;
-		} else {
-			alert("Você deve selecionar um arquivo no formarto 'jpg' para upload.");
-			return false;
-		}
-	}
-</script>
+            function checkFile() {
+                var fileElement = document.getElementById("uploadFile");
+                var fileExtension = "";
+                if (fileElement.value.lastIndexOf(".") > 0) {
+                    fileExtension = fileElement.value.substring(fileElement.value
+                            .lastIndexOf(".") + 1, fileElement.value.length);
+                }
+                if (fileExtension == "jpg") {
+                    return true;
+                } else {
+                    alert("Você deve selecionar um arquivo no formarto 'jpg' para upload.");
+                    return false;
+                }
+            }
+        </script>
     </head>
     <body>
-        <%
-                    br.ufc.pet.evento.Evento e = (br.ufc.pet.evento.Evento) session.getAttribute("evento");
-                    Organizador organizador = (Organizador) session.getAttribute("user");
-                    ArrayList<Atividade> ats = e.getAtividades();
+        <%            br.ufc.pet.evento.Evento e = (br.ufc.pet.evento.Evento) session.getAttribute("evento");
+            Organizador organizador = (Organizador) session.getAttribute("user");
+            ArrayList<Atividade> ats = e.getAtividades();
         %>
         <div id="container">
             <div id="top">
@@ -48,37 +47,37 @@
                     <tr>
 
                         <td>
-                         
-               
-                        </form>
-                        <form action="../ServletCentral?comando=CmdUploadModeloCertificado&id_evento=<%=e.getId() %>" method="post" enctype="multipart/form-data" onsubmit="return checkFile();">
-                                
-                                
-                                <input type="file" name="arquivo" id="uploadFile"> 
-                                     
-                                <input type="submit" value="Enviar">
-                            </form>        
-	</form>
-                         </td>
-                         <td>
-                            <br>
-                             <p style="text-align: left">
-                             <b>Deve ser feito o upload de um template seguindo os passos abaixo:</b><br>
-                             1º Faça o download do template de exemplo<a href="../resources/template.pptx">Aqui</a>.<br>
-                             2º Abra com o Power Point<br>
-                             3º Edite o modelo de certificado ao seu gosto, porém deixe as caixas pretas como estão.<br>
-                             4º Depois apague as caixas pretas. (O sistema irá preencher esses espaços com informações do participante)<br>
-                             5º Salve o tempate em formato .jpg<br>
-                             6º Faça o upload do template.<br>
 
-                             </p>
-                             <br>
-                         </td>
-                    </tr>
-                </table>
-                
-            </div>
-            <div id="footer"></div>
-        </div>
-    </body>
-</html>
+
+                            </form>
+                            <form action="../ServletCentral?comando=CmdUploadModeloCertificado&id_evento=<%=e.getId()%>" method="post" enctype="multipart/form-data" onsubmit="return checkFile();">
+
+
+                                <input type="file" name="arquivo" id="uploadFile"> 
+
+                                    <input type="submit" value="Enviar">
+                                        </form>        
+                                        </form>
+                                        </td>
+                                        <td>
+                                            <br>
+                                                <p style="text-align: left">
+                                                    <b>Deve ser feito o upload de um template seguindo os passos abaixo:</b><br>
+                                                        1º Faça o download do template de exemplo<a href="../resources/template.pptx">Aqui</a>.<br>
+                                                            2º Abra com o Power Point<br>
+                                                                3º Edite o modelo de certificado ao seu gosto, porém deixe as caixas pretas como estão.<br>
+                                                                    4º Depois apague as caixas pretas. (O sistema irá preencher esses espaços com informações do participante)<br>
+                                                                        5º Salve o tempate em formato .jpg<br>
+                                                                            6º Faça o upload do template.<br>
+
+                                                                                </p>
+                                                                                <br>
+                                                                                    </td>
+                                                                                    </tr>
+                                                                                    </table>
+
+                                                                                    </div>
+                                                                                    <div id="footer"></div>
+                                                                                    </div>
+                                                                                    </body>
+                                                                                    </html>

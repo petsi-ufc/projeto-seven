@@ -51,6 +51,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link href="../css/estilo.css" rel="stylesheet" type="text/css" />
         <title>Centro de Controle :: Administrador</title>
+        <script language="javascript" src="../jquery/jquery-1.10.2.js"></script>
+        <script language="javascript" src="../jquery/jquery-ui-1.10.4.custom.min.js"></script>
+        <script type="text/javascript" src="../jquery/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../jquery/initDataTable.js"></script>
     </head>
     <body>
         <div id="container">
@@ -70,7 +74,7 @@
                 <h1 class="titulo">Inscrição no evento <%=e.getNome()%></h1>
                 <fieldset>
                     <h2 class="titulo" style="margin-bottom: 10px;">Tabela de preços:</h2>
-                    <table width="600px;" border="0">
+                    <table class="data_table" width="600px;" border="0">
                         <thead>
                             <tr>
                                 <th>Tipos de atividades</th>
@@ -104,7 +108,7 @@
                         <%if (arrayDeSelecionadas.isEmpty()) {%><%--Utiliza o array de selecionadas--%>
                         <p style="margin-left: 40px;" >Nenhuma atividade selecionada</p>
                         <%} else {%>
-                        <table width="600px;" border="0">
+                        <table class="data_table" width="600px;" border="0">
                             <thead>
                                 <tr>
                                     <th>Nome da Atividade</th>
@@ -127,7 +131,7 @@
                         <p style="margin-left: 40px;" >Este evento não contém atividades selecionáveis.</p>
                         <%} else {%>
                         <p style="margin-left: 40px;" >Oferta de atividades opcionais:</p>
-                        <table width="600px;" border="0">
+                        <table class="data_table" width="600px;" border="0">
                             <thead>
                                 <tr>
                                     <th>Nome da Atividade</th>

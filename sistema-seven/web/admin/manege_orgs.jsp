@@ -18,6 +18,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link href="../css/estilo.css" rel="stylesheet" type="text/css" />
         <title>Centro de Controle :: Administrador</title>
+        <script language="javascript" src="../jquery/jquery-1.10.2.js"></script>
+        <script language="javascript" src="../jquery/jquery-ui-1.10.4.custom.min.js"></script>
+        <script type="text/javascript" src="../jquery/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../jquery/initDataTable.js"></script>
     </head>
     <body>
         <div id="container">
@@ -36,11 +40,16 @@
                         <center><label>Sem eventos no momento</label></center>
                         <%}%>
                         <h2 class="titulo">Eventos atuais:</h2>
-                        <ul>
-                            <%for (Evento event : admin.getEventos()) {%>
-                            <li><a href="../ServletCentral?comando=CmdListarOrganizadorEventos&idEvento=<%=event.getId()%>"><%=event.getNome()%> - <%=event.getSigla() %></a></li>
-                            <%}%>
-                        </ul>
+                        <table id="data_table">
+                            <thead>
+                                <tr><th>Eventos</th></tr>
+                            </thead>
+                            <tbody>
+                                <%for (Evento event : admin.getEventos()) {%>
+                                <tr><td><a href="../ServletCentral?comando=CmdListarOrganizadorEventos&idEvento=<%=event.getId()%>"><%=event.getNome()%> - <%=event.getSigla() %></a></td></tr>
+                                <%}%>
+                            </tbody>
+                        </table>
                     </div>
                 </form>
             </div>

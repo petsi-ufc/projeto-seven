@@ -71,7 +71,7 @@
 
         SELECT *
         FROM evento.usuario
-        WHERE nome LIKE #var#;
+        WHERE UPPER(nome) LIKE UPPER(#var#);
     </select>
 
 

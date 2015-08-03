@@ -24,8 +24,14 @@ public class CmdEditarParticipante implements Comando {
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
         Participante part = (Participante) session.getAttribute("user");
-        //Recuperar dados do formul?rio.
+        
+        UsuarioService us = new UsuarioService();
+        //Recuperar dados do formulario.
         String nome = request.getParameter("nome");
+        if(part.getUsuario().isCertificadoGerado()){
+            Usuario tmp = us.getById(part.getUsuario().getId());
+            nome = tmp.getNome();
+        }
         String fone = request.getParameter("fone");
         String dataNascimentoS = request.getParameter("dt_nascimento");
         String email = request.getParameter("email");
@@ -50,8 +56,7 @@ public class CmdEditarParticipante implements Comando {
             return "/part/part_conta.jsp";
         }
 
-        //Validar a inser??o
-        UsuarioService us = new UsuarioService();
+        //Validar a insercao
         Usuario temp = us.getByEmail(email);
         if (temp != null) {
             if (!temp.getId().equals(part.getUsuario().getId())) {

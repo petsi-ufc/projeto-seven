@@ -13,17 +13,14 @@
 <%@page import="java.util.*"%>
 <%@include file="../ErroAutenticacaoUser.jsp" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+    "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
-    <%
+    <%        Atividade at = (Atividade) session.getAttribute("atividade");
+        ArrayList<Participante> parts = (ArrayList<Participante>) session.getAttribute("participantes");
+        ArrayList<Horario> horarios = at.getHorarios();
 
-                Atividade at = (Atividade) session.getAttribute("atividade");
-                ArrayList<Participante> parts = (ArrayList<Participante>) session.getAttribute("participantes");
-                ArrayList<Horario> horarios = at.getHorarios();
-
-                int horario = horarios.size();
-
+        int horario = horarios.size();
 
 
     %>
@@ -31,6 +28,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="../css/estilo.css" rel="stylesheet" type="text/css" />
         <title>Centro de Controle :: Administrador</title>
+        <script language="javascript" src="../jquery/jquery-1.10.2.js"></script>
+        <script language="javascript" src="../jquery/jquery-ui-1.10.4.custom.min.js"></script>
+        <script type="text/javascript" src="../jquery/jquery.dataTables.js"></script>
+        <script type="text/javascript" src="../jquery/initDataTable.js"></script>
     </head>
     <body>
         <div id="container">
@@ -56,27 +57,27 @@
                 <table class="extend">
                     <%
                         for (int i = 0; i < horario; i++) {
-                        String data = UtilSeven.treatToString(horarios.get(i).getDia());
-                        int hInicial = horarios.get(i).getHoraInicial();
-                        String horaInicial=""+hInicial;
-                        if(hInicial<=9 && hInicial>=0){
-                        horaInicial="0"+hInicial;
-                        }
-                        int hFinal = horarios.get(i).getHoraFinal();
-                        String horaFinal=""+hFinal;
-                        if(hFinal<=9 && hFinal>=0){
-                        horaFinal="0"+hFinal;
-                        }
-                        int mInicial = horarios.get(i).getMinutoInicial();
-                        String minInicial=""+mInicial;
-                        if(mInicial<=9 && mInicial>=0){
-                            minInicial="0"+mInicial;
-                        }
-                        int mFinal = horarios.get(i).getMinutoFinal();
-                        String minFinal=""+mFinal;
-                        if(mFinal<=9 && mFinal>=0){
-                        minFinal="0"+minFinal;
-                        }
+                            String data = UtilSeven.treatToString(horarios.get(i).getDia());
+                            int hInicial = horarios.get(i).getHoraInicial();
+                            String horaInicial = "" + hInicial;
+                            if (hInicial <= 9 && hInicial >= 0) {
+                                horaInicial = "0" + hInicial;
+                            }
+                            int hFinal = horarios.get(i).getHoraFinal();
+                            String horaFinal = "" + hFinal;
+                            if (hFinal <= 9 && hFinal >= 0) {
+                                horaFinal = "0" + hFinal;
+                            }
+                            int mInicial = horarios.get(i).getMinutoInicial();
+                            String minInicial = "" + mInicial;
+                            if (mInicial <= 9 && mInicial >= 0) {
+                                minInicial = "0" + mInicial;
+                            }
+                            int mFinal = horarios.get(i).getMinutoFinal();
+                            String minFinal = "" + mFinal;
+                            if (mFinal <= 9 && mFinal >= 0) {
+                                minFinal = "0" + minFinal;
+                            }
 
 
                     %>
@@ -86,21 +87,25 @@
                     </tr>
                     <%}%>
                 </table>
-                <table class="extend">
-                    <tr>
-                        <th width="50px">N°</th>
-                        <th>Nome</th>
+                <table id="data_table" class="extend">
+                    <thead>
+                        <tr>
+                            <th width="50px">N°</th>
+                            <th>Nome</th>
 
-                    </tr>
-                    <%for (int i = 0; parts != null && i < parts.size(); i++) {%>
-                    <tr>
-                        <td><%=i+1%></td>
-                        <%
-                           Participante p = parts.get(i);
-                        %>
-                        <td><%=p.getUsuario().getNome()%></td>
-                    </tr>
-                    <%}%>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%for (int i = 0; parts != null && i < parts.size(); i++) {%>
+                        <tr>
+                            <td><%=i + 1%></td>
+                            <%
+                                Participante p = parts.get(i);
+                            %>
+                            <td><%=p.getUsuario().getNome()%></td>
+                        </tr>
+                        <%}%>
+                    </tbody>
                 </table>
 
 

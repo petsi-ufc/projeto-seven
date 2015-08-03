@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
  */
 public class CmdValidarDocumento implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
         String codigo = request.getParameter("codigo");

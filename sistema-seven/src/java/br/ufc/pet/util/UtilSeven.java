@@ -7,7 +7,6 @@ import br.ufc.pet.evento.PrecoAtividade;
 import br.ufc.pet.evento.TipoAtividade;
 import br.ufc.pet.services.ModalidadeInscricaoService;
 import br.ufc.pet.services.TipoAtividadeService;
-import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -17,10 +16,7 @@ import java.util.Collections;
 import java.util.Date;
 import sun.misc.BASE64Encoder;
 
-
-
-/**
- *
+/*
  * @author Caio
  */
 public class UtilSeven {
@@ -89,7 +85,6 @@ public class UtilSeven {
 
 
         if (data.length() != 10) {
-            //      System.out.println("vai false");
             return false;
 
         }
@@ -99,17 +94,14 @@ public class UtilSeven {
             System.out.println(data.charAt(i));
             if (i != 2 && i != 5) {
                 if (isNumeber(data.charAt(i)) != true) {
-                    //        System.out.println("vai false");
                     return false;
                 }
 
             }
             if ((i == 2 || i == 5) && data.charAt(i) != '/') {
-                //      System.out.println("vai false");
                 return false;
             }
         }
-        //System.out.println("vai true");
         return true;
     }
 
@@ -176,60 +168,6 @@ public class UtilSeven {
     }//fim do método
 
     public static void main(String args[]) throws SQLException{
-        /*
         
-        Path path = Paths.get("web/resources/templates_certificados_uploads");
-        
-        
-        System.out.println(path.toAbsolutePath());
-        String x = path.toAbsolutePath().toString();
-        System.out.println("Valor de X:"+x);
-        System.out.println(Files.exists(path));
-        
-        */
-        
-        
-        /*AtividadeService as = new AtividadeService();
-        ArrayList<Long> ids = UtilSeven.getIdsAtividadeCeriticadoLiberado(as.getIncricaoAtividadeByInscricao(126L));
-        
-        
-        for(Long l : ids){
-            System.out.println(l);
-        }
-        
-        
-        
-        
-        InscricaoAtividade ins = new InscricaoAtividade();
-                ins.setAtividadeId(3l);
-                ins.setInscricaoId(3l);
-                ins.setConfirmaCertificado(true);
-        AtividadeService as = new AtividadeService();
-        as.confirmaLiberacaoCertificadoAtividade(ins);
-        
-        
-        
-      
-      UsuarioService us = new UsuarioService();
-      ArrayList<Usuario> lista = new ArrayList<Usuario>();
-      lista = us.getAllUsers();
-      for(Usuario u:lista){
-          System.out.println(u.getSenha());
-          u.setSenha(criptografar(u.getSenha()));
-          us.updateSenhaUser(u);
-          System.out.println(u.getSenha());
-      }
-      */
-
-        //System.out.println(criptografar("94055771"));
     }
-    
-    /*private static ArrayList<Long> getIdsAtividadeCeriticadoLiberado(ArrayList<InscricaoAtividade> ias){
-        ArrayList<Long> ids = new ArrayList<Long>();
-        for(InscricaoAtividade ia : ias){
-            if(ia.isConfirmaCertificado())
-                ids.add(ia.getAtividadeId());
-        }
-        return ids;
-    }*/
 }

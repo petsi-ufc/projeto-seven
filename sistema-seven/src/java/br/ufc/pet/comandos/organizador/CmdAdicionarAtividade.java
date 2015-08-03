@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Atividade;
@@ -19,12 +15,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Escritorio projetos
  */
 public class CmdAdicionarAtividade implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         AtividadeService as = new AtividadeService();
@@ -64,15 +60,11 @@ public class CmdAdicionarAtividade implements Comando {
             boolean inscritivel = true;
             Evento ev = (Evento) session.getAttribute("evento");
 
-            String horario = "";
-
             //Coletar os horários selecionados para o evento
             ArrayList<Horario> horariosEscolhidos = new ArrayList<Horario>();
-            // for (Horario h : UtilSeven.getHorarios()) {
             for (Horario h : UtilSeven.getHorariosByEvento(ev.getId())) {
-                horario = request.getParameter("cb_horario_" + h.getId());
+                String horario = request.getParameter("cb_horario_" + h.getId());
                 if (horario != null) {
-                    //ativ.getHorarios().add(h);
                     horariosEscolhidos.add(h);
                 }
             }
@@ -90,7 +82,7 @@ public class CmdAdicionarAtividade implements Comando {
 
             if (resps.size() < 1) {
                 session.setAttribute("atividadeTemp", ativTemp);
-                session.setAttribute("erro", "Pelo menos um responsavel deve ser selecionado!");
+                session.setAttribute("erro", "Pelo menos um responsável deve ser selecionado!");
                 return "/org/organ_add_atividades.jsp";
             }
             if (aceitaInscricao.equals("NAO")) {
@@ -101,11 +93,8 @@ public class CmdAdicionarAtividade implements Comando {
             int x = 1;
             for (int i = 0; i < horariosEscolhidos.size(); i++) {
                 for (int j = x; j < horariosEscolhidos.size(); j++) {
-                    System.out.println("H1: " + horariosEscolhidos.get(i).printHorario() + "\nH2: " + horariosEscolhidos.get(j).printHorario());
-                    System.out.println("H1: " + horariosEscolhidos.get(i).getDia().getTime() + "\nH2: " + horariosEscolhidos.get(j).getDia().getTime());
                     if (horariosEscolhidos.get(i).conflitaComHorario(horariosEscolhidos.get(j))) {
-                        System.err.println("H1: " + horariosEscolhidos.get(i).printHorario() + "\nH2: " + horariosEscolhidos.get(j).printHorario());
-                        session.setAttribute("erro", "Voce selecionou horarios conflitantes para esta atividade!");
+                        session.setAttribute("erro", "Voce selecionou horários conflitantes para esta atividade!");
                         return "/org/organ_add_atividades.jsp";
                     }
 
@@ -117,7 +106,6 @@ public class CmdAdicionarAtividade implements Comando {
             ResponsavelAtividadeService ras = new ResponsavelAtividadeService();
             for (ResponsavelAtividade ra : resps) {
                 if (ra.getId() == null) {
-                    System.out.println(ra.getUsuario().getNome());
                     ras.insertPerfilResponsavelAtividade(ra);
                 }
             }

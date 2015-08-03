@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.services;
 
 import br.ufc.pet.daos.OrganizadorDAO;
@@ -9,13 +5,12 @@ import br.ufc.pet.evento.Organizador;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- *
+/*
  * @author fernando
  */
 public class OrganizadorService {
 
-    private OrganizadorDAO organizadorDAO;
+    private final OrganizadorDAO organizadorDAO;
 
     public OrganizadorService() {
         organizadorDAO = new OrganizadorDAO();

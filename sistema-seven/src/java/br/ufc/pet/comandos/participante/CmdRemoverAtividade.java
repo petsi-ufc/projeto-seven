@@ -1,20 +1,14 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.participante;
 
 import br.ufc.pet.evento.Atividade;
 import br.ufc.pet.evento.Inscricao;
 import br.ufc.pet.interfaces.Comando;
-import br.ufc.pet.services.AtividadeService;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Caio
  */
 public class CmdRemoverAtividade implements Comando {

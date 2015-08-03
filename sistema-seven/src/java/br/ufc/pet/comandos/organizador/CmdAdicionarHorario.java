@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Evento;
@@ -14,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Escritorio projetos
  */
 public class CmdAdicionarHorario implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         String hi = request.getParameter("hora_inicial");
@@ -47,7 +43,7 @@ public class CmdAdicionarHorario implements Comando {
                     novoH.setMinutoFinal(Integer.parseInt(mf));
 
                 } catch (Exception ex) {
-                    session.setAttribute("erro", "Digite numeros inteiros nos campos para hora e minuto!");
+                    session.setAttribute("erro", "Digite números inteiros nos campos para hora e minuto!");
                     return "/org/organ_add_horario.jsp";
                 }
                 if (UtilSeven.validaData(dia) != true) {
@@ -77,7 +73,7 @@ public class CmdAdicionarHorario implements Comando {
                     horEdit.setMinutoFinal(Integer.parseInt(mf));
 
                 } catch (Exception ex) {
-                    session.setAttribute("erro", "Digite numeros inteiros nos campos para hora e minuto!");
+                    session.setAttribute("erro", "Digite números inteiros nos campos para hora e minuto!");
                     return "/org/organ_add_horario.jsp";
                 }
                 if (UtilSeven.validaData(dia) != true) {
@@ -86,9 +82,7 @@ public class CmdAdicionarHorario implements Comando {
                 } else {
                     horEdit.setDia(UtilSeven.treatToDate(dia));
                 }
-                //Evento evento = (Evento) session.getAttribute("evento");
-                //horEdit.setEventoId(evento.getId());
-                //hs.novoH);
+                
                 if (hs.atualizar(horEdit)) {
                     session.setAttribute("sucesso", "Horário atualizado com sucesso!");
                 } else {

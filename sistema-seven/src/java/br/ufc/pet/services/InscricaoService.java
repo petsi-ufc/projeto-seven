@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.services;
 
 import br.ufc.pet.daos.InscricaoDAO;
@@ -15,13 +11,12 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
+/*
  * @author fernando
  */
 public class InscricaoService {
 
-    private InscricaoDAO inscricaoDAO;
+    private final InscricaoDAO inscricaoDAO;
     EventoService eS = new EventoService();
     ParticipanteService pS = new ParticipanteService();
     ModalidadeInscricaoService mS = new ModalidadeInscricaoService();

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.services;
 
 import br.ufc.pet.daos.UsuarioDAO;
@@ -12,13 +8,12 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
+/*
  * @author fernando
  */
 public class UsuarioService {
 
-    private UsuarioDAO usuarioDAO;
+    private final UsuarioDAO usuarioDAO;
 
     public UsuarioService() {
         usuarioDAO = new UsuarioDAO();

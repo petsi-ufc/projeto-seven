@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.daos;
 
 import br.ufc.pet.config.PostgresMapConfig;
@@ -9,8 +5,7 @@ import br.ufc.pet.evento.Participante;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- *
+/*
  * @author Escritorio projetos
  */
 public class ParticipanteDAO {
@@ -24,13 +19,11 @@ public class ParticipanteDAO {
     }
 
     public Participante getByUsuarioId(Long id) throws SQLException {
-        Participante p = null;
-        p = (Participante) PostgresMapConfig.getSqlMapClient().queryForObject("getParticipanteByUsuarioId", id);
+        Participante p = (Participante) PostgresMapConfig.getSqlMapClient().queryForObject("getParticipanteByUsuarioId", id);
         return p;
     }
     public Participante getById(Long id) throws SQLException {
-        Participante p = null;
-        p = (Participante) PostgresMapConfig.getSqlMapClient().queryForObject("getParticipanteById", id);
+        Participante p = (Participante) PostgresMapConfig.getSqlMapClient().queryForObject("getParticipanteById", id);
         return p;
     }
     private Long proxId() throws SQLException{

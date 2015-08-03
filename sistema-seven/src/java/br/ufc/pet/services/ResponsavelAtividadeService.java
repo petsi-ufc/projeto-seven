@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.services;
 
 import br.ufc.pet.daos.ResponsavelAtividadeDAO;
@@ -11,13 +7,12 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
+/*
  * @author fernando
  */
 public class ResponsavelAtividadeService {
 
-    private ResponsavelAtividadeDAO responsavelAtividadeDAO;
+    private final ResponsavelAtividadeDAO responsavelAtividadeDAO;
 
     public ResponsavelAtividadeService() {
         responsavelAtividadeDAO = new ResponsavelAtividadeDAO();

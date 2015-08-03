@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Evento;
@@ -16,12 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Franklin
  */
 public class CmdAdicionarModalidade implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         String nomeModalidade = request.getParameter("nomeModalidade").trim();
@@ -62,8 +58,6 @@ public class CmdAdicionarModalidade implements Comando {
             }
             }
             if (naoInseriri) {
-                //session.setAttribute("modalidade_existe", "ok");
-                //return "/ServletCentral?comando=CmdListarTipoModalidade";
                 session.setAttribute("erro", "Já existe uma modalidade cadastrada com esse nome!");
                 return "/org/organ_add_modalidade.jsp";
 
@@ -71,17 +65,9 @@ public class CmdAdicionarModalidade implements Comando {
             }
             modalidade.setTipo(nomeModalidade);
             modalidade.setEventoId(evento.getId());
-//            ms.adicionar(modalidade);
             ArrayList<PrecoAtividade> precos = new ArrayList<PrecoAtividade>();
             for (TipoAtividade t : tipos) {
-//                modalidade = ms.getModalidadeInscricaoByTipo(nomeModalidade);
-//                pa.setModalidadeId(modalidade.getId());
-//                pa.setTipoAtividadeId(t.getId());
-//                pa.setValor(Double.parseDouble(request.getParameter("preco_" + t.getId().toString())));
-//                pas.adicionar(pa);
                 PrecoAtividade precoAtiv = new PrecoAtividade();
-                // modalidade = ms.getModalidadeInscricaoByTipo(nomeModalidade);
-                //precoAtiv.setModalidadeId(modalidade.getId());
                 precoAtiv.setTipoAtividadeId(t.getId());
                 try{
                     if(evento.isGratuito()){

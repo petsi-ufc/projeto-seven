@@ -1,11 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.evento;
 
-/**
- *
+/*
  * @author Escritorio projetos
  */
 public class Organizacao extends Bean {

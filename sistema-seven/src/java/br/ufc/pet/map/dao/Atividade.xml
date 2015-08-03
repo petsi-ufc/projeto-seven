@@ -40,17 +40,6 @@
         papel.id = 4;
     </select>
 
-    <!-- <select id="getAtividadeById" resultClass="atividade"
-            parameterClass="long"
-            resultMap="atividadeResult">
-        SELECT a.id,a.local,a.nome, a.evento_id, a.vagas, a.tipo_id as tipo_id,  ta.nome as tipo_nome
-        FROM evento.organizacao o, evento.atividade a , evento.tipo_atividade ta
-        WHERE   o.evento_id=a.evento_id  AND
-        o.organizador_id=#var#   AND
-        ta.id=a.tipo_id AND
-        o.manter_atividade=true;
-    </select>-->
-
     <select id="getAtividadeById" resultClass="atividade"
             parameterClass="long"
             resultMap="atividadeResult">

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.conexao;
 
 import java.sql.Connection;
@@ -14,8 +10,7 @@ import java.util.logging.Logger;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-/**
- *
+/*
  * @author Escritorio projetos
  */
 public class ConnectionFactory {
@@ -32,8 +27,6 @@ public class ConnectionFactory {
     }
 
     public static Connection getConexao(String JNDINome) throws Exception {
-        Connection con = null;
-
         // Obtém a raiz da hierarquia de nomes
         InitialContext contexto = new InitialContext();
 
@@ -41,7 +34,7 @@ public class ConnectionFactory {
         DataSource ds = (DataSource) contexto.lookup("java:comp/env/" + JNDINome);
 
         // Obtém uma conexão
-        con = ds.getConnection();
+        Connection con = ds.getConnection();
         return con;
     }
     //TESTE BANCO
@@ -51,11 +44,6 @@ public class ConnectionFactory {
         Connection conn;
         try {
             conn = ConnectionFactory.getConexao(JNDINome);
-            if (conn == null) {
-                System.err.println("Erro");
-            } else {
-                System.out.println("Correto!");
-            }
         } catch (Exception ex) {
             Logger.getLogger(ConnectionFactory.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.daos;
 
 import br.ufc.pet.config.PostgresMapConfig;
@@ -10,8 +6,7 @@ import br.ufc.pet.evento.Utility;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- *
+/*
  * @author fernando
  */
 public class InscricaoDAO {

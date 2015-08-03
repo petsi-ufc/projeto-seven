@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.services;
 
 import br.ufc.pet.daos.AdministradorDAO;
@@ -10,13 +6,12 @@ import br.ufc.pet.util.UtilSeven;
 import java.sql.SQLException;
 
 
-/**
- *
+/*
  * @author fernando
  */
 public class AdministradorService {
 
-    private AdministradorDAO administradorDAO;
+    private final AdministradorDAO administradorDAO;
 
     public AdministradorService() {
         administradorDAO = new AdministradorDAO();

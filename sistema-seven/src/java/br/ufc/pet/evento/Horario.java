@@ -97,6 +97,7 @@ public class Horario extends Bean implements Comparable<Horario> {
             String.format("%02d", this.getHoraFinal()) + " : " + String.format("%02d", this.getMinutoFinal());
     }
 
+    @Override
     public int compareTo(Horario otherHorario) {
         int dia = this.dia.compareTo(otherHorario.getDia());
         if (dia == 0) {

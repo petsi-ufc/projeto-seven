@@ -21,11 +21,6 @@
         <result property="dia" column="dia"/>
     </resultMap>
 
-    <!--<insert id="addHorario" parameterClass="horario">
-        INSERT INTO evento.horario(
-        id, horainicio, mininicio, horafim, minfim, dia)
-        VALUES (#id#, #horaInicial#, #minutoInicial#, #horaFinal#, #minutoFinal#, #dia#);
-    </insert>-->
     <insert id="addHorario" parameterClass="horario">
         INSERT INTO evento.horario(
         id, horainicio, mininicio, horafim, minfim, dia, evento_id)

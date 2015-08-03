@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Evento;
@@ -28,24 +24,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author ismaily
  */
 public class CmdRelatorioParticipantesQuites implements Comando {
 
-    @SuppressWarnings("static-access")
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
-        
-        
-        
-       /* String hostName = request.getServerName();
-        String caminhoImagem = "http://"+request.getServerName()+request.getContextPath()+"/imagens/ufc.jpg";
-        if(hostName.equals("localhost")){
-            caminhoImagem = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/ufc.jpg";
-        }*/
-        
         
         String caminhoImagem ="/SEVEN_ARQUIVOS/templates_certificados_upload/UFC.png";            
                     
@@ -53,7 +39,7 @@ public class CmdRelatorioParticipantesQuites implements Comando {
         Evento en = (Evento) session.getAttribute("evento");
         ParticipanteService partS = new ParticipanteService();
         ArrayList<Participante> parts = partS.getParticipantesQuitesByEventoId(en.getId());
-        if (parts == null || parts.size() == 0) {
+        if (parts == null || parts.isEmpty()) {
             session.setAttribute("erro", "Atividade sem participantes no momento");
             return "/org/organ_relatorios.jsp";
         }

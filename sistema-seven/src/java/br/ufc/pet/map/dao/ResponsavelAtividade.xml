@@ -38,9 +38,6 @@
     <select id="getResponsaveisAtividadeByAtividadeId" resultClass="responsavelAtividade"
             parameterClass="long"
             resultMap="responsavelAtividadeResult">
-        <!--select pe.id, pe.usuario_id, pe.papel_id, pe.data_criacao, pe.status
-        from evento.atividade as a, evento.atividade_responsavel as ar, evento.usuario as u ,evento.perfil as pe
-        where a.id=ar.atividade_id and u.id=ar.responsavel_id and a.id=#var# and pe.usuario_id=u.id and pe.papel_id=4;-->
         select pe.id, pe.usuario_id, pe.papel_id, pe.data_criacao, pe.status
         from evento.atividade as a, evento.atividade_responsavel as ar, evento.perfil as pe
         where a.id=ar.atividade_id and pe.id=ar.responsavel_id and a.id=#var#  and pe.papel_id=4;

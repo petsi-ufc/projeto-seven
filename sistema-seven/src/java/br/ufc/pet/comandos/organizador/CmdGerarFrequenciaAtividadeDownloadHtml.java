@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Atividade;
@@ -17,12 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Welligton Abreu
  */
 public class CmdGerarFrequenciaAtividadeDownloadHtml implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession(true);
@@ -35,13 +30,13 @@ public class CmdGerarFrequenciaAtividadeDownloadHtml implements Comando {
         ArrayList<Participante> parts = partser.getParticipanteByAtividadeId(id);
         session.setAttribute("participantes", parts);
 
-        if (parts == null || parts.size()==0) {
+        if (parts == null || parts.isEmpty()) {
             session.setAttribute("erro", "Sem participantes no Momento");
             return "/org/organ_listar_atividades_frequencia.jsp";
         }
 
         ArrayList<Horario> horarios = at.getHorarios();
-        if (horarios == null || horarios.size()==0) {
+        if (horarios == null || horarios.isEmpty()) {
             session.setAttribute("erro", "Horários não definidos!");
             return "/org/organ_listar_atividades_frequencia.jsp";
         }

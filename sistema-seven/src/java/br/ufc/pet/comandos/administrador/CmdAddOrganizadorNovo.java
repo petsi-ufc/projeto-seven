@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.administrador;
 
 import br.ufc.pet.evento.Evento;
@@ -18,12 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author ismaily
  */
 public class CmdAddOrganizadorNovo implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession(true);
@@ -44,8 +40,6 @@ public class CmdAddOrganizadorNovo implements Comando {
         String manterAti = (String) request.getParameter("manterAtividade");
         String manterMod = (String) request.getParameter("manterModulo");
         Date date = UtilSeven.treatToDate(data);
-        //System.out.println("a data eh");
-        //System.out.println(""+date);
         boolean manterAtividade = false;
         boolean manterModulo = false;
 
@@ -55,10 +49,6 @@ public class CmdAddOrganizadorNovo implements Comando {
         if (manterMod != null) {
             manterModulo = true;
         }
-
-        //System.out.println(manterAti);
-        //System.out.println(manterMod);
-
 
         if (nome == null || rua == null || bairro == null || email == null || telefone == null || sexo == null
                 || data == null || instituicao == null || uf == null || senha == null || ConfSenha == null || cidade == null || numero == null
@@ -97,7 +87,7 @@ public class CmdAddOrganizadorNovo implements Comando {
                     }
                 }
             }
-            session.setAttribute("erro", " falha ao cadastradar!");
+            session.setAttribute("erro", " falha ao cadastrar!");
             return "/admin/organ_listar_movimentacao.jsp";
 
 

@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Inscricao;
@@ -17,8 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author mardson
  */
 public class CmdBuscarInscricao implements Comando{
@@ -30,19 +24,18 @@ public class CmdBuscarInscricao implements Comando{
 
         String id = request.getParameter("id");
 
-        if(id.trim().isEmpty() || id == null){
+        if(id == null || id.trim().isEmpty()){
             return "/org/organ_gerenciar_inscricoes.jsp";
         }else{
             InscricaoService is = new InscricaoService();
 
             Inscricao insc = is.getInscricaoById(Long.parseLong(id));
-            System.out.println(insc.getEvento().getId());
 
-              ModalidadeInscricaoService ms = new ModalidadeInscricaoService();
-        ArrayList<ModalidadeInscricao> modalidades = ms.getModalidadesInscricaoByEventoId(insc.getEvento().getId());
+            ModalidadeInscricaoService ms = new ModalidadeInscricaoService();
+            ArrayList<ModalidadeInscricao> modalidades = ms.getModalidadesInscricaoByEventoId(insc.getEvento().getId());
 
-        TipoAtividadeService ts = new TipoAtividadeService();
-        ArrayList<TipoAtividade> arrayDeTipos= ts.getTiposDeAtividadesByEventoId(insc.getEvento().getId());
+            TipoAtividadeService ts = new TipoAtividadeService();
+            ArrayList<TipoAtividade> arrayDeTipos= ts.getTiposDeAtividadesByEventoId(insc.getEvento().getId());
 
             session.setAttribute("inscricao", insc);
             session.setAttribute("eventoSelecionado", insc.getEvento());

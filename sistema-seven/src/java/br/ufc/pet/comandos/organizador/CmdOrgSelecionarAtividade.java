@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Atividade;
@@ -13,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Mardson
  */
 public class CmdOrgSelecionarAtividade implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         AtividadeService AtividadeS = new AtividadeService();
         HttpSession session = request.getSession();

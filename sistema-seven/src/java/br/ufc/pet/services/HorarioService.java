@@ -1,24 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.services;
 
 import br.ufc.pet.daos.HorarioDAO;
-import br.ufc.pet.evento.Evento;
 import br.ufc.pet.evento.Horario;
-import br.ufc.pet.util.SendMail;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- *
+/*
  * @author Caio
  */
 public class HorarioService {
 
-    private HorarioDAO horarioDAO;
+    private final HorarioDAO horarioDAO;
     
     //Atributos de data usados para conferir se os horários cadastrados estão entre
     //os dias de evento.

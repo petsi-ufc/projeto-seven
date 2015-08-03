@@ -1,20 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Atividade;
-import br.ufc.pet.evento.Horario;
 import br.ufc.pet.evento.Inscricao;
 import br.ufc.pet.evento.InscricaoAtividade;
 import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.AtividadeService;
-import br.ufc.pet.services.HorarioService;
 import br.ufc.pet.services.InscricaoService;
 import br.ufc.pet.services.UsuarioService;
 import br.ufc.pet.util.UtilSeven;
 import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
 import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
@@ -33,8 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author mardson
  */
 public class CmdGerarCertificado implements Comando {
@@ -83,8 +77,6 @@ public class CmdGerarCertificado implements Comando {
             try {
                 PdfWriter writer = PdfWriter.getInstance(document, baos);
                 
-                
-                //String linkVerificacao = "https://"+request.getServerName()+request.getContextPath()+"/validacao_documentos";
                 String linkVerificacao = "https://sistemas.quixada.ufc.br/SEVEN/validacao/";                           
                 String rodape = "Para verificar a autenticidade deste documento acesse o endereço\n"+linkVerificacao+" e informe o código:\n";
                 
@@ -160,8 +152,12 @@ public class CmdGerarCertificado implements Comando {
 
                 document.close();
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            } catch (DocumentException ex) {
+                System.out.println("DOCUMENTEXCEPTION");
+                session.setAttribute("erro", "Erro " + ex.getMessage());
+                return "/org/organ_gerenciar_inscricoes.jsp";
+            } catch (IOException ex) {
+                System.out.println("IOEXCEPTION");
                 session.setAttribute("erro", "Erro " + ex.getMessage());
                 return "/org/organ_gerenciar_inscricoes.jsp";
             }
@@ -170,11 +166,11 @@ public class CmdGerarCertificado implements Comando {
 
             // escreve o pdf no servlet
             response.setContentLength(baos.size());
-            ServletOutputStream out = null;
+            ServletOutputStream out;
             try {
                 out = response.getOutputStream();
             } catch (IOException ex) {
-                ex.printStackTrace();
+                System.out.println("IOEXCEPTION");
                 session.setAttribute("erro", "Erro " + ex.getMessage());
                 return "/org/organ_gerenciar_inscricoes.jsp";
             }
@@ -182,7 +178,7 @@ public class CmdGerarCertificado implements Comando {
                 baos.writeTo(out);
                 out.flush();
             } catch (Exception ex) {
-                ex.printStackTrace();
+                System.out.println("EXCEPTION");
                 session.setAttribute("erro", "Erro " + ex.getMessage());
                 return "/org/organ_gerenciar_inscricoes.jsp";
             }

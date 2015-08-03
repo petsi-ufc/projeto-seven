@@ -11,18 +11,17 @@ import br.ufc.pet.services.InscricaoService;
 import br.ufc.pet.services.ModalidadeInscricaoService;
 import br.ufc.pet.services.TipoAtividadeService;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Caio
  */
 public class CmdSelecionarEvento implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         Participante p = (Participante) session.getAttribute("user");

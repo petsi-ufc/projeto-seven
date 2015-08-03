@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Evento;
@@ -12,25 +8,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author USER
  */
 public class CmdBuscarParticipantedeEvento implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
 
-        //ArrayList<Inscricao> inscricoesdoevento = new ArrayList<Inscricao>();
-        Inscricao inscricoesdoevento = new Inscricao();
+        Inscricao inscricoesdoevento;
 
 
         if (session.getAttribute("pago") == null) {
 
-            //String participante = (String) session.getAttribute("participantebuscar");
             String inscricao = request.getParameter("inscricaobuscar");
 
-            if (inscricao.equals("") || inscricao == null || inscricao.trim().isEmpty() == true) {
+            if (inscricao == null || inscricao.trim().isEmpty()) {
                 session.setAttribute("mensagem", "vazio");
                 return "/org/organ_listar_pagamento.jsp";
             }
@@ -47,8 +41,6 @@ public class CmdBuscarParticipantedeEvento implements Comando {
             if (inscricoesdoevento.getEvento().getId().compareTo(evento.getId()) == 0) {
                 session.setAttribute("inscricoesdoevento", inscricoesdoevento);
             } else {
-
-                inscricoesdoevento = null;
                 session.setAttribute("mensagem", "naoencontrado");
             }
         } else {

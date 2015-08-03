@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.participante;
 
 import br.ufc.pet.evento.Atividade;
@@ -24,16 +20,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author welligton
  */
 public class CmdGerarBoletoPagamento implements Comando {
 
-    @SuppressWarnings("static-access")
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
-        //String caminhoImagem = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/ufc.jpg";
 
         String caminhoImagem ="/SEVEN_ARQUIVOS/templates_certificados_upload/UFC.png";
         
@@ -53,7 +47,6 @@ public class CmdGerarBoletoPagamento implements Comando {
             document.open();
 
             /* Imagem */
-//        caminho da iamgens "http://localhost:8080/SEVEN/imagens/ufc.jpg"
             Image jpg = Image.getInstance(caminhoImagem);
             jpg.setAlignment(Image.LEFT | Image.UNDERLYING); /* Ajusta o alinhamento da imagem. */
 

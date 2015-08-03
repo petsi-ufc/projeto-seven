@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.servlets;
 
 import br.ufc.pet.comandos.CmdCadastrarParticipante;
@@ -116,13 +112,9 @@ public class ServletCentral extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // HttpSession session = request.getSession(true);
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         String cmd = request.getParameter("comando");
-        //if (debug) {
-        //  System.out.println("Cmd:" + cmd);
-        //}
         Comando comando = (Comando) comandos.get(cmd);
 
         try {

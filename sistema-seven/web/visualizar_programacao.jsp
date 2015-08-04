@@ -55,7 +55,7 @@
 
                 <%}%>
                 <h2 class="titulo"><%=UtilSeven.treatToLongString(h.getDia())%></h2>
-                <table id="data_table" class="extend">
+                <table class="data_table" class="extend">
                     <thead>
                         <tr>
                             <th>Horário</th>

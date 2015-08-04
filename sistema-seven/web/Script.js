@@ -1,8 +1,3 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 function validaNumeros(event)
 {
     var Tecla = event.which;

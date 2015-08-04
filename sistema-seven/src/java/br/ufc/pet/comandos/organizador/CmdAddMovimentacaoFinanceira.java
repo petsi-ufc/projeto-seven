@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Evento;
@@ -10,44 +6,38 @@ import br.ufc.pet.evento.Organizacao;
 import br.ufc.pet.evento.Organizador;
 import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.MovimentacaoFinanceiraService;
-import br.ufc.pet.services.OrganizacaoService;
 import br.ufc.pet.util.UtilSeven;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author franklin barroso
  */
-//HA COISAS A SEREM DISCUTIDAS: DATA, TIPO(credito,debito)
+
 public class CmdAddMovimentacaoFinanceira implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession();
         Organizacao organizacao = new Organizacao();
-        OrganizacaoService orgS = new OrganizacaoService();
+        
 
         Organizador org = (Organizador) session.getAttribute("user");
         Evento ev = (Evento) session.getAttribute("evento");
         organizacao.setEvento(ev);
         organizacao.setOrganizador(org);
-        organizacao = orgS.getOrganizacaoByOrganizadorIdAndEventoId(organizacao);
-        if (organizacao.isManterModuloFinanceiro() == true) {
-            System.out.println("PERMISSÂO ");
-        } else {
-            System.out.println("NÂO NÂO PERMISSÂO ");
-        }
-        //organizacao.getOrganizador().getUsuario()==org.getUsuario();
+        
+        
         String descricao = (String) request.getParameter("descrição");
         String valor = (String) request.getParameter("valor");
         String date = (String) request.getParameter("data");
         //verificar a data, se está vazia
         Date data = UtilSeven.treatToDate(date);
         String tipo = request.getParameter("tipo_movimentacaofinanceira");
-        System.out.println("tipo++++ " + tipo);
+
         MovimentacaoFinanceira MF = (MovimentacaoFinanceira) session.getAttribute("atualizarmovimentacaofinanceira");
         session.removeAttribute("atualizarmovimentacaofinanceira");
 

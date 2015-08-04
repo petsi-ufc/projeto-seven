@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.ufc.pet.daos;
 
 import br.ufc.pet.config.PostgresMapConfig;
@@ -10,14 +5,12 @@ import br.ufc.pet.evento.ResponsavelAtividade;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- *
+/*
  * @author fernando
  */
 public class ResponsavelAtividadeDAO {
       public ResponsavelAtividade getByUsuarioId(Long id) throws SQLException {
-        ResponsavelAtividade responsavel = null;
-        responsavel = (ResponsavelAtividade) PostgresMapConfig.getSqlMapClient().queryForObject("getResponsavelAtividadeByUsuarioId", id);
+        ResponsavelAtividade responsavel = (ResponsavelAtividade) PostgresMapConfig.getSqlMapClient().queryForObject("getResponsavelAtividadeByUsuarioId", id);
         return responsavel;
     }
       public ArrayList<ResponsavelAtividade> geResponsaveisByAtividade(Long id) throws SQLException {

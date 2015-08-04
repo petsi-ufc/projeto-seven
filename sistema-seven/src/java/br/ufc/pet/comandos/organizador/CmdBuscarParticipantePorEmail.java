@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Evento;
@@ -17,22 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Mardson
  */
 public class CmdBuscarParticipantePorEmail implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
 
-        //ArrayList<Inscricao> inscricoesdoevento = new ArrayList<Inscricao>();
-        Inscricao inscricoesdoevento = new Inscricao();
+        Inscricao inscricoesdoevento;
 
 
         if (session.getAttribute("pago") == null) {
 
-            //String participante = (String) session.getAttribute("participantebuscar");
             String email = request.getParameter("email");
             Evento evento = (Evento) session.getAttribute("evento");
 
@@ -77,8 +71,6 @@ public class CmdBuscarParticipantePorEmail implements Comando {
             if (inscricoesdoevento.getEvento().getId().compareTo(evento.getId()) == 0) {
                 session.setAttribute("inscricoesdoevento", inscricoesdoevento);
             } else {
-
-                inscricoesdoevento = null;
                 session.setAttribute("mensagem", "naoencontrado");
             }
         } else {

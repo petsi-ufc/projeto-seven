@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Atividade;
@@ -27,8 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author ismaily
  */
 public class CmdRelatorioParticipanteAtividade implements Comando {
@@ -39,18 +34,11 @@ public class CmdRelatorioParticipanteAtividade implements Comando {
         
         String caminhoImagem ="/SEVEN_ARQUIVOS/templates_certificados_upload/UFC.png";
         
-        /*String hostName = request.getServerName();
-        String caminhoImagem = "http://"+request.getServerName()+request.getContextPath()+"/imagens/UFC.png";
-        if(hostName.equals("localhost")){
-            caminhoImagem = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/UFC.png";
-        }*/
-        
         Long id = Long.parseLong(request.getParameter("idAtv"));
         Atividade at = new AtividadeService().getAtividadeById(id); //pega a atividade pelo id
-        //System.out.println(at == null);
         ParticipanteService partS = new ParticipanteService();
         ArrayList<Participante> parts = partS.getParticipanteByAtividadeId(id);
-        if (parts == null || parts.size() == 0) {
+        if (parts == null || parts.isEmpty()) {
             session.setAttribute("erro", "Atividade sem participantes no momento");
             return "/org/organ_listar_atividades_download.jsp";
         }

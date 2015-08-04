@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.administrador;
 
 import br.ufc.pet.evento.Administrador;
@@ -20,12 +16,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.mail.MessagingException;
 
-/**
- *
+/*
  * @author welligton
  */
 public class CmdAdicionarEvento implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
         Administrador admin = (Administrador) session.getAttribute("user");
@@ -62,10 +58,14 @@ public class CmdAdicionarEvento implements Comando {
         if (!request.getParameter("operacao_evento").equalsIgnoreCase("0")) {
             E = new EventoService().getEventoById(Long.parseLong(request.getParameter("operacao_evento")));
         }
-        if (nomeEvento.trim().equals("") || nomeEvento == null || siglaEvento.trim().equals("")
-                || siglaEvento == null || descricao.trim().equals("") || descricao == null || tema.trim().equals("")
-                || inicioInscricao.trim().equals("") || inicioInscricao == null || fimInscricao.trim().equals("")
-                || fimInscricao == null || limiteDeAtividadesPorParticipante.trim().equals("") || limiteDeAtividadesPorParticipante == null) {
+        if (nomeEvento == null || nomeEvento.trim().equals("") || 
+           siglaEvento == null|| siglaEvento.trim().equals("") || 
+           descricao == null || descricao.trim().equals("") || 
+           tema==null || tema.trim().equals("") || 
+           inicioInscricao == null || inicioInscricao.trim().equals("") || 
+           fimInscricao == null || fimInscricao.trim().equals("") || 
+           limiteDeAtividadesPorParticipante == null || limiteDeAtividadesPorParticipante.trim().equals("")) {
+            
             session.setAttribute("erro", "Preencha todos os campos");
             session.setAttribute("evento", E);
             return "/admin/add_events.jsp";
@@ -148,15 +148,12 @@ public class CmdAdicionarEvento implements Comando {
                 if (es.adicionar(E)) {
                     admin.addEvento(E);
                     session.setAttribute("sucesso", "Evento adicionado com sucesso");
-                    System.out.println("Adicionei na sessão");
                     return "/admin/manege_events.jsp";
-
                 } else {
                     session.setAttribute("erro", "Erro ao adicionar evento");
                 }
-             }else {
+             } else {
                 admin.removerEventoById(E.getId());
-                //System.out.println("passou");
                 E.setNome(nomeEvento);
                 E.setSigla(siglaEvento);
                 E.setTema(tema);

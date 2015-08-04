@@ -1,30 +1,23 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.administrador;
 
 import br.ufc.pet.evento.Administrador;
 import br.ufc.pet.evento.Evento;
-import br.ufc.pet.evento.Organizador;
 import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.EventoService;
-import br.ufc.pet.util.SendMail;
 import br.ufc.pet.util.UtilSeven;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author welligton
  */
 public class CmdAlterarEvento implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession(true);
@@ -59,10 +52,13 @@ public class CmdAlterarEvento implements Comando {
         Evento E = null;
 
 
-        if (nomeEvento.trim().equals("") || nomeEvento == null || siglaEvento.trim().equals("")
-                || siglaEvento == null || descricao.trim().equals("") || descricao == null || tema.trim().equals("")
-                || inicioInscricao.trim().equals("") || inicioInscricao == null || fimInscricao.trim().equals("")
-                || fimInscricao == null || limiteDeAtividadesPorParticipante.trim().equals("") || limiteDeAtividadesPorParticipante == null) {
+        if (nomeEvento==null || nomeEvento.trim().equals("") || 
+            siglaEvento==null || siglaEvento.trim().equals("") ||
+            descricao==null || descricao.trim().equals("") ||
+            tema==null || tema.trim().equals("") ||
+            inicioInscricao==null || inicioInscricao.trim().equals("") || 
+            fimInscricao==null || fimInscricao.trim().equals("") ||
+            limiteDeAtividadesPorParticipante==null || limiteDeAtividadesPorParticipante.trim().equals("")) {
             session.setAttribute("erro", "Preencha todos os campos");
             session.setAttribute("evento", E);
             return "/admin/edit_events.jsp";
@@ -76,37 +72,36 @@ public class CmdAlterarEvento implements Comando {
                 limiteDeAtividades = Integer.parseInt(limiteDeAtividadesPorParticipante);
             }
             catch(NumberFormatException e){
-                System.out.print(limiteDeAtividadesPorParticipante);
-                session.setAttribute("erro", "Limite de atividades invalido. Por favor digite apenas números.");
+                session.setAttribute("erro", "Limite de atividades inválido. Por favor digite apenas números.");
                 return "/admin/edit_events.jsp";
             }
 
             if (UtilSeven.treatToDate(inicioEvento).before(data)) {
-                session.setAttribute("erro", "Data de inicio do evento anterior a data de hoje.");
+                session.setAttribute("erro", "Data de início do evento anterior a data de hoje.");
                 return "/admin/edit_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioEvento).after(UtilSeven.treatToDate(fimEvento))) {
-                session.setAttribute("erro", "Data de inicio do evento posterior ao termino do evento.");
+                session.setAttribute("erro", "Data de início do evento posterior ao término do evento.");
                 return "/admin/edit_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).before(data)) {
-                session.setAttribute("erro", "Data de inicio das incrições anterior a data de hoje.");
+                session.setAttribute("erro", "Data de início das incrições anterior a data de hoje.");
                 return "/admin/edit_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).after(UtilSeven.treatToDate(fimEvento))) {
-                session.setAttribute("erro", "Data de inicio das inscrições posterior ao termino do evento.");
+                session.setAttribute("erro", "Data de início das inscrições posterior ao término do evento.");
                 return "/admin/edit_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).after(UtilSeven.treatToDate(inicioEvento))) {
-                session.setAttribute("erro", "Data de inicio das inscrições posterior ao inicio do evento.");
+                session.setAttribute("erro", "Data de início das inscrições posterior ao início do evento.");
                 return "/admin/edit_events.jsp";
             }
             if (UtilSeven.treatToDate(inicioInscricao).after(UtilSeven.treatToDate(fimInscricao))) {
-                session.setAttribute("erro", "Data de inicio das inscrições posterior ao termino das inscrições.");
+                session.setAttribute("erro", "Data de início das inscrições posterior ao término das inscrições.");
                 return "/admin/edit_events.jsp";
             }
             if (UtilSeven.treatToDate(fimInscricao).after(UtilSeven.treatToDate(inicioEvento))) {
-                session.setAttribute("erro", "Data de fim das inscrições posterior ao inicio do evento.");
+                session.setAttribute("erro", "Data de fim das inscrições posterior ao início do evento.");
                 return "/admin/edit_events.jsp";
             }
 
@@ -115,7 +110,6 @@ public class CmdAlterarEvento implements Comando {
 
 
                 admin.removerEventoById(E.getId());
-                //System.out.println("passou");
                 E.setNome(nomeEvento);
                 E.setSigla(siglaEvento);
                 E.setTema(tema);

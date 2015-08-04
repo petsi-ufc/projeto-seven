@@ -1,30 +1,21 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.services;
 
 import br.ufc.pet.daos.AtividadeDAO;
 import br.ufc.pet.evento.Atividade;
 import br.ufc.pet.evento.Horario;
-import br.ufc.pet.evento.Inscricao;
 import br.ufc.pet.evento.InscricaoAtividade;
-import br.ufc.pet.evento.PrecoAtividade;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-/**
- *
+/*
  * @author caio
  */
 public class AtividadeService {
 
-    private HorarioService hs = new HorarioService();
-    private AtividadeDAO atividadeDAO;
-    private EventoService es;
-    private ResponsavelAtividadeService responsavelService;
+    private final HorarioService hs = new HorarioService();
+    private final AtividadeDAO atividadeDAO;
+    private final EventoService es;
+    private final ResponsavelAtividadeService responsavelService;
 
     public AtividadeService() {
         atividadeDAO = new AtividadeDAO();

@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.ufc.pet.comandos.participante;
 
 import br.ufc.pet.evento.Evento;
@@ -13,16 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Caio
  */
 public class CmdListarEventosAbertos implements Comando{
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         EventoService es = new EventoService();
 
-        //ArrayList <Evento> ea = es.buscarEventosAbertos();
         ArrayList <Evento> ea = es.buscarEventosComInscricoesAbertas();
         HttpSession session = request.getSession();
         session.setAttribute("eventosAbertos", ea);

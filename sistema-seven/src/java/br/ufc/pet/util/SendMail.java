@@ -1,11 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.util;
 
-/**
- *
+/*
  * @author Gleyson
  */
 import javax.mail.*;
@@ -62,14 +57,11 @@ public class SendMail {
 
 
         Transport.send(message);
-
-        System.out.println("Mensagem enviada com sucesso");
     }
 
     public static void sendMail(String to, String subject, String Mensagem)
             throws AddressException, MessagingException {
         SendMail.sendMail("smtp.gmail.com", "petufc.quixada@gmail.com", to, subject, Mensagem);
-     //   sendEmailSeven(Mensagem, "apps@quixada.ufc.br", to, subject);
     }
 
     public static void main(String args[]) throws AddressException, MessagingException {
@@ -78,9 +70,6 @@ public class SendMail {
 
 
     public static void sendEmailSeven(String messageBody, String from, String to, String subject){
-
-        System.out.println(to);
-
 
         try{
         Context initCtx = new InitialContext();
@@ -91,9 +80,7 @@ public class SendMail {
         MimeMessage message = new MimeMessage( s);
         message.setFrom(new InternetAddress(from));
         message.setRecipients(Message.RecipientType.TO, to);
-//        message.setSubject(MimeUtility.encodeText(SendMail.SUBJECT), "us-ascii");
         message.setSubject(MimeUtility.encodeText(subject), "UTF-8");
-//        message.setSubject(SendMail.SUBJECT);
         String messageBodyContent = "<html><body>";
         messageBodyContent+="<html><body> " + messageBody + "</body></html>";
 
@@ -108,10 +95,6 @@ public class SendMail {
             String user = props.getProperty("mail.smtp.user");
             String password = s.getProperties().getProperty("mail.smtp.password");
 
-         //   System.out.println("host "+ props.getProperty("mail.smtp.host"));
-         //   System.out.println("port "+ Integer.parseInt(props.getProperty("mail.smtp.port")));
-         //   System.out.println("user "+ props.getProperty("mail.smtp.user"));
-         //   System.out.println("pasw "+ props.getProperty("mail.smtp.password"));
             tr.connect(host, port, user, password);
             message.saveChanges(); // don't forget this
             //envio da mensagem
@@ -119,7 +102,6 @@ public class SendMail {
             tr.close();
         } catch (Exception e) {
             // TODO Auto-generated catch block
-            System.out.println(">> Erro: Envio Mensagem");
             e.printStackTrace();
         }
         }catch(Exception ex){

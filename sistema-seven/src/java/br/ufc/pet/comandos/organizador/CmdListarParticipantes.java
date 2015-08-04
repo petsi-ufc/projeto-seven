@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Evento;
@@ -12,15 +8,15 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
+/*
  * @author Escritorio projetos
  */
 public class CmdListarParticipantes implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         ParticipanteService partService = new ParticipanteService();
-        ArrayList<Participante> parts = null;
+        ArrayList<Participante> parts;
         String ativId = request.getParameter("ativEscolhida");
         if (ativId != null && !ativId.equals("null")) {
             Long id = Long.parseLong(ativId);

@@ -1,13 +1,5 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
-/**
- *
- * @author Caio
- */
 import br.ufc.pet.evento.Evento;
 import br.ufc.pet.interfaces.Comando;
 import br.ufc.pet.services.InscricaoService;
@@ -15,12 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Caio
  */
 public class CmdOrganExcluirInscricao implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         InscricaoService is = new InscricaoService();

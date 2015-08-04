@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Atividade;
@@ -24,32 +20,23 @@ import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author ismaily
  */
 public class CmdGerarFrequenciaAtividade implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
-        int nHorario = 0;
         
         String caminhoImagem ="/SEVEN_ARQUIVOS/templates_certificados_upload/UFC.png";
-        
-        /*String hostName = request.getServerName();
-        String caminhoImagem = "http://"+request.getServerName()+request.getContextPath()+"/imagens/UFC.png";
-        if(hostName.equals("localhost")){
-            caminhoImagem = "http://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/imagens/UFC.png";
-        }*/
-                
+           
         Long id = Long.parseLong(request.getParameter("idAtv"));
         Atividade at = new AtividadeService().getAtividadeById(id); //pega a atividade pelo id
         at.setEvento(new EventoService().getEventoById(at.getEvento().getId())); //seta o evento na atividade
@@ -57,18 +44,18 @@ public class CmdGerarFrequenciaAtividade implements Comando {
         ArrayList<Participante> parts = partser.getParticipanteByAtividadeId(id);        
         
         
-        if (parts == null || parts.size() == 0) {
+        if (parts == null || parts.isEmpty()) {
             session.setAttribute("erro", "Sem participantes no Momento");
             return "/org/organ_listar_atividades_frequencia.jsp";
         }
         
         UsuarioService us = new UsuarioService();
         ArrayList<Horario> horarios = at.getHorarios();
-        if (horarios == null || horarios.size() == 0) {
+        if (horarios == null || horarios.isEmpty()) {
             session.setAttribute("erro", "Horários não definidos!");
             return "/org/organ_listar_atividades_frequencia.jsp";
         }
-        nHorario = horarios.size();
+        int nHorario = horarios.size();
         try {
             // cria o pdf
             // configura o content type para a respota pdf

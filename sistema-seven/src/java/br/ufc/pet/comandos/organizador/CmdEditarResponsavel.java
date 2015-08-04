@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.ResponsavelAtividade;
@@ -14,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Escritorio projetos
  */
 public class CmdEditarResponsavel implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(true);
         ResponsavelAtividade responsavel = (ResponsavelAtividade) session.getAttribute("responsAtual");
@@ -70,9 +66,9 @@ public class CmdEditarResponsavel implements Comando {
                 return "/org/organ_editar_responsavel.jsp";
             }
             if (usService.update(usUpdate)) {
-                session.setAttribute("sucesso", "Responsavel editado com sucesso.");
+                session.setAttribute("sucesso", "Responsável editado com sucesso.");
             } else {
-                session.setAttribute("erro", "Erro ao tentar editar Responsavel por Atividade.");
+                session.setAttribute("erro", "Erro ao tentar editar Responsável por Atividade.");
                 return "/org/organ_editar_responsavel.jsp";
             }
         }

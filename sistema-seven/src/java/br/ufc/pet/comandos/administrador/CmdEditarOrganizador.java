@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.administrador;
 
 import br.ufc.pet.evento.Evento;
@@ -16,12 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author ismaily
  */
 public class CmdEditarOrganizador implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
 
 
@@ -39,10 +35,6 @@ public class CmdEditarOrganizador implements Comando {
         if (mantMod != null) {
             manterModulo = true;
         }
-
-
-        //System.out.println(mantAtiv);
-        //System.out.println(mantMod);
 
         Evento en = (Evento) session.getAttribute("evento");
         Usuario u = (Usuario) session.getAttribute("uEditar");
@@ -79,11 +71,7 @@ public class CmdEditarOrganizador implements Comando {
             org = criarOrganizador(u, new Date(), true);
             Organizacao orga = criarOrganizacao(org, en, manterAtividade, manterModulo);
             if (orgS.adicionar(org)) {
-                //System.out.println("add organizador");
                 if (orgaS.adicionar(orga)) {
-                    //System.out.println("" + orga.getManterAtividade());
-                    //System.out.println("" + orga.getEvento().getNome());
-                    //System.out.println("" + orga.getOrganizador().getUsuario().getNome());
                     org.setOrganizacoes(orga);
                     en.addOrganizador(org);
                     session.setAttribute("sucesso", "Alterado com sucesso!");

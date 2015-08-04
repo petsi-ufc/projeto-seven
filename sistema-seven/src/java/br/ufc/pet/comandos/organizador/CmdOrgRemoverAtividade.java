@@ -1,24 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Atividade;
 import br.ufc.pet.evento.Inscricao;
 import br.ufc.pet.interfaces.Comando;
-import br.ufc.pet.services.AtividadeService;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Mardson
  */
 public class CmdOrgRemoverAtividade implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         //este comando retira do array de selecionadas alguma atividade X

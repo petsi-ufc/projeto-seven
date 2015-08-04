@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.participante;
 
 import br.ufc.pet.evento.Atividade;
@@ -13,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Caio
  */
 public class CmdSelecionarAtividade implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         AtividadeService AtividadeS = new AtividadeService();
         HttpSession session = request.getSession();
@@ -42,7 +38,7 @@ public class CmdSelecionarAtividade implements Comando {
         //Verfica se a quantidade de atividades selecionadas esta dentro do permitido
         if (!(selecionada.getEvento().getLimiteAtividadePorParticipante() <= 0)) { //Se a inscricoes forem limitadas
             if (selecionada.getEvento().getLimiteAtividadePorParticipante() <= arrayDeSelecionadas.size()) {
-                session.setAttribute("erro", "Permitido no maximo " + selecionada.getEvento().getLimiteAtividadePorParticipante()+" atividade(s) neste evento");
+                session.setAttribute("erro", "Permitido no máximo " + selecionada.getEvento().getLimiteAtividadePorParticipante()+" atividade(s) neste evento");
                 return "/part/part_fazer_inscricao.jsp";//nada a fazer
             }
         }
@@ -73,7 +69,7 @@ public class CmdSelecionarAtividade implements Comando {
             }
             int tam = nomesConflitantes.length();
             nomesConflitantes = nomesConflitantes.substring(0, tam - 2); //retira a ultima virgula, desnecessÃ¡ria.
-            session.setAttribute("erro", "AtenÃ§Ã£o: A atividade " + selecionada.getNome() + " conflita com as seguintes atividades: " + nomesConflitantes + ". Para selecionÃ¡-la, vocÃª deve retirar primeiramente as conflitantes da seleÃ§Ã£o.");
+            session.setAttribute("erro", "Atenção: A atividade " + selecionada.getNome() + " conflita com as seguintes atividades: " + nomesConflitantes + ". Para selecioná-la, você deve retirar primeiramente as conflitantes da seleção.");
         }
         return "/part/part_fazer_inscricao.jsp";
     }

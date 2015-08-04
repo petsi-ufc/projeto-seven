@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.services;
 
 import br.ufc.pet.daos.MovimentacaoFinanceiraDAO;
@@ -9,13 +5,12 @@ import br.ufc.pet.evento.MovimentacaoFinanceira;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- *
+/*
  * @author fernando
  */
 public class MovimentacaoFinanceiraService {
 
-    private MovimentacaoFinanceiraDAO movimentacaoFinanceiraDAO;
+    private final MovimentacaoFinanceiraDAO movimentacaoFinanceiraDAO;
 
     public MovimentacaoFinanceiraService() {
         movimentacaoFinanceiraDAO = new MovimentacaoFinanceiraDAO();

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos;
 
 import br.ufc.pet.evento.Usuario;
@@ -14,21 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Escritorio projetos
  */
 public class CmdRecuperarSenha implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
 
         String email = request.getParameter("email");
         UsuarioService us = new UsuarioService();
         Usuario usuario = us.getByEmail(email.trim());
         HttpSession session= request.getSession(true);
-        String mensagem = "";
+        String mensagem;
         if (usuario == null) {
-            mensagem = "Caro Usuario o seu email nao esta cadastrado em nossa base de dados! Caso deseje acessar nosso sistema efetue seu cadastro! Obrigado";
+            mensagem = "Caro Usuário o seu e-mail não está cadastrado em nossa base de dados! Caso deseje acessar nosso sistema efetue seu cadastro! Obrigado";
         } else {
             //Gera uma nova senha
             String senha = gerarSenha();
@@ -58,9 +54,8 @@ public class CmdRecuperarSenha implements Comando {
 
         Random random = new Random();
 
-        int index = -1;
         for( int i = 0; i < 8; i++ ) {
-            index = random.nextInt( letras.length() );
+            int index = random.nextInt( letras.length() );
             senha += letras.substring( index, index + 1 );
         }
 

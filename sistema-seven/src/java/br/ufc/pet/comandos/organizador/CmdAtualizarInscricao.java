@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.ufc.pet.comandos.organizador;
 import br.ufc.pet.comandos.participante.CmdMontarInscricao;
 import br.ufc.pet.evento.Atividade;
@@ -21,12 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author mardson
  */
 public class  CmdAtualizarInscricao implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
 
         HttpSession session = request.getSession();
@@ -35,7 +30,6 @@ public class  CmdAtualizarInscricao implements Comando {
 
 
         i.setEvento((Evento) session.getAttribute("eventoSelecionado"));
-        //i.setParticipante((Participante) session.getAttribute("user"));
         i.setDataRealizada(new Date());
         i.setDataPagamento(i.getEvento().getFimPeriodoInscricao());
         if (i.getAtividades() == null || i.getAtividades().isEmpty()) {//caso o participante nao selecione nenhuma atividade, é importante que esse array seja criado vazio
@@ -61,7 +55,7 @@ public class  CmdAtualizarInscricao implements Comando {
             ArrayList<Inscricao> AI = IS.getAllInscricaoByParticipanteId(i.getParticipante().getId());
             for (Inscricao in : AI) {
                 if (in.getEvento().getId().equals(i.getEvento().getId())) {//uma mensagem de erro é colocada na sessão para ser lida na proxima pagina
-                    session.setAttribute("erro", "A inscrição não pôde ser realizada pois já consta um inscrição para seu usuario neste evento.");
+                    session.setAttribute("erro", "A inscrição não pôde ser realizada pois já consta um inscrição para seu usuário neste evento.");
                     return "/org/org_editar_inscricao.jsp";
                 }
             }

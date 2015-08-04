@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.ResponsavelAtividade;
@@ -15,12 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Escritorio projetos
  */
 public class CmdIncluirResponsavel implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         String usuarioID = request.getParameter("usuario_id");
@@ -33,14 +29,13 @@ public class CmdIncluirResponsavel implements Comando {
             responsavelBuscado.setUsuario(usuario);
             responsavelBuscado.setStatus(true);
             responsavelBuscado.setDataCriacao(new Date());
-            //ras.insertPerfilResponsavelAtividade(responsavelBuscado);
         }
         ArrayList<ResponsavelAtividade> resps = (ArrayList<ResponsavelAtividade>) session.getAttribute("responsaveisEscolhidos");
         //Verificar se o responsavel ja nao foi selecionado
 
         for (ResponsavelAtividade r : resps) {
             if (r.getUsuario().getId().compareTo(Long.parseLong(usuarioID)) == 0) {
-                session.setAttribute("erro", "Atividade ja possui este Responsavel!");
+                session.setAttribute("erro", "Atividade já possui este Responsável!");
                 return "/org/organ_add_responsavel.jsp";
             }
         }

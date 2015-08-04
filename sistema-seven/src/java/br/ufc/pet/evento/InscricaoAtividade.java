@@ -1,8 +1,7 @@
 package br.ufc.pet.evento;
 
 
-/**
- *
+/*
  * @author anderson
  */
 
@@ -38,19 +37,9 @@ public class InscricaoAtividade extends Bean{
     public boolean isConfirmaCertificado() {
         return this.confirmaCertificado;
     }
-/*
-    public boolean getConfirmaCertificado() {
-        return  this.confirmaCertificado;
-                
-    }*/
     
     public void setConfirmaCertificado(boolean confirmaCertificado) {
         this.confirmaCertificado = confirmaCertificado;
     }
-
-    
-    
-    
-
     
 }

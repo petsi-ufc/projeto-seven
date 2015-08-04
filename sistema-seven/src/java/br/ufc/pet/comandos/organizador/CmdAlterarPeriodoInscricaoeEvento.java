@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Evento;
@@ -13,19 +9,17 @@ import br.ufc.pet.util.UtilSeven;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Franklin
  */
 public class CmdAlterarPeriodoInscricaoeEvento implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
 
@@ -41,8 +35,10 @@ public class CmdAlterarPeriodoInscricaoeEvento implements Comando {
         Date date = new Date();
         Date data = UtilSeven.treatToDate(dateFormat.format(date));
 
-        if (inicioEvento.trim().isEmpty() || inicioEvento == null || fimEvento.trim().isEmpty() || fimEvento == null
-                || inicioInscricao.trim().isEmpty() || inicioInscricao == null || fimInscricao.trim().isEmpty() || fimInscricao == null) {
+        if(inicioEvento==null || inicioEvento.trim().isEmpty() || 
+                fimEvento==null || fimEvento.trim().isEmpty() ||
+                inicioInscricao==null || inicioInscricao.trim().isEmpty() || 
+                fimInscricao==null || fimInscricao.trim().isEmpty()){
             session.setAttribute("erro", "Preencha todos os campos.");
             return "/org/organ_periodos_inscricao_e_evento.jsp";
         }
@@ -54,31 +50,31 @@ public class CmdAlterarPeriodoInscricaoeEvento implements Comando {
         }
 
         if (UtilSeven.treatToDate(inicioEvento).before(data)) {
-            session.setAttribute("erro", "Data de inicio do evento anterior a data de hoje.");
+            session.setAttribute("erro", "Data de início do evento anterior a data de hoje.");
             return "/org/organ_periodos_inscricao_e_evento.jsp";
         }
         if (UtilSeven.treatToDate(inicioEvento).after(UtilSeven.treatToDate(fimEvento))) {
-            session.setAttribute("erro", "Data de inicio do evento posterior ao termino do evento.");
+            session.setAttribute("erro", "Data de início do evento posterior ao término do evento.");
             return "/org/organ_periodos_inscricao_e_evento.jsp";
         }
         if (UtilSeven.treatToDate(inicioInscricao).before(data)) {
-            session.setAttribute("erro", "Data de inicio das incrições anterior a data de hoje.");
+            session.setAttribute("erro", "Data de início das incrições anterior a data de hoje.");
             return "/org/organ_periodos_inscricao_e_evento.jsp";
         }
         if (UtilSeven.treatToDate(inicioInscricao).after(UtilSeven.treatToDate(fimEvento))) {
-            session.setAttribute("erro", "Data de inicio das inscrições posterior ao termino do evento.");
+            session.setAttribute("erro", "Data de início das inscrições posterior ao término do evento.");
             return "/org/organ_periodos_inscricao_e_evento.jsp";
         }
         if (UtilSeven.treatToDate(inicioInscricao).after(UtilSeven.treatToDate(inicioEvento))) {
-            session.setAttribute("erro", "Data de inicio das inscrições posterior ao inicio do evento.");
+            session.setAttribute("erro", "Data de início das inscrições posterior ao início do evento.");
             return "/org/organ_periodos_inscricao_e_evento.jsp";
         }
         if (UtilSeven.treatToDate(inicioInscricao).after(UtilSeven.treatToDate(fimInscricao))) {
-            session.setAttribute("erro", "Data de inicio das inscrições posterior ao termino das inscrições.");
+            session.setAttribute("erro", "Data de início das inscrições posterior ao término das inscrições.");
             return "/org/organ_periodos_inscricao_e_evento.jsp";
         }
         if (UtilSeven.treatToDate(fimInscricao).after(UtilSeven.treatToDate(inicioEvento))) {
-            session.setAttribute("erro", "Data de fim das inscrições posterior ao inicio do evento.");
+            session.setAttribute("erro", "Data de fim das inscrições posterior ao início do evento.");
             return "/org/organ_periodos_inscricao_e_evento.jsp";
         }
 
@@ -118,7 +114,7 @@ public class CmdAlterarPeriodoInscricaoeEvento implements Comando {
             try {
                 SendMail.sendMail(org.getUsuario().getEmail(), "(SEVEN) Alteração de data no evento "+evento.getNome(), msg);
             } catch (MessagingException ex) {
-               System.out.println("Erro ao enviar o email para os organizadores: "+ex);
+               System.out.println("ERRO AO ENVIAR E-MAIL");
             }
         }
         

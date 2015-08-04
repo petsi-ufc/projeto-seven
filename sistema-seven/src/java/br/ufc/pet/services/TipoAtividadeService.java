@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.services;
 
 import br.ufc.pet.daos.TipoAtividadeDAO;
@@ -11,13 +7,12 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
+/*
  * @author Escritorio projetos
  */
 public class TipoAtividadeService {
 
-    private TipoAtividadeDAO tipoAtividadeDAO;
+    private final TipoAtividadeDAO tipoAtividadeDAO;
 
     public TipoAtividadeService() {
         this.tipoAtividadeDAO = new TipoAtividadeDAO();

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.Atividade;
@@ -17,12 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Mardson
  */
 public class CmdOrgSubmeterInscricao implements Comando {
 
+    @Override
     public synchronized String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         //este comando grava a inscricao no banco de dados
@@ -83,15 +79,6 @@ public class CmdOrgSubmeterInscricao implements Comando {
             }
             iS.excluir(ins.getId());
             iS.adicionar(ins);
-            /*
-            ArrayList<Inscricao> array = ins.getParticipante().getInscricoes();
-            array.add(ins);
-            ins.getParticipante().setInscricoes(array);
-            Participante p = (Participante) session.getAttribute("user");
-            p.setInscricoes(iS.getAllInscricaoByParticipanteId(p.getId()));
-            session.setAttribute("user", p);
-             
-             */
         }
         session.setAttribute("sucesso", "Inscrição realizada com sucesso.");
         return "/org/org_editar_inscricao.jsp";

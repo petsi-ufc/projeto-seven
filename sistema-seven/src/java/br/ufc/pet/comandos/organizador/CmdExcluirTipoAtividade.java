@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.comandos.organizador;
 
 import br.ufc.pet.evento.TipoAtividade;
@@ -12,12 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
+/*
  * @author Escritorio projetos
  */
 public class CmdExcluirTipoAtividade implements Comando {
 
+    @Override
     public String executa(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         String tipoID = request.getParameter("ta_id");
@@ -34,8 +30,6 @@ public class CmdExcluirTipoAtividade implements Comando {
             session.setAttribute("erro", "Tipo de Atividade não pode ser removido!");
         }
         return "/org/organ_gerenciar_tipo_ativ.jsp";
-
-
 
     }
 }

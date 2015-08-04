@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufc.pet.config;
 
 import com.ibatis.common.resources.Resources;
@@ -10,8 +6,7 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import java.io.IOException;
 import java.io.Reader;
 
-/**
- *
+/*
  * @author Escritorio projetos
  */
 public class PostgresMapConfig {

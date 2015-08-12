@@ -70,10 +70,14 @@
 }
 
 
-#btModalAlterar{
-   float: right;
-}
-
 #btModalSim{
     width: 80px;
+    float: right;
+}
+
+
+a {
+    font-size: 12px;
+    line-height: 20px;
+    color: #0E464E;
 }

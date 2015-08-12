@@ -134,12 +134,13 @@
                 <p>
                     Deseja realmente utilizar esse nome em seus certificados?
                 </p>
+                <a href="part_conta.jsp" >ALTERAR MEUS DADOS</a>
                 <a id="linkGerarCertificado"    
                    href="../ServletCentral?comando=CmdGerarCertificado&insc_id="
                    onclick="clickSimModal();" >
                     <button id="btModalSim" class="btModal" >SIM</button>
                 </a>
-                <a href="part_conta.jsp" ><button id="btModalAlterar" class="btModal" >ALTERAR MEUS DADOS</button></a>
+                <br><br>
             </div>
         </div>
     </body>

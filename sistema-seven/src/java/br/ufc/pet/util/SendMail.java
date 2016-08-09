@@ -24,7 +24,7 @@ public class SendMail {
 
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("petufc.quixada@gmail.com", "Opet_e_do_senhor_Jesus2012");
+                return new PasswordAuthentication("petufc.quixada@gmail.com", "Opet_e_do_senhor_Jesus2016");
             }
         });
 

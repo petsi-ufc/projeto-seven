@@ -24,7 +24,7 @@ public class SendMail {
 
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("petufc.quixada@gmail.com", "Opet_e_do_senhor_Jesus2012");
+                return new PasswordAuthentication("petufc.quixada@gmail.com", "Opet_e_do_senhor_Jesus2016");
             }
         });
 
@@ -62,10 +62,6 @@ public class SendMail {
     public static void sendMail(String to, String subject, String Mensagem)
             throws AddressException, MessagingException {
         SendMail.sendMail("smtp.gmail.com", "petufc.quixada@gmail.com", to, subject, Mensagem);
-    }
-
-    public static void main(String args[]) throws AddressException, MessagingException {
-        sendMail("mardsonferreira25@gmail.com", "Meu primeiro teste para enviar email", "Meu primeiro teste para enviar email e o trabalho foi ralizado com sucesso.");
     }
 
 

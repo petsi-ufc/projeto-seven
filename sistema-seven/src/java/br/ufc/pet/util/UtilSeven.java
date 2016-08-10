@@ -171,10 +171,6 @@ public class UtilSeven {
     }//fim do método
 
     public static void main(String args[]) throws SQLException{
-        try {
-            SendMail.sendMail("andersonlemos.ufc@gmail.com", "TESTE", "Testando");
-        } catch (MessagingException ex) {
-            ex.printStackTrace();
-        }
+        
     }
 }

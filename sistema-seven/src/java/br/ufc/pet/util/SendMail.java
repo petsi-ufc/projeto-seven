@@ -64,10 +64,6 @@ public class SendMail {
         SendMail.sendMail("smtp.gmail.com", "petufc.quixada@gmail.com", to, subject, Mensagem);
     }
 
-    public static void main(String args[]) throws AddressException, MessagingException {
-        sendMail("mardsonferreira25@gmail.com", "Meu primeiro teste para enviar email", "Meu primeiro teste para enviar email e o trabalho foi ralizado com sucesso.");
-    }
-
 
     public static void sendEmailSeven(String messageBody, String from, String to, String subject){
 
